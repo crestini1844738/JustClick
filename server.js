@@ -10,10 +10,11 @@ var path = require('path');
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 
+/*
 //GET PAGINA INIZIALE
 app.get('/',function(req,res){
     res.sendFile(path.join(__dirname + '/index.html'));
-});
+});*/
 
 
 app.get('/register', function(req, res){
