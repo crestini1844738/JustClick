@@ -6,8 +6,9 @@ var app = express();
 
 var path = require('path');
 
+//per far vedere i file css
+app.use('/static', express.static(path.join(__dirname, '/cssPersonal')));
 
-app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 
 
