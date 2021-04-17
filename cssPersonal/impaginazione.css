@@ -203,7 +203,7 @@
     padding: 30px;
     text-align: left;
     background: white;
-    background-image: url("/project_RDC_LTW/img/sfondo2.png");
+    background-image: url("/static/sfondo2.png");
     background-size:cover;
     
   }

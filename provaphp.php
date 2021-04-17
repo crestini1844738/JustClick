@@ -10,7 +10,7 @@
             //METTERE LE PROPRIE CREDENZIALI DI COUCH DB
              //HO ABUSIVAMENTE MESSO LE CREDENZIALI MIE DI COUCH DB 
             $user="admin";
-            $password="biar";
+            $password="admin";
             
             
 

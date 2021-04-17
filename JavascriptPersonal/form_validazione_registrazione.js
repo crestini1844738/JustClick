@@ -7,13 +7,13 @@ function formValidation()
     var email = document.registration.Email;
     var password = document.registration.Password;
     
-    if(username_validation(username,5,12))
+    if(username_validation(username,6,15))
     {
         if(allLetter_name_or_surname(name))
         {
             if(allLetter_name_or_surname(surname))
             {
-                if(password_validation(password,7,12))//la password deve avere dai 7 ai 12 caratteri
+                if(password_validation(password,8,12))//la password deve avere dai 7 ai 12 caratteri
                 { 
                     if(email_validation(email))
                     {

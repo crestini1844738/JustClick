@@ -1,15 +1,23 @@
 var express = require('express');
 var request2server = require('request');
+// npm install body-parser
+// deprecated
+// var bodyParser = require("body-parser");
 
 var app = express();
 
 
 var path = require('path');
 
-//per far vedere i file css
-app.use('/static', express.static(path.join(__dirname, '/cssPersonal')));
+
+app.use(express.static(__dirname + '/public'));
 
 app.use(express.json());
+
+//per far vedere i file css,img e logo
+app.use('/static', express.static(path.join(__dirname, 'cssPersonal')))
+app.use('/static', express.static(path.join(__dirname, 'logo')))
+app.use('/static', express.static(path.join(__dirname, 'img')))
 
 
 //GET PAGINA INIZIALE
@@ -23,7 +31,7 @@ app.get('/register', function(req, res){
     console.log(req.query);+
     request2server({
         //mettere l'url del proprio database
-        url: 'http://admin:biar@127.0.0.1:5984/progetto/'+req.query.Username, 
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.query.Username, 
         method: 'PUT',
         headers: {'content-type': 'application/json'},
         body: '{ "username":"'+req.query.Username+'","name":"'+req.query.Name+'","surname":"'+req.query.Surname+'"}'
@@ -52,6 +60,7 @@ app.get('/register', function(req, res){
                     '<img class="mb-4" src="http://127.0.0.1:5500/img.svg" alt="" width="1000" height="800" />'+
                 '</body>'+
             '</html>');
+            
             res.end();
             console.log(response.statusCode, body);
         }
