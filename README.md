@@ -32,3 +32,11 @@
 	4: push (esegue upload della repository modificata su github
 
 -come fare un invito per collaborare a una repository: andare sulla repository, cliccare su settings --> manage access --> Invite a collaborator
+
+
+
+
+
+
+npm init
+npm install express --save
