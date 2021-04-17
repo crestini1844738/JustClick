@@ -1,11 +1,7 @@
 var express = require('express');
 var request2server = require('request');
-// npm install body-parser
-// deprecated
-// var bodyParser = require("body-parser");
 
 var app = express();
-// app.use(bodyParser.urlencoded({ extended: false }));
 
 
 var path = require('path');
@@ -54,7 +50,6 @@ app.get('/register', function(req, res){
                     '<img class="mb-4" src="http://127.0.0.1:5500/img.svg" alt="" width="1000" height="800" />'+
                 '</body>'+
             '</html>');
-            //res.sendFile('/project_RDC_LTW/index.html');
             res.end();
             console.log(response.statusCode, body);
         }
