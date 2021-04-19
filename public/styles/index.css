@@ -315,3 +315,14 @@
       width: 100%;
     }
   }
+
+  /*valerio*/
+  .coverimage {
+    color: white;
+    padding: 30px;
+    text-align: left;
+    background: white;
+    background-image: url("../img/sfondo1.png");
+    background-size:100% 70%;
+    background-repeat: no-repeat; 
+  }
