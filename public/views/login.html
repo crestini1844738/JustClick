@@ -25,9 +25,8 @@
     <div class="row">
         <div class="leftcolumn">
             <div class="text-center">
-                <form action="http://127.0.0.1:8889/loginsend" class="form-Login"  method="GET" name="loginsend" onsubmit="return formValidationLogin()">
+                <!--<form action="http://127.0.0.1:8889/loginsend" class="form-Login"  method="GET" name="loginsend" onsubmit="return formValidationLogin()">
                     <div class="form-inner">
-                     <!-- qui devo inserire il login -->
                      <h3>LogIn</h3>
                      <input type="email" name="Email"  placeholder="123@prova.it" required/>
                      <label for="password">Password</label>
@@ -35,7 +34,23 @@
                      <input type="checkbox" id="custom-checkbox" required/>
                      <pippo>Non hai un account?<a href="http://localhost:8889/register">Registrati</a></pippo>
                    </div>
-                 </form>
+                 </form>-->
+
+
+
+                <!-- action ../php/login.php-->
+                 <form  action="http://127.0.0.1:8889/loginsend" class="form-Login" method="get" name="loginsend">
+                    <div class="form-inner">
+                        <h3>Login</h3>
+                        
+                        <label for="Username">Username</label>
+                        <input type="text" id="username"  name="Username" required>
+                        <label for="Password">Password</label>
+                        <input type="password" id="Password"  name="Password" required>
+                        <button type="submit" name="Login">Accedi</button>
+                        <pippo>Non hai un account?<a href="http://localhost:8889/register">Registrati</a></pippo>
+                    </div>
+                </form>
 
 
             </div>
