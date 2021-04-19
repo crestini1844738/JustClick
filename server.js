@@ -18,13 +18,18 @@ app.use(express.json());
 app.use('/static', express.static(path.join(__dirname, 'cssPersonal')))
 app.use('/static', express.static(path.join(__dirname, 'logo')))
 app.use('/static', express.static(path.join(__dirname, 'img')))
+app.use('/static', express.static(path.join(__dirname, 'css')))
+app.use('/static', express.static(path.join(__dirname, 'js')))
 
 
 //GET PAGINA INIZIALE
 app.get('/',function(req,res){
-    res.sendFile(path.join(__dirname + '/index.html'));
+    res.sendFile(path.join(__dirname + '/public/views/index.html'));
 });
 
+app.get('/courses', function(req,res) {
+    res.sendFile(path.join(__dirname + '/public/views/courses.html'));
+});
 
 app.get('/register', function(req, res){
 
