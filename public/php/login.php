@@ -1,4 +1,9 @@
-<!--prova-->
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
 <?php
     /*$options['host'] = "localhost";   
     $options['port'] = 5984; 
@@ -135,3 +140,6 @@ if (isset($_POST['Login'])) {
     printf($msg, '<a href="../login.html">torna indietro</a>');
 }
 ?>
+
+</body>
+<html>
