@@ -6,16 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <script type="text/javascript" lang="javascript" src="../js/bootstrap.min.js"></script> 
     <link rel=stylesheet href="../styles/index.css" type="text/css">
+    <link rel=stylesheet href="../styles/courses.css" type="text/css">
     <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
 </head>
 <body>
 
-    <div class="sticky-top">
+    <div class="header">
         <img src="../logo/logo_small.png" alt="JustClick">
         <p>Tutto il sapere a portata di click</p>
     </div>
 
-    <div class="topnav">
+    <div class="topnav sticky-sm-top">
         <a href="#">Home</a>
         <a href="http://localhost:8889/login">LogIn</a>
         <a href="http://localhost/resources">Resources</a>
@@ -29,21 +30,58 @@
     <!-- parte del body da modificare ognuno di noi -->
 
     
-
-    <!-- responsive image (si adatta al dispositivo)-->
+    <!-- immagine profilo e copertina-->
     <div class="coverimage">
-
-        <br> <br> <br> <br> <br>
         <div class="text-center">
+
+            <br> <br> <br> <br> <br>           
+            <!-- immagine circolare con bordo-->
             <img src="../img/default_image.png" class="img-fluid img-thumbnail rounded-circle w-25 p-3" alt="JustClick">
-            <!-- <img src="../img/sfondo1.png" class="img-fluid w-100 p-3" alt="JustClick"> -->
-        
-       
+            <div class="profilename">Template corso</div>
         </div>
-        <!-- immagine circolare con bordo-->
-        
-        
     </div>
+    
+    <!-- materiale in evidenza-->
+    <div class="row content-row">
+
+        <div class="col">
+            <div class="card h-100 border-primary mb-3 sized-card">
+                <div class="card-header text-dark bg-primary mb-3">Titolo</div>
+                <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+                <div class="card-body text-primary">
+                  <h5 class="card-title">Materiale in evidenza</h5>
+                  <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
+                </div>
+              </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 border-primary mb-3 sized-card">
+                <div class="card-header text-dark bg-primary mb-3">Titolo</div>
+                <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+                <div class="card-body text-primary">
+                  <h5 class="card-title">Materiale in evidenza</h5>
+                  <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
+                </div>
+              </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 border-primary mb-3 sized-card">
+                <div class="card-header text-dark bg-primary mb-3">Titolo</div>
+                <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+                <div class="card-body text-primary">
+                  <h5 class="card-title">Materiale in evidenza</h5>
+                  <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
+                </div>
+              </div>
+        </div>
+
+    </div>
+ 
+    
+
+    <div class="courses"></div>
 
     
     <!-- fine parte del body da modificare-->
