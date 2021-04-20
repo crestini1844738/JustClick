@@ -315,3 +315,47 @@
       width: 100%;
     }
   }
+
+
+/* footer */
+
+  .fa{
+    padding: 20px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.fa:hover{
+    opacity: 0.5;
+}
+
+.fa-facebook{
+    background-color: #3B5998;
+    color: white;
+}
+
+.fa-twitter{
+    background-color: #55ACEE;
+    color:white;
+}
+
+.fa-instagram{
+    background-color: #523131 ;
+    color: white;
+
+
+}
+
+.fa-youtube{
+    background-color: #bb0000;
+    color: white;
+}
+
+footer{
+    text-align: center;
+    background-color: #214b61;
+    color: white;
+    padding: 15px;
+}
