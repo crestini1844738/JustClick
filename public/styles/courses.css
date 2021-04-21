@@ -1,11 +1,19 @@
+.center{
+  background-color: rgb(179, 231, 235);
+}
+
 .coverimage {
     color: white;
     padding: 30px;
-    background: white;
+    background-color: rgb(179, 231, 235);
     background-image: url("../img/sfondo1.png");
     background-size:100% 70%;
     background-repeat: no-repeat;
     background-position: top;
+  }
+
+  .spacing{
+    height: 70px;
   }
 
   .profileimage {
@@ -32,3 +40,34 @@
     font-family: Arial, Helvetica, sans-serif;
     color:black;
   }
+
+  .bds{
+    border-style:ridge;
+    border-radius: 20px;
+    border-color: blue;
+    border-width: thick;
+    width: 20px;
+  }
+
+  .courses{
+    width: 75%;
+    max-height: 500px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    background-color: deepskyblue;
+    position: relative;
+    left: 12.5%;
+  }
+
+  .courses h2{
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color:black;
+    font-weight: bold;
+  }
+
+  .courses img{
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
