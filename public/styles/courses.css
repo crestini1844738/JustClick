@@ -1,5 +1,7 @@
 .center{
   background-color: rgb(179, 231, 235);
+  padding: 0px;
+  margin:0px;
 }
 
 .coverimage {
@@ -12,33 +14,33 @@
     background-position: top;
   }
 
-  .spacing{
-    height: 70px;
+  .profileimage {
+    margin-top: 70px;
   }
 
-  .profileimage {
-    border-style: groove;
-    border-color:  rgb(0, 89, 255);
-    border-radius: 20px;
-    border-width: medium;
+  .profilename{
+    font-size:60px;
+    font-style: italic;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color:black;
+  }
+
+  .center h1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    font-size:35px;
+    color:blue;
   }
 
   .content-row {
-    padding: 70px;
-    align-items: center;
+    padding: 70px 7%;
+    max-width: 100%;
   }
 
   .sized-card{
     max-width: 30rem;
     padding: 0px;
-  }
-
-  .profilename{
-    font-size:50px;
-    font-style: italic;
-    font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
-    color:black;
   }
 
   .bds{
@@ -51,12 +53,14 @@
 
   .courses{
     width: 75%;
-    max-height: 500px;
+    height: 300px;
     padding-bottom: 10px;
     padding-top: 10px;
     background-color: deepskyblue;
-    position: relative;
-    left: 12.5%;
+    margin-left: 12.5%;
+    margin-right: 12.5%;
+    margin-top: 70px;
+    margin-bottom: 70px;
   }
 
   .courses h2{
@@ -67,7 +71,12 @@
   }
 
   .courses img{
-    padding-top: 20px;
-    padding-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .switchcourses{
+    margin-left: 12.5%;
+    padding-bottom: 50px;
   }
 

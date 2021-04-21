@@ -28,21 +28,44 @@
             <input id="submit" type="submit" value="CERCA">
         </form>-->
     </div>
+
+
     <!-- parte del body da modificare ognuno di noi -->
 
     <div class="center">
 
-        <!-- immagine profilo e copertina-->
+        <!-- immagine profilo e copertina -->
         <div class="coverimage">
             <div class="text-center">
-                <div class="spacing"></div>         
                 <!-- immagine circolare con bordo-->
-                <img src="../img/default_image.png" class="img-fluid img-thumbnail rounded-circle w-25 p-3" alt="JustClick">
+                <img src="../img/default_image.png" class="profileimage img-fluid img-thumbnail rounded-circle w-25 p-3" alt="JustClick">
                 <div class="profilename">Template corso</div>
             </div>
         </div>
     
-        <!-- materiale in evidenza-->
+        <!-- informazioni varie -->
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <h1> Follower: 0</h1> 
+                </div>
+                <div class="col text-center">
+                    <h1> Pubblicazioni: 0</h1> 
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col text-center">
+                    <div class="btn btn-outline-success">Iscriviti al canale</div>
+                </div>
+                <div class="col text-center">
+                    <div class="btn btn-outline-success">Visualizza materiale</div>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- materiale in evidenza -->
         <div class="row content-row">
 
             <div class="col">
@@ -82,30 +105,27 @@
  
         <!-- elenco dei corsi-->
         <div class="courses bds text-center" >          
-            <h2>Questo è l'ultimo corso appena caricato!</h2>
+            <h2>Questo è l'ultimo corso appena caricato! <span class="badge rounded-pill bg-success">NEW!</span></h2>
             <img src="../img/default_school.png" class="img-fluid" alt="JustClick">
             <h5 class="card-text">Una breve descrizione può sempre aiutare!</h5>
         </div>
-        <div class="spacing"></div>
     
         <div class="courses bds text-center">
-            <h2>Questo è l'ultimo materiale appena caricato!</h2>          
+            <h2>Questo è l'ultimo materiale appena caricato! <span class="badge rounded-pill bg-success">NEW!</span></h2>          
             <img src="../img/default_books.jpeg" class="img-fluid" alt="JustClick">
             <h5 class="card-text">Una breve descrizione può sempre aiutare!</h5>
         </div>
-        <div class="spacing"></div>
     
         <div class="courses bds text-center">
-            <h2>Questo è l'ultimo evento appena caricato!</h2>          
+            <h2>Questo è l'ultimo evento appena caricato! <span class="badge rounded-pill bg-success">NEW!</span></h2>          
             <img src="../img/default_event.jpeg" class="img-fluid" alt="JustClick">
             <h5 class="card-text">Una breve descrizione può sempre aiutare!</h5>
         </div>
-        <div class="spacing"></div>
 
 
         <!-- cambia pagina per altri corsi-->
         <nav aria-label="Search other courses">
-            <ul class="pagination center" style="padding-left: 15%;">
+            <ul class="pagination center switchcourses">
               <li class="page-item"><a class="page-link" href="#">Previous</a></li>
               <!-- decommenta per disabilitare --
               <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li> -->
@@ -123,8 +143,6 @@
     
     <!-- fine parte del body da modificare-->
 
-
-    
     <footer>
         <h2>Seguici sui nostri canali social</h2>
         <a href="#" class="fa fa-facebook"></a>
