@@ -5,7 +5,7 @@
 <body>
 
 <?php
-    /*$options['host'] = "localhost";   
+    $options['host'] = "localhost";   
     $options['port'] = 5984; 
 
     //METTERE LE PROPRIE CREDENZIALI DI COUCH DB
@@ -20,7 +20,10 @@
     //printf($username, '<a href="../views/login.html">torna indietro</a>');
     $couch = new CouchSimple($options,$userDB,$passDB);
     $resp = $couch->send("GET", "/progetto/_all_docs");
-    echo $resp;
+    $user = json_decode($resp, true);
+    //print_r($user(1));
+    //echo $resp;
+    print_r($user['Valeriosalame2'][0]);
 
 
     class CouchSimple {
@@ -61,8 +64,10 @@
             
             return $this->body;  
         }  
-    }  
+    } 
 
+
+    /*
     session_start();
 
     $options['host'] = "localhost";   
@@ -107,7 +112,7 @@ printf($msg, '<a href="../login.html">torna indietro</a>');
 
 
 
-
+/*
 session_start();
 
 if (isset($_SESSION['session_id'])) {
@@ -138,7 +143,7 @@ if (isset($_POST['Login'])) {
     }
     
     printf($msg, '<a href="../login.html">torna indietro</a>');
-}
+}*/
 ?>
 
 </body>
