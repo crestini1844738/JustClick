@@ -58,7 +58,7 @@ app.post('/loginsend',function(req,res){
         method: 'GET',
         headers: {'content-type': 'application/json'},
         }, function(error, response, body){
-            console.log('effettuando il login...'+req.body.Username);
+
         if(error) {
             console.log(error);
         }
@@ -72,7 +72,8 @@ app.post('/loginsend',function(req,res){
             //altrimenti restituisce l'elemento
             else{
                 let json = JSON.parse(body);
-                console.log(response.statusCode, json[0]);
+                console.log(response.statusCode);
+                console.log('Welocme '+json.username+'!');
                 res.sendFile(__dirname + '/public/views/index.html');
             }        
         }
