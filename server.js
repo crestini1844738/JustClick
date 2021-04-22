@@ -8,6 +8,9 @@ var app = express();
 var bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser');
 
+
+var cookieCounter=0;
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -64,21 +67,24 @@ app.post('/loginsend1', function(req, res) {
                 //se lo user non è nel db manda error 404
                 if(response.statusCode==404) {
                     res.redirect('/login'); // Login errato
+                    console.log('ligin errato')
                 }
                 else
                 {
                     var loggedInCookie = req.cookies.loggedIn;
                     if(typeof loggedInCookie === 'undefined') { // Creiamo il cookie per memorizzare il login
-                        var expires = 30 * 24 * 3600000;
-                        res.cookie('loggedIn',username,{maxAge: expires, httpOnly: true});
+                        
+                        res.cookie('cookieName', username, {maxAge: 900000, httpOnly: true});
                     }
-                    //res.redirect('/users/' + username + '/profile'); // Login valido
-                    res.redirect('/');
+                    console.log('login valido');
+                    res.redirect('/'); // Login valido
                 }
 
             }
         });
 });
+
+
 
 //EFFETTUARE LOGIN 1.0
 app.post('/loginsend',function(req,res){
@@ -99,18 +105,44 @@ app.post('/loginsend',function(req,res){
         {
             //se lo user non è nel db manda error 404
             if(response.statusCode==404) {
+                console.log('username non valido');
                 res.sendFile(__dirname + '/public/views/login.html');
             }
 
             //altrimenti restituisce l'elemento
             else{
                 let json = JSON.parse(body);
-                console.log(response.statusCode);
-                console.log('Welocme '+json.Username+'!');
-                res.sendFile(__dirname + '/public/views/index.html');
+                if(json.Password==req.body.Password)
+                {
+                    console.log(response.statusCode);
+                    console.log('Welcome '+json.Username+'!');
+                    res.sendFile(__dirname + '/public/views/index.html');
+                }
+                else
+                {
+                    console.log('password non valida');
+                }
+                
             }        
         }
     });
+});
+
+
+
+//EFFETTUARE LOGOUT
+app.get('/logout', function(req, res) {
+	var loggedInCookie = req.cookies.loggedIn;
+	if(loggedInCookie) { // Il cookie è presente?
+		
+        res.clearCookie('cookieName'); // Logout: cancelliamo il cookie
+        console.log('logout corretto');
+        res.redirect('/');	
+	} 
+    else 
+    {
+		res.redirect('/');
+	}
 });
 
 
