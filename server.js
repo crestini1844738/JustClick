@@ -72,7 +72,7 @@ app.post("/registerInsert", function(req,res){
         url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.Username, 
         method: 'PUT',
         headers: {'content-type': 'application/json'},
-        body: '{ "username":"'+req.body.Username+'","name":"'+req.body.Name+'","surname":"'+req.body.Surname+'"}'
+        body: '{ "username":"'+req.body.Username+'","name":"'+req.body.Name+'","surname":"'+req.body.Surname+'" ,"date":"'+req.body.Date+'","Email":"'+req.body.Email+'","Password":"'+req.body.Password+'"   }'
         //body: JSON.stringify(body1)
     }, function(error, response, body){
         if(error) {

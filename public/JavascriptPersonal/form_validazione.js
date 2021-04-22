@@ -13,7 +13,7 @@ function formValidationRegister()
         {
             if(allLetter_name_or_surname(surname))
             {
-                if(password_validation(password,8,12))//la password deve avere dai 7 ai 12 caratteri
+                if(password_validation(password,8,null))//la password deve avere almeno 8 caratteri
                 { 
                     if(email_validation(email))
                     {
