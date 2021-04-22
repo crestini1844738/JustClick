@@ -1,8 +1,8 @@
+// npm install body-parser --save
+// npm install cookie-parser --save
+
 var express = require('express');
 var request2server = require('request');
-// npm install body-parser
-// deprecated solo il costruttore 
-// var bodyParser = require("body-parser");
 
 var app = express();
 var bodyParser = require("body-parser");
@@ -39,8 +39,46 @@ app.get('/login',function(req,res){
     res.sendFile(__dirname + '/public/views/login.html');   
 });
 
+//EFFETTUARE LOGIN 1.1
+app.post('/loginsend1', function(req, res) {
+	var username = req.body.username;
+	var password = req.body.password;
+	//var encPwd = crypto.createHash('md5').update(password).digest('hex'); // Codifichiamo la password in MD5
 
-//EFFETTUARE LOGIN
+	//User.findOne({username: username, password: encPwd}, function(err,  user) {
+
+
+        request2server({
+            //mettere l'url del proprio database
+            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.Username, 
+            method: 'GET',
+            headers: {'content-type': 'application/json'},
+            }, function(error, response, body){
+                console.log('effettuando il login...'+req.body.Username);
+            if(error) {
+                console.log(error);
+            }
+            else 
+            {
+                //se lo user non è nel db manda error 404
+                if(response.statusCode==404) {
+                    res.redirect('/'); // Login errato
+                }
+                else
+                {
+                    var loggedInCookie = req.cookies.loggedIn;
+                    if(typeof loggedInCookie === 'undefined') { // Creiamo il cookie per memorizzare il login
+                        var expires = 30 * 24 * 3600000;
+                        res.cookie('loggedIn',username,{maxAge: expires, httpOnly: true});
+                    }
+                    //res.redirect('/users/' + username + '/profile'); // Login valido
+                }
+
+            }
+        });
+});
+
+//EFFETTUARE LOGIN 1.0
 app.post('/loginsend',function(req,res){
 
     console.log('effettuando il login...');
