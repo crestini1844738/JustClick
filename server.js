@@ -39,10 +39,11 @@ app.get('/login',function(req,res){
     res.sendFile(__dirname + '/public/views/login.html');   
 });
 
+//https://gabrieleromanato.com/2016/06/node-js-implementare-un-sistema-di-loginlogout-con-cookie
 //EFFETTUARE LOGIN 1.1
 app.post('/loginsend1', function(req, res) {
-	var username = req.body.username;
-	var password = req.body.password;
+	var username = req.body.Username;
+	var password = req.body.Password;
 	//var encPwd = crypto.createHash('md5').update(password).digest('hex'); // Codifichiamo la password in MD5
 
 	//User.findOne({username: username, password: encPwd}, function(err,  user) {
@@ -62,7 +63,7 @@ app.post('/loginsend1', function(req, res) {
             {
                 //se lo user non è nel db manda error 404
                 if(response.statusCode==404) {
-                    res.redirect('/'); // Login errato
+                    res.redirect('/login'); // Login errato
                 }
                 else
                 {
@@ -72,6 +73,7 @@ app.post('/loginsend1', function(req, res) {
                         res.cookie('loggedIn',username,{maxAge: expires, httpOnly: true});
                     }
                     //res.redirect('/users/' + username + '/profile'); // Login valido
+                    res.redirect('/');
                 }
 
             }
@@ -104,7 +106,7 @@ app.post('/loginsend',function(req,res){
             else{
                 let json = JSON.parse(body);
                 console.log(response.statusCode);
-                console.log('Welocme '+json.username+'!');
+                console.log('Welocme '+json.Username+'!');
                 res.sendFile(__dirname + '/public/views/index.html');
             }        
         }
@@ -135,7 +137,7 @@ app.post("/registerInsert", function(req,res){
         url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.Username, 
         method: 'PUT',
         headers: {'content-type': 'application/json'},
-        body: '{ "username":"'+req.body.Username+'","name":"'+req.body.Name+'","surname":"'+req.body.Surname+'" ,"date":"'+req.body.Date+'","Email":"'+req.body.Email+'","Password":"'+req.body.Password+'"   }'
+        body: '{ "Username":"'+req.body.Username+'","Name":"'+req.body.Name+'","Surname":"'+req.body.Surname+'" ,"Date":"'+req.body.Date+'","Email":"'+req.body.Email+'","Password":"'+req.body.Password+'"   }'
         //body: JSON.stringify(body1)
     }, function(error, response, body){
         if(error) {
