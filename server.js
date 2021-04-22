@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
-var path = require('path');
+//var path = require('path');
 
 
 //app.use(express.static(__dirname + '/public'));
@@ -43,9 +43,40 @@ app.get('/',function(req,res){
 
 //GET LOGIN
 app.get('/login',function(req,res){
-    
-    res.sendFile(__dirname + '/public/views/login.html');
-    console.log('fornita pagina login ');
+    res.sendFile(__dirname + '/public/views/login.html');   
+});
+
+
+//EFFETTUARE LOGIN
+app.post('/loginsend',function(req,res){
+
+    console.log('effettuando il login...');
+    //curl --get http://admin:admin@127.0.0.1:5984/progetto/_all_docs
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.Username, 
+        method: 'GET',
+        headers: {'content-type': 'application/json'},
+        }, function(error, response, body){
+            console.log('effettuando il login...'+req.body.Username);
+        if(error) {
+            console.log(error);
+        }
+        else 
+        {
+            //se lo user non è nel db manda error 404
+            if(response.statusCode==404) {
+                res.sendFile(__dirname + '/public/views/login.html');
+            }
+
+            //altrimenti restituisce l'elemento
+            else{
+                let json = JSON.parse(body);
+                console.log(response.statusCode, json[0]);
+                res.sendFile(__dirname + '/public/views/index.html');
+            }        
+        }
+    });
 });
 
 
@@ -66,7 +97,7 @@ app.get('/register',function(req,res){
 //POST REGISTER
 app.post("/registerInsert", function(req,res){
     
-    console.log(req.body);+
+    console.log(req.body);
     request2server({
         //mettere l'url del proprio database
         url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.Username, 
@@ -80,7 +111,8 @@ app.post("/registerInsert", function(req,res){
         }
         else 
         {
-            
+            res.sendFile(__dirname + '/public/views/index.html');
+            /*
             //per scrivere html su nodejs https://www.nodeacademy.it/restituire-pagine-html-un-server-node-js/
             res.writeHead(200,{"Content-Type":"text/html"});
             res.write('<!DOCTYPE html>'+
@@ -99,11 +131,10 @@ app.post("/registerInsert", function(req,res){
                 '</body>'+
             '</html>');
             
-            res.end();
+            res.end();*/
             console.log(response.statusCode, body);
         }
     });
-  ;
 
 });
 

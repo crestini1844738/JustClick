@@ -17,6 +17,7 @@ function formValidationRegister()
                 { 
                     if(email_validation(email))
                     {
+                        alert("Registrazione avvenuta con successo");
                         return true
                     } 
                 }
