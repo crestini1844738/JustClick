@@ -84,7 +84,7 @@ app.post('/loginsend1', function(req, res) {
 app.post('/loginsend',function(req,res){
 
     console.log('effettuando il login...');
-    //curl --get http://admin:admin@127.0.0.1:5984/progetto/_all_docs
+    //curl -x GET http://admin:admin@127.0.0.1:5984/progetto/_all_docs
     request2server({
         //mettere l'url del proprio database
         url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.Username, 
