@@ -1,5 +1,7 @@
 // npm install body-parser --save
 // npm install cookie-parser --save
+// npm install express-session
+//npm install ejs
 
 var express = require('express');
 var request2server = require('request');
@@ -7,7 +9,7 @@ var request2server = require('request');
 var app = express();
 var bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser');
-
+var session = require('express-session');
 
 var cookieCounter=0;
 
@@ -16,6 +18,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //var path = require('path');
 
+
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
+app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.json());
 
 //app.use(express.static(__dirname + '/public'));
 //per far vedere tutti i file basta questo. Vengono viti tutti i file che si trovano nella cartella public
@@ -29,7 +39,7 @@ app.use(express.json());
 //app.use('/static', express.static(path.join(__dirname, 'img')))
 //app.use('/static', express.static(path.join(__dirname, 'css')))
 //app.use('/static', express.static(path.join(__dirname, 'js')))
-
+app.set('view engine', 'ejs');
 
 //GET PAGINA INIZIALE
 app.get('/',function(req,res){
@@ -53,18 +63,16 @@ app.get('/login',function(req,res){
 app.post('/loginsend1', function(req, res) {
 	var username = req.body.Username;
 	var password = req.body.Password;
-	//var encPwd = crypto.createHash('md5').update(password).digest('hex'); // Codifichiamo la password in MD5
-
-	//User.findOne({username: username, password: encPwd}, function(err,  user) {
+	
 
 
         request2server({
             //mettere l'url del proprio database
-            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.Username, 
+            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+username, 
             method: 'GET',
             headers: {'content-type': 'application/json'},
             }, function(error, response, body){
-                console.log('effettuando il login...'+req.body.Username);
+                console.log('effettuando il login...');
             if(error) {
                 console.log(error);
             }
@@ -72,25 +80,62 @@ app.post('/loginsend1', function(req, res) {
             {
                 //se lo user non è nel db manda error 404
                 if(response.statusCode==404) {
-                    res.redirect('/login'); // Login errato
-                    console.log('ligin errato')
+                    res.send('Username not found!');
+                    res.end();
+                    //res.redirect('/login'); // Login errato
+                    //console.log('ligin errato')
                 }
                 else
                 {
-                    var loggedInCookie = req.cookies.loggedIn;
-                    if(typeof loggedInCookie === 'undefined') { // Creiamo il cookie per memorizzare il login
-                        
-                        res.cookie('cookieName', username, {maxAge: 900000, httpOnly: true});
+                    let json = JSON.parse(body);
+                    if(json.Password==password)
+                    {   
+                        //login ok 
+                        //console.log(response.statusCode);
+                        console.log('Accesso effettuato da '+username.toString()+'!');
+                        req.session.loggedin = true;
+                        req.session.username= json.username;
+                        //res.sendFile(__dirname + '/public/views/courses.html');
+                        res.redirect('/personalArea');
                     }
-                    console.log('login valido');
-                    res.redirect('/'); // Login valido
+                    else
+                    {
+                        console.log('password non valida');
+                        //res.send("Incorrect password!!!");
+
+
+
+
+
+
+                        //prova ejs
+                        res.render('views/login.ejs', { errormessage: 'Incorrect password' });
+
+
+
+
+
+
+
+
+                        res.end();
+                    }
                 }
 
             }
         });
 });
 
-
+//area personale di ogni utente
+//accesso solo se si è loggati
+app.get('/personalArea', function(req, res) {
+	if (req.session.loggedin) {
+		res.send('Welcome back, ' + req.session.username + '!');
+	} else {
+		res.send('Please login to view this page!');
+	}
+	res.end();
+});
 
 //EFFETTUARE LOGIN 1.0
 app.post('/loginsend',function(req,res){
