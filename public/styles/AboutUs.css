@@ -23,6 +23,11 @@
     padding: 15px;
     color: white;
 }
+
+#staff h2{
+    color:black;
+}
+
 .staffCard{
 
     width: 300px;

@@ -37,6 +37,12 @@ app.get('/',function(req,res){
 });
 
 
+//GET PAGINA ABOUT US
+app.get('/AboutUs', function(req,res) {
+    res.sendFile(__dirname+'/public/views/AboutUs.html');
+});
+
+
 //GET LOGIN
 app.get('/login',function(req,res){
     res.sendFile(__dirname + '/public/views/login.html');   
