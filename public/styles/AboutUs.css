@@ -1,0 +1,73 @@
+.homeheader{
+    background-image: url("../img/ufficio.jpg");
+    background-size:cover;
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+
+.labelbar{
+    color: white;
+    background-color: rgba(95, 99, 112, 0.5);
+    text-align: center;
+    padding: 25px;
+    height: auto;
+}
+
+.labelbar h3{
+    margin: 3%;
+}
+
+
+#staff{
+    text-align: center;
+    padding: 15px;
+    color: white;
+}
+.staffCard{
+
+    width: 300px;
+    padding: 0;
+    background-color: #233d42 ;
+    color: white;
+    display: inline-block;
+    border: 1px solid #16282b;
+    margin: 10px;
+    -webkit-box-shadow: -2px 2px 12px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: -2px 2px 12px 0px rgba(0,0,0,0.75);
+    box-shadow: .2px 2px 12px 0px rgba(0,0,0,0.75);
+
+}
+
+
+
+.staffCard div{
+    padding: 15px;
+    text-align: center;
+
+}
+
+.staffCard img{
+    width: 100%;
+    height: 100%;
+    
+    
+}
+
+.staffCard span {
+    background-color: black ;
+    border-radius: 200px;
+    padding: 5px;
+}
+
+
+.fa-envelope{
+    background-color: red;
+    color: white;
+}
+
+
+.card:hover.img_card{
+    transform: scale(1.1);
+    filter: brightness(0.7);
+
+}
