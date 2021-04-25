@@ -30,6 +30,15 @@ app.use(express.json());
 //app.use('/static', express.static(path.join(__dirname, 'css')))
 //app.use('/static', express.static(path.join(__dirname, 'js')))
 
+var exec = require("child_process").exec;
+app.post('/carica', function(req, res){
+    console.log(req.body.image);
+    console.log(req.body.Username);
+    exec("php "+__dirname+"/public/php/carica.php "+req.body.image, function (error, stdout, stderr) {res.send(stdout);});  
+});
+app.get('/settings', function(req,res) {
+    res.sendFile(__dirname + '/public/php/myform.html');
+});
 
 //GET PAGINA INIZIALE
 app.get('/',function(req,res){
