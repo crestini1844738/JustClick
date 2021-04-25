@@ -11,14 +11,14 @@ var bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
-var cookieCounter=0;
+//var cookieCounter=0;
 
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //var path = require('path');
 
-
+//per le sesioni exrpess
 app.use(session({
 	secret: 'secret',
 	resave: true,
@@ -55,18 +55,18 @@ app.get('/AboutUs', function(req,res) {
 
 //GET LOGIN
 app.get('/login',function(req,res){
-    res.sendFile(__dirname + '/public/views/login.html');   
+    res.render(__dirname + '/public/views/login.ejs', { errormessage: '' });
+    //res.sendFile(__dirname + '/public/views/login.ejs');   
 });
 
-//https://gabrieleromanato.com/2016/06/node-js-implementare-un-sistema-di-loginlogout-con-cookie
+
+
+
 //EFFETTUARE LOGIN 1.1
-app.post('/loginsend1', function(req, res) {
+app.post('/login/auth', function(req, res) {
 	var username = req.body.Username;
 	var password = req.body.Password;
-	
-
-
-        request2server({
+	request2server({
             //mettere l'url del proprio database
             url: 'http://admin:admin@127.0.0.1:5984/progetto/'+username, 
             method: 'GET',
@@ -80,10 +80,10 @@ app.post('/loginsend1', function(req, res) {
             {
                 //se lo user non è nel db manda error 404
                 if(response.statusCode==404) {
-                    res.send('Username not found!');
-                    res.end();
-                    //res.redirect('/login'); // Login errato
-                    //console.log('ligin errato')
+                    
+                    // Login errato
+                    console.log('username not found')
+                    res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Username not found' });
                 }
                 else
                 {
@@ -95,36 +95,21 @@ app.post('/loginsend1', function(req, res) {
                         console.log('Accesso effettuato da '+username.toString()+'!');
                         req.session.loggedin = true;
                         req.session.username= json.username;
-                        //res.sendFile(__dirname + '/public/views/courses.html');
                         res.redirect('/personalArea');
                     }
                     else
                     {
                         console.log('password non valida');
-                        //res.send("Incorrect password!!!");
-
-
-
-
-
-
-                        //prova ejs
-                        res.render('views/login.ejs', { errormessage: 'Incorrect password' });
-
-
-
-
-
-
-
-
-                        res.end();
+                        res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Incorrect  password' });
                     }
                 }
-
+                res.end();
             }
         });
 });
+
+
+
 
 //area personale di ogni utente
 //accesso solo se si è loggati
@@ -138,7 +123,7 @@ app.get('/personalArea', function(req, res) {
 });
 
 //EFFETTUARE LOGIN 1.0
-app.post('/loginsend',function(req,res){
+/*app.post('/loginsend',function(req,res){
 
     console.log('effettuando il login...');
     //curl -x GET http://admin:admin@127.0.0.1:5984/progetto/_all_docs
@@ -177,7 +162,7 @@ app.post('/loginsend',function(req,res){
             }        
         }
     });
-});
+});*/
 
 
 
