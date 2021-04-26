@@ -16,7 +16,7 @@ var session = require('express-session');
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-//var path = require('path');
+var path = require('path');
 
 //per le sesioni exrpess
 app.use(session({
@@ -238,6 +238,27 @@ app.post("/registerInsert", function(req,res){
         }
     });
 
+});
+
+//POST PER UPLOAD DI FILE
+const fileupload = require('express-fileupload');
+app.use(fileupload());
+app.post('/carica', function(req,res) {
+        if(!req.files) console.log('error 400: nessuna immagine selezionata');
+        else if(req.files.image.size > 50000) console.log('immagine troppo grande');
+        else {
+            if(req.files.image.mimetype!='image/jpeg' && req.files.image.mimetype!='image/jpg' && req.files.image.mimetype!='image/png' &&
+            req.files.image.mimetype!='image/gif' && req.files.image.mimetype!='image/svg+xml' ) 
+                console.log('formato immagine non valido');
+            else {
+                req.files.image.name = 'banana.png';
+                req.files.image.mv(__dirname+'/public/img/profileImgs/'+req.files.image.name, function(err) {
+                    if(err) return res.status(500).send(err);
+                });
+                console.log('file uploaded!');
+            }
+        }
+        res.sendFile(__dirname + '/public/php/myform.html');
 });
 
 //vecchio metodo con la get, non lo levo perchè potrebbe tornarmi utile per altre cose
