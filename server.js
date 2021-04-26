@@ -1,7 +1,7 @@
 // npm install body-parser --save
 // npm install cookie-parser --save
 // npm install express-session
-//npm install ejs
+// npm install ejs
 
 var express = require('express');
 var request2server = require('request');
@@ -11,7 +11,6 @@ var bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
-//var cookieCounter=0;
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -24,6 +23,8 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
+
+
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
@@ -32,14 +33,14 @@ app.use(bodyParser.json());
 //Per questo motivo va messo tutto in public nelle rispettive cartelle
 app.use(express.static('public'));
 app.use(express.json());
-
-//per far vedere i file css,img e logo
-//app.use('/static', express.static(path.join(__dirname, 'cssPersonal')))
-//app.use('/static', express.static(path.join(__dirname, 'logo')))
-//app.use('/static', express.static(path.join(__dirname, 'img')))
-//app.use('/static', express.static(path.join(__dirname, 'css')))
-//app.use('/static', express.static(path.join(__dirname, 'js')))
 app.set('view engine', 'ejs');
+
+
+
+
+
+
+
 
 //GET PAGINA INIZIALE
 app.get('/',function(req,res){
@@ -53,16 +54,16 @@ app.get('/AboutUs', function(req,res) {
 });
 
 
-//GET LOGIN
+//GET PAGINA LOGIN
 app.get('/login',function(req,res){
-    res.render(__dirname + '/public/views/login.ejs', { errormessage: '' });
-    //res.sendFile(__dirname + '/public/views/login.ejs');   
+    res.render(__dirname + '/public/views/login.ejs', { errormessage: '' });   
 });
 
 
 
 
-//EFFETTUARE LOGIN 1.1
+//AUTENTICAZIONE LOGIN
+//uso delle sessione per salvare l' utente autenticato
 app.post('/login/auth', function(req, res) {
 	var username = req.body.Username;
 	var password = req.body.Password;
@@ -108,16 +109,33 @@ app.post('/login/auth', function(req, res) {
         });
 });
 
+app.get('/logout',function(req, res){
+    if (req.session) {
+        req.session.destroy();
+    }
+    
 
+    if (req.session) {
+        req.session.destroy(err => {
+          if (err) {
+            res.status(400).send('Unable to log out')
+          } else {
+            res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Logout successful' });
+          }
+        });
+      } else {
+        res.end()
+      }
+});
 
 
 //area personale di ogni utente
-//accesso solo se si è loggati
+//accesso solo se si è loggati. Uso delle sessioni per vedere se si è loggati oppue no 
 app.get('/personalArea', function(req, res) {
 	if (req.session.loggedin) {
 		res.send('Welcome back, ' + req.session.username + '!');
 	} else {
-		res.send('Please login to view this page!');
+		res.redirect('/login');
 	}
 	res.end();
 });
