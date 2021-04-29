@@ -74,6 +74,9 @@
   width: 60px;
   background: #1762EE;
 }
+.form-inner h4 {
+  color:#bb0000;
+}
 .form-inner label {
   display: block;
   padding-left: 15px;
@@ -84,9 +87,10 @@
 }
 .form-inner input {
   display: block;
-  width: 100%;
+  position:relative;
+  width: 80%;
   padding: 0 15px;
-  margin: 10px 0 15px;
+  margin: 10px auto 15px;
   border-width: 0;
   line-height: 40px;
   border-radius: 20px;

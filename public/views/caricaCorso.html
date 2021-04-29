@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Progetto RDC LTW</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script type="text/javascript" lang="javascript" src="../js/bootstrap.min.js"></script> 
+    <link rel=stylesheet href="../styles/index.css" type="text/css">
+    <link rel=stylesheet href="../styles/courses.css" type="text/css">
+    <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../styles/AboutUs.css" type="text/css"> 
+</head>
+<body>
+
+    <div class="header">
+        <img src="../logo/logo_small.png" alt="JustClick">
+        <p>Tutto il sapere a portata di click</p>
+    </div>
+
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-blue">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link fw-bold" aria-current="page" href="http://localhost:8889/">HOME</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold" href="http://localhost:8889/login">LOGIN</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold" href="http://localhost:8889/courses">COURSES</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold" href="http://localhost:8889/AboutUs">ABOUT US</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle active fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  PROFILO
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Gestisci account</a></li>
+                  <li><a class="dropdown-item" href="#">Il mio account</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn  btn-outline-light" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+
+    <!-- parte del body da modificare ognuno di noi -->
+    <h1>Carica un nuovo video</h1>
+    <div class="card" style="width: 50rem;">
+        <form class="was-validated">
+        <div class="mb-3">
+            <input type="file" enctype="multipart/form-data" accept=video/* class="form-control" aria-label="file example" required>
+            <div class="invalid-feedback">Example invalid form file feedback</div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="validationTextarea" class="form-label">Titolo</label>
+            <input type="text" class="form-control is-invalid" id="validationTextarea" placeholder="Inserisci il titolo" required/>
+            <div class="invalid-feedback">
+              Per favore inserisci il titolo del corso.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="validationTextarea" class="form-label">Descrizione</label>
+            <textarea class="form-control is-invalid" id="validationTextarea" placeholder="Inserisci la descrizione del corso" required></textarea>
+            <div class="invalid-feedback">
+              Per favore inserisci la descrizione del corso.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <select class="form-select" required aria-label="select example">
+              <option value="">Scegli una categoria</option>
+              <option value="1">Informatica</option>
+              <option value="2">Moda e bellezza</option>
+              <option value="3">Musica</option>
+              <option value="4">Notizie</option>
+              <option value="5">Sport</option>
+              <option value="6">Videogiochi</option>
+            </select>
+            <div class="invalid-feedback">Per favore seleziona una categoria</div>
+          </div>
+
+          <div class="mb-3">
+            <button class="btn btn-primary" type="submit" >Carica il video</button>
+          </div>
+
+
+        </form>
+    </div>
+
+
+      <div>
+          <h1>Ultimi video caricati</h1>
+      </div>
+
+
+      
+
+    
+    <!-- fine parte del body da modificare-->
+
+    <footer>
+        <h2>Seguici sui nostri canali social</h2>
+        <a href="#" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-instagram"></a>
+        <a href="#" class="fa fa-youtube"></a>
+        <a href="#" class="fa fa-twitter"></a>
+        <h2 class="logo">JustClick</h2>
+        <div class="text-center">JustClick Copyright &copy; 2021 - Piattaforma tutorial </div>
+    </footer>
+
+</body>
+</html>

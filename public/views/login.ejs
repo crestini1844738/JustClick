@@ -5,9 +5,11 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <script type="text/javascript" lang="javascript" src="js/bootstrap.bundle.min.js"></script> 
-        <script type="text/javascript" lang="javascript" src="JavascriptPersonal/form_validazione.js"></script> 
+        <script type="text/javascript" lang="javascript" src="JavascriptPersonal/form_validazione.js"></script>
+        <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>  
         <link rel=stylesheet href="../styles/index.css" type="text/css">
         <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 </head>
 <body>
 
@@ -69,13 +71,38 @@
                             }
                       </script>
                         -->
-                        <p><%= errormessage %></p>
+                        <h4><%= errormessage %></h4>
                         <label for="Username">Username</label>
-                        <input type="text" name="Username" required/>
+                        <input type="text" name="Username" id="Username" required/>
                         <label for="Password">Password</label>
-                        <input type="password" name="Password" required/>
+                        <input type="password" name="Password"id="Password" required/>
                         <input type="submit" value="Inviare">
                         <pippo>Non hai un account?<a href="http://localhost:8889/register">Registrati</a></pippo>
+                        
+                        <!--
+                        <input type="button" id="enter" value="Enter">
+                        <script type="text/javascript">
+                          
+                          $('#enter').click(function(){  
+                            
+                            var user = $('#Username').val();
+                            var pass = $('#Password').val();
+                            $.ajax({
+                              url: '/ajax',
+                              type: 'POST',
+                              cache: false, 
+                              data: { Username: user , Password: pass }, 
+                              success: function(data){
+                                  //alert('Success!')
+
+                              }
+                              , error: function(jqXHR, textStatus, err){
+                                  alert('text status '+textStatus+', err '+err)
+                              }
+                            })
+                        });            
+
+                    </script>-->
                     </div>
                 </form>
 
@@ -102,10 +129,15 @@
         </div>
     </div>
 
-<div class="footer">
-  <h2>This site was created for educational purposes by the students Crestini Emanuele, Tombolini
-    Martina and De Luca Valerio</h2>
-</div>
+    <footer>
+      <h2>Seguici sui nostri canali social</h2>
+      <a href="#" class="fa fa-facebook"></a>
+      <a href="#" class="fa fa-instagram"></a>
+      <a href="#" class="fa fa-youtube"></a>
+      <a href="#" class="fa fa-twitter"></a>
+      <h2 class="logo">JustClick</h2>
+      <div class="text-center">JustClick Copyright &copy; 2021 - Piattaforma tutorial </div>
+    </footer>
 
 </body>
 </html>
