@@ -36,7 +36,22 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 
 
-
+var urlencodedparser = bodyParser.urlencoded({extended:false})
+//PROVA AJAX
+/*app.post('/ajax', urlencodedparser, function (req, res){  
+    console.log(req.body);
+    var user=req.body.Username;
+    var pass=req.body.Password;
+    if(req.body.Username=='Valeriosalame2')
+    {
+        console.log('giusto');
+    }
+    console.log('req received');
+    res.render(__dirname + '/public/views/login.ejs', { errormessage: 'PROVAAAAA' });
+    //res.redirect('/login');
+    res.end();
+ 
+ });*/
 
 
 
@@ -113,8 +128,6 @@ app.get('/logout',function(req, res){
     if (req.session) {
         req.session.destroy();
     }
-    
-
     if (req.session) {
         req.session.destroy(err => {
           if (err) {
@@ -139,66 +152,6 @@ app.get('/personalArea', function(req, res) {
 	}
 	res.end();
 });
-
-//EFFETTUARE LOGIN 1.0
-/*app.post('/loginsend',function(req,res){
-
-    console.log('effettuando il login...');
-    //curl -x GET http://admin:admin@127.0.0.1:5984/progetto/_all_docs
-    request2server({
-        //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.Username, 
-        method: 'GET',
-        headers: {'content-type': 'application/json'},
-        }, function(error, response, body){
-
-        if(error) {
-            console.log(error);
-        }
-        else 
-        {
-            //se lo user non è nel db manda error 404
-            if(response.statusCode==404) {
-                console.log('username non valido');
-                res.sendFile(__dirname + '/public/views/login.html');
-            }
-
-            //altrimenti restituisce l'elemento
-            else{
-                let json = JSON.parse(body);
-                if(json.Password==req.body.Password)
-                {
-                    console.log(response.statusCode);
-                    console.log('Welcome '+json.Username+'!');
-                    res.sendFile(__dirname + '/public/views/index.html');
-                }
-                else
-                {
-                    console.log('password non valida');
-                }
-                
-            }        
-        }
-    });
-});*/
-
-
-
-//EFFETTUARE LOGOUT
-app.get('/logout', function(req, res) {
-	var loggedInCookie = req.cookies.loggedIn;
-	if(loggedInCookie) { // Il cookie è presente?
-		
-        res.clearCookie('cookieName'); // Logout: cancelliamo il cookie
-        console.log('logout corretto');
-        res.redirect('/');	
-	} 
-    else 
-    {
-		res.redirect('/');
-	}
-});
-
 
 //GET CORSI
 app.get('/courses', function(req,res) {
