@@ -9,13 +9,25 @@
     padding: 30px;
     background-color: rgb(179, 231, 235);
     background-image: url("../img/sfondo1.png");
-    background-size:100% 70%;
+    background-size:100% 65%;
     background-repeat: no-repeat;
     background-position: top;
   }
 
   .profileimage {
     margin-top: 70px;
+    height: 500px;
+    width: 500px;
+    border-radius: 250px;
+    margin-left: 30%;
+    margin-right: 30%;
+  }
+
+  .profilebds{
+    border-style:solid;
+    border-width: 10px;
+    border-radius: 250px;
+    border-color: white;
   }
 
   .profilename{
@@ -24,6 +36,13 @@
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
     color:black;
+  }
+
+  .modify{
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    margin-left: 20%;
   }
 
   .center h1{
