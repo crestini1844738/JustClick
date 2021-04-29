@@ -155,8 +155,9 @@ app.get('/personalArea', function(req, res) {
 
 //GET CORSI
 app.get('/courses', function(req,res) {
-    //res.sendFile(path.join(__dirname + '/public/views/courses.html'));
-    res.sendFile(__dirname + '/public/views/courses.html');
+    //res.sendFile(__dirname + '/public/views/courses.html');
+    res.render(__dirname + '/public/views/course.ejs', { username: "Valerio", courseName: "Corso di prova", 
+                                                        courseFollower:"0", coursePublications:"0"});
 });
 
 
