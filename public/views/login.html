@@ -59,73 +59,64 @@
     <div class="row">
         <div class="leftcolumn">
             <div class="text-center">
-                 <form  action="http://localhost:8889/login/auth" class="form-Login" method="POST" name="loginsend">
-                    <div class="form-inner">
+                 <form  action="http://localhost:8889/login/auth" class="form-Login" method="POST" name="loginsend" id="loginsend">
+                    <div class="form-inner" id="login">
                         <h3>Login</h3>
-                        <!--
-                        <div id='status' class='invisible'><%= errormessage %></div>
-                        <script>
-                            if($('div#status').text()!='')
-                            {
-                                      alert($('div#status').text());
-                            }
-                      </script>
-                        -->
-                        <h4><%= errormessage %></h4>
+                        
                         <label for="Username">Username</label>
                         <input type="text" name="Username" id="Username" required/>
                         <label for="Password">Password</label>
                         <input type="password" name="Password"id="Password" required/>
-                        <input type="submit" value="Inviare">
-                        <pippo>Non hai un account?<a href="http://localhost:8889/register">Registrati</a></pippo>
-                        
-                        <!--
-                        <input type="button" id="enter" value="Enter">
+                        <!--<input type="submit" value="Inviare">-->
+                        <input type="button" id="sendLogin" value="Invia">
+                        <pippo>Non hai un account? <a href="http://localhost:8889/register">Registrati</a></pippo>
+                        <br>
+                        <br>
+                        <!--<p class="alert alert-danger"><%= errormessage %></p>-->
+                        <div  id=errorMessage></div>
+                    
                         <script type="text/javascript">
-                          
-                          $('#enter').click(function(){  
-                            
-                            var user = $('#Username').val();
-                            var pass = $('#Password').val();
-                            $.ajax({
-                              url: '/ajax',
-                              type: 'POST',
-                              cache: false, 
-                              data: { Username: user , Password: pass }, 
-                              success: function(data){
-                                  //alert('Success!')
+                          $('#sendLogin').click(function() {
+                                var user = $('#Username').val();
+                                var pass = $('#Password').val();
+                                var data = {
+                                          Username: user,
+                                          Password: pass
+                                      };
+                              
+                                  var showResults = function( response ) {
+                                  if( response.errors ) {
+                                    $.each( response.errors, function( index, err ) {                                
+                                    $('#errorMessage').html('<p class="alert alert-danger">' + err.msg + '</p>');
+                                    
+                                    });
+                                  } 
+                                  else 
+                                  {
+                                    var personalPage='<pippo><a href="http://localhost:8889/personalArea">Vai alla tua area personale</a></pippo>';
+                                    var success = '<p class="alert alert-success">' + response.success +'<br>'+personalPage+ '</p>';
+                                    $('#login').html( success );
+                                  }
+                                  };
 
-                              }
-                              , error: function(jqXHR, textStatus, err){
-                                  alert('text status '+textStatus+', err '+err)
-                              }
-                            })
-                        });            
-
-                    </script>-->
+                                  var settings = {
+                                      url: "/ajax/login",
+                                      dataType: "json",
+                                      type: "POST",
+                                      contentType: "application/json",
+                                      data: JSON.stringify(data),
+                                      processData: false,
+                                      success: showResults
+                                  };
+                                  $.ajax( settings );
+                                  });
+                        </script>
                     </div>
                 </form>
 
 
             </div>
 
-        </div>
-        <div class="rightcolumn">
-            <div class="card">
-                <h2>About Me..</h2>
-                <div class="fakeimg" style="height:100px;">Image</div>
-                <p>Some text..</p>
-            </div>
-            <div class="card">
-                <h3>Popular Post</h3>
-                <div class="fakeimg"><p>Image</p></div>
-                <div class="fakeimg"><p>Image</p></div>
-                <div class="fakeimg"><p>Image</p></div>
-            </div>
-            <div class="card">
-                <h3>Follow Me</h3>
-                <p>Some text..</p>
-            </div>
         </div>
     </div>
 

@@ -2,15 +2,19 @@
 // npm install cookie-parser --save
 // npm install express-session
 // npm install ejs
+// npm install validator --save
 
 var express = require('express');
 var request2server = require('request');
-
 var app = express();
 var bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var validator = require('validator');
 
+//variabili login
+var erroreLogin=0;
+var json;
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -27,31 +31,12 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
-
-//app.use(express.static(__dirname + '/public'));
-//per far vedere tutti i file basta questo. Vengono viti tutti i file che si trovano nella cartella public
-//Per questo motivo va messo tutto in public nelle rispettive cartelle
+app.set('json spaces', 2);
 app.use(express.static('public'));
 app.use(express.json());
 app.set('view engine', 'ejs');
 
 
-var urlencodedparser = bodyParser.urlencoded({extended:false})
-//PROVA AJAX
-/*app.post('/ajax', urlencodedparser, function (req, res){  
-    console.log(req.body);
-    var user=req.body.Username;
-    var pass=req.body.Password;
-    if(req.body.Username=='Valeriosalame2')
-    {
-        console.log('giusto');
-    }
-    console.log('req received');
-    res.render(__dirname + '/public/views/login.ejs', { errormessage: 'PROVAAAAA' });
-    //res.redirect('/login');
-    res.end();
- 
- });*/
 
 
 
@@ -71,13 +56,95 @@ app.get('/AboutUs', function(req,res) {
 
 //GET PAGINA LOGIN
 app.get('/login',function(req,res){
-    res.render(__dirname + '/public/views/login.ejs', { errormessage: '' });   
+    //get login se uso ajax
+    res.sendFile(__dirname + '/public/views/login.html');   
+
+    //get login se uso ejs
+    //res.render(__dirname + '/public/views/login.ejs', { errormessage: '' });   
 });
 
 
 
 
-//AUTENTICAZIONE LOGIN
+
+
+
+
+//AUTENTICAZIONE LOGIN CON AJAX
+app.post('/ajax/login', (req, res) => {
+    var output = {};
+    var errors = [];
+    var username;
+    var password;
+    //fa la richiesta al database soltanto se entrambi i campi sono compilati
+    if(validator.isEmpty(req.body.Username) || validator.isEmpty(req.body.Password) ) {
+        errors.push({
+            msg: 'Username e/o password non validi.'
+        });
+    }
+    else
+    {
+        username = req.body.Username;
+        password = req.body.Password;
+        
+        request2server({
+            //mettere l'url del proprio database
+            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+username, 
+            method: 'GET',
+            headers: {'content-type': 'application/json'},
+            }, function(error, response, body){
+            if(error) {
+                console.log(error);
+            }
+            else 
+            {
+                
+                //se lo user non è nel db manda error 404
+                if(response.statusCode==404) {
+                    erroreLogin=404;
+                    errors.push({
+                        msg: 'Username e/o password non validi.'
+                    });
+                }
+                else
+                {
+                    json = JSON.parse(body);
+                    //se la password non è corretta restituisce 1 altrimenti 2
+                    if(json.Password==password)
+                    {   
+                        erroreLogin=2;
+                        //login ok 
+                    }
+                    else
+                    {   
+                        erroreLogin=1;
+                        errors.push({
+                            msg: 'Username e/o password non validi.'
+                        });
+                    }
+                }    
+            }
+        });
+    }
+    if(errors.length > 0 || erroreLogin==404  || erroreLogin==1) {
+        output.errors = errors;
+        
+    } else {
+        if(erroreLogin==2){
+            //erroreLogin è 2 ovvero utente trovato e password corretta
+            output.success = 'Ben tornato '+username.toString()+'!'
+            req.session.loggedin = true;
+            req.session.username=username;
+            console.log('Accesso effettuato da '+username.toString()+'!');
+        }
+        
+    }
+    res.json(output);
+});
+
+
+
+//AUTENTICAZIONE LOGIN CON EJS
 //uso delle sessione per salvare l' utente autenticato
 app.post('/login/auth', function(req, res) {
 	var username = req.body.Username;
