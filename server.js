@@ -223,7 +223,28 @@ app.get('/personalArea', function(req, res) {
 
 //pagina corsi
 app.get('/courses', function(req,res) {
-    res.sendFile(__dirname + '/public/views/corsi.html'); 
+    var username1, username2, username3, username4, username5;
+    var courseName1, courseName2, courseName3, courseName4, courseName5;
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: '{"selector": { }, "fields": ["Username","Courses"], "skip": 0, "execution_stats": true }'
+        //"limit": 2, "sort": [{"courseFollower": "asc"}],
+        }, function(error, response, body){
+            tutto = JSON.parse(body);
+            console.log(tutto.docs[1].Courses);
+        }
+    );
+
+    res.render(__dirname + '/public/views/corsi.ejs', {
+        user1: username1, coursename1: courseName1,
+        user2: username2, coursename2: courseName2,
+        user3: username3, coursename3: courseName3,
+        user4: username4, coursename4: courseName4,
+        user5: username5, coursename5: courseName5,
+    });
 });
 
 
