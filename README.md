@@ -42,4 +42,4 @@ npm init
 npm install express --save
 
 
-ciao
+https://www.npmjs.com/package/couchdb-query-helper
