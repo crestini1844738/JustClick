@@ -223,8 +223,17 @@ app.get('/personalArea', function(req, res) {
 //GET CORSI
 app.get('/courses', function(req,res) {
     //res.sendFile(__dirname + '/public/views/courses.html');
-    res.render(__dirname + '/public/views/course.ejs', { username: "Valerio", courseName: "Corso di prova", 
-                                                        courseFollower:"0", coursePublications:"0"});
+    var user = 'Valerio';
+    var nomeCorso = 'Corso di prova'
+    var follower = 0; var pubblicazioni = 0;
+    var first = 'Primo contenuto!', second = 'Secondo!', third = 'Titolo';
+    var corsi = [ ["corso1","ciao"], ["corso2","ciaone"], ["corso3","ciaonissimo"]];
+    res.render(__dirname + '/public/views/course.ejs', {
+                                                        username: user, courseName: nomeCorso, 
+                                                        courseFollower: follower, coursePublications: pubblicazioni,
+                                                        firstEvidenza: first, secondEvidenza: second, thirdEvidenza: third,
+                                                        courses: corsi
+                                                        });
 });
 
 
