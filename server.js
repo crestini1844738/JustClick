@@ -57,10 +57,10 @@ app.get('/AboutUs', function(req,res) {
 //GET PAGINA LOGIN
 app.get('/login',function(req,res){
     //get login se uso ajax
-    res.sendFile(__dirname + '/public/views/login.html');   
+    //res.sendFile(__dirname + '/public/views/login.html');   
 
     //get login se uso ejs
-    //res.render(__dirname + '/public/views/login.ejs', { errormessage: '' });   
+    res.render(__dirname + '/public/views/login.ejs', { errormessage: '' });   
 });
 
 
@@ -151,7 +151,7 @@ app.post('/login/auth', function(req, res) {
 	var password = req.body.Password;
 	request2server({
             //mettere l'url del proprio database
-            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+username, 
+            url: 'http://admin:admin@127.0.0.1:5984/progetto1/'+username, 
             method: 'GET',
             headers: {'content-type': 'application/json'},
             }, function(error, response, body){
@@ -171,7 +171,7 @@ app.post('/login/auth', function(req, res) {
                 else
                 {
                     let json = JSON.parse(body);
-                    if(json.Password==password)
+                    if(json.users.Password==password)
                     {   
                         //login ok 
                         //console.log(response.statusCode);
@@ -290,6 +290,109 @@ app.get('/register',function(req,res){
     console.log('fornita pagina registrazione ');
 });
 
+//POST REGISTER AJAX
+app.post('/ajax/register', (req, res) => {
+    var output = {};
+    var errors = [];
+    var username=req.body.Username;
+    var erroreUsername=0;
+    var erroreEmail=0;
+
+
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+username, 
+        method: 'GET',
+        headers: {'content-type': 'application/json'},
+        }, function(error, response, body){
+        if(error) {
+            console.log(error);
+        }
+        else 
+        {
+            
+            if(!response.statusCode==404){
+                erroreUsername=1;
+                errors.push({
+                    msg: 'Username già in uso.'
+                });
+            }
+        }
+    });
+
+
+
+
+
+
+
+
+
+    //fa la richiesta al database soltanto se entrambi i campi sono compilati
+    if(validator.isEmpty(req.body.Username) || validator.isEmpty(req.body.Password) ) {
+        errors.push({
+            msg: 'Username e/o password non validi.'
+        });
+    }
+    else
+    {
+        username = req.body.Username;
+        password = req.body.Password;
+        
+        request2server({
+            //mettere l'url del proprio database
+            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+username, 
+            method: 'GET',
+            headers: {'content-type': 'application/json'},
+            }, function(error, response, body){
+            if(error) {
+                console.log(error);
+            }
+            else 
+            {
+                
+                //se lo user non è nel db manda error 404
+                if(response.statusCode==404) {
+                    erroreLogin=404;
+                    errors.push({
+                        msg: 'Username e/o password non validi.'
+                    });
+                }
+                else
+                {
+                    json = JSON.parse(body);
+                    //se la password non è corretta restituisce 1 altrimenti 2
+                    if(json.Password==password)
+                    {   
+                        erroreLogin=2;
+                        //login ok 
+                    }
+                    else
+                    {   
+                        erroreLogin=1;
+                        errors.push({
+                            msg: 'Username e/o password non validi.'
+                        });
+                    }
+                }    
+            }
+        });
+    }
+    if(errors.length > 0 || erroreLogin==404  || erroreLogin==1) {
+        output.errors = errors;
+        
+    } else {
+        if(erroreLogin==2){
+            //erroreLogin è 2 ovvero utente trovato e password corretta
+            output.success = 'Bentornato '+username.toString()+'!'
+            req.session.loggedin = true;
+            req.session.username=username;
+            console.log('Accesso effettuato da '+username.toString()+'!');
+        }
+        
+    }
+    res.json(output);
+});
 //POST REGISTER
 app.post("/registerInsert", function(req,res){
     
