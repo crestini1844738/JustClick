@@ -212,6 +212,7 @@ app.get('/logout',function(req, res){
 //area personale di ogni utente
 //accesso solo se si è loggati. Uso delle sessioni per vedere se si è loggati oppue no 
 app.get('/personalArea', function(req, res) {
+    //se si è loggati restituisci l' area personale utente altrimenti loggati
 	if (req.session.loggedin) {
 		res.send('Welcome back, ' + req.session.username + '!');
 	} else {
