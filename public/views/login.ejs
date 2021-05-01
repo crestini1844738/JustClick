@@ -69,12 +69,12 @@
                         <label for="Password">Password</label>
                         <input type="password" name="Password"id="Password" required/>
                         <input type="submit" value="Inviare">
-                        <input type="button" id="sendLogin" value="Invia">
+                        <!--<input type="button" id="sendLogin" value="Invia">-->
                         <pippo>Non hai un account? <a href="http://localhost:8889/register">Registrati</a></pippo>
                         <br>
                         <br>
-                        <p class="alert alert-danger"><%= errormessage %></p>
-                        <div  id=errorMessage></div>
+                        <p class="alert alert-danger"></p><%= errormessage %></p>
+                        <!--<div  id=errorMessage></div>
                     
                         <script type="text/javascript">
                           $('#sendLogin').click(function() {
@@ -111,7 +111,7 @@
                                   };
                                   $.ajax( settings );
                                   });
-                        </script>
+                        </script>-->
                     </div>
                 </form>
 
