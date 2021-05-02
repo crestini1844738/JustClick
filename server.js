@@ -63,6 +63,10 @@ app.get('/login',function(req,res){
     res.render(__dirname + '/public/views/login.ejs', { errormessage: '' });   
 });
 
+//GET REGISTER
+app.get('/register',function(req,res){
+    res.render(__dirname + '/public/views/registrazione.ejs',{ errormessage: '' });
+});
 
 
 
@@ -350,11 +354,7 @@ app.get('/courses2/:num', function(req,res) {
 });
 
 
-//GET REGISTER
-app.get('/register',function(req,res){
-    res.sendFile(__dirname + '/public/views/registrazione.html');
-    console.log('fornita pagina registrazione ');
-});
+
 
 //POST REGISTER AJAX
 app.post('/ajax/register', (req, res) => {
@@ -460,6 +460,79 @@ app.post('/ajax/register', (req, res) => {
     res.json(output);
 });
 
+
+
+//POST REGISTRAZIONE E CONTROLLO CON EJS
+//non ci possone registrare utenti con stesso username o email
+app.post('/register/auth', function(req, res) {
+	var user= req.body.Username;
+	var email = req.body.Email;
+    var msg=    '{ "Username":"'+req.body.Username+
+                '","Name":"'+req.body.Name+
+                '","Surname":"'+req.body.Surname+
+                '" ,"Date":"'+req.body.Date+
+                '","Email":"'+req.body.Email+
+                '","Password":"'+req.body.Password+
+                '","Courses": { }'+
+                '  }';
+    
+	request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: '{"selector": { }, "fields": ["Username","Email"], "skip": 0, "execution_stats": true }'
+        }, function(error, response, body){
+            if(error){
+                console.log(error);
+            }
+            else 
+            {
+
+                console.log('controllo registrazione...');
+                var json=JSON.parse(body);
+                for(i=0;i<json.docs.length;i++)
+                {
+                    if(json.docs[i].Username==user)
+                    {
+                        console.log('username già in uso')
+                        
+                        res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Username gia utilizzato' });
+                    }
+                    if(json.docs[i].Email==email)
+                    {
+                        console.log('Email già in uso')
+                        
+                        res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Email gia utilizzata' });
+                    }
+                }
+                
+            }
+    });
+    //se email e username non sono di alcun utente posso procedere con la registrazione
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.Username, 
+        method: 'PUT',
+        headers: {'content-type': 'application/json'},
+        body: msg
+        //body: JSON.stringify(body1)
+    }, function(error, response, body){
+        if(error) {
+            console.log(error);
+        }
+        else 
+        {
+            console.log("utente registrato");
+            res.redirect('/login');
+        }
+    });
+    
+});
+
+
+
+
 //POST REGISTER
 app.post("/registerInsert", function(req,res){
     
@@ -520,48 +593,6 @@ app.post('/carica', function(req,res) {
         res.sendFile(__dirname + '/public/php/myform.html');
 });
 
-//vecchio metodo con la get, non lo levo perchè potrebbe tornarmi utile per altre cose
-/*app.get('/registerInsert', function(req, res){
-
-    console.log(req.query);+
-    request2server({
-        //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.query.Username, 
-        method: 'PUT',
-        headers: {'content-type': 'application/json'},
-        body: '{ "username":"'+req.query.Username+'","name":"'+req.query.Name+'","surname":"'+req.query.Surname+'"}'
-        //body: JSON.stringify(body1)
-    }, function(error, response, body){
-        if(error) {
-            console.log(error);
-        }
-        else 
-        {
-            
-            //per scrivere html su nodejs https://www.nodeacademy.it/restituire-pagine-html-un-server-node-js/
-            res.writeHead(200,{"Content-Type":"text/html"});
-            res.write('<!DOCTYPE html>'+
-            '<html>'+
-                '<head>'+     
-                    '<title> Project_X - Success!</title>'+
-                    '<meta charset="utf-8" />'+
-                    '<meta name="viewport" content="width=device-width, initial-scale=1"/>'+
-                    '<link rel="stylesheet" type="text/css" href="http://127.0.0.1:5500/css/bootstrap.min.css"/>'+
-                    '<script type="text/javascript" lang="javascript" src="http://127.0.0.1:5500/js/bootstrap.bundle.min.js"></script>'+
-                '</head>'+
-                '<body class="text-center">'+
-                    '<h1>SUCCESS</h1>'+
-                    '<br>'+
-                    '<img class="mb-4" src="http://127.0.0.1:5500/img.svg" alt="" width="1000" height="800" />'+
-                '</body>'+
-            '</html>');
-            
-            res.end();
-            console.log(response.statusCode, body);
-        }
-    });
-  ;
-});*/
 
 app.listen(8889);
 console.log('Server running at port 8889');
