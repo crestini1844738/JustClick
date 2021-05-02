@@ -265,7 +265,8 @@ app.get('/personalArea', function(req, res) {
 
 //pagina corsi
 app.get('/courses', function(req,res) {
-    var courseName = [];
+    res.sendFile(__dirname+'/public/views/corsi.html');
+    /*var courseName = [];
     request2server({
         //mettere l'url del proprio database
         url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
@@ -281,10 +282,10 @@ app.get('/courses', function(req,res) {
             }
 
             res.render(__dirname + '/public/views/corsi.ejs', {
-                coursename: courseName
+                //
             });
         }
-    );
+    );*/
 });
 
 
