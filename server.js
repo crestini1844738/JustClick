@@ -57,10 +57,10 @@ app.get('/AboutUs', function(req,res) {
 //GET PAGINA LOGIN
 app.get('/login',function(req,res){
     //get login se uso ajax
-    res.sendFile(__dirname + '/public/views/login.html');   
+    //res.sendFile(__dirname + '/public/views/login.html');   
 
     //get login se uso ejs
-    //res.render(__dirname + '/public/views/login.ejs', { errormessage: '' });   
+    res.render(__dirname + '/public/views/login.ejs', { errormessage: '' });   
 });
 
 
@@ -70,12 +70,13 @@ app.get('/login',function(req,res){
 
 
 
-//AUTENTICAZIONE LOGIN CON AJAX
-app.post('/ajax/login', (req, res) => {
+//AUTENTICAZIONE LOGIN CON AJAX (NON FUNZIONA DIO ******)
+/*app.post('/ajax/login', (req, res) => {
     var output = {};
     var errors = [];
-    var username;
-    var password;
+    var user;
+    var pass;
+    var index=-1;
     //fa la richiesta al database soltanto se entrambi i campi sono compilati
     if(validator.isEmpty(req.body.Username) || validator.isEmpty(req.body.Password) ) {
         errors.push({
@@ -84,100 +85,138 @@ app.post('/ajax/login', (req, res) => {
     }
     else
     {
-        username = req.body.Username;
-        password = req.body.Password;
+        user = req.body.Username;
+        pass = req.body.Password;
         
         request2server({
             //mettere l'url del proprio database
-            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+username, 
-            method: 'GET',
+            url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+            method: 'POST',
             headers: {'content-type': 'application/json'},
+            body: '{"selector": { }, "fields": ["Username","Password"], "skip": 0, "execution_stats": true }'
             }, function(error, response, body){
             if(error) {
                 console.log(error);
+                
             }
             else 
             {
-                
-                //se lo user non è nel db manda error 404
-                if(response.statusCode==404) {
-                    erroreLogin=404;
+                console.log('effettuando il login...');
+                var json=JSON.parse(body);
+                //console.log(json.docs[0].Password);
+                for(i=0;i<json.docs.length;i++)
+                {
+                    if(json.docs[i].Username==user)
+                    {
+                        index=i;
+                        break;
+                    }
+                }
+                if(index==-1) {
+                    console.log("username sbagliato");
                     errors.push({
-                        msg: 'Username e/o password non validi.'
+                        msg: 'Username not found.'
                     });
                 }
                 else
                 {
-                    json = JSON.parse(body);
-                    //se la password non è corretta restituisce 1 altrimenti 2
-                    if(json.Password==password)
-                    {   
-                        erroreLogin=2;
+                    if(json.docs[index].Username==user && json.docs[index].Password==pass)
+                    {
                         //login ok 
+                        //console.log(response.statusCode);
+                        req.session.loggedin = true;
+                        req.session.username=user;
+                        errors=[];
+                        console.log('Accesso effettuato da '+json.docs[index].Username.toString()+'!');
+                        index=-3;
                     }
                     else
-                    {   
-                        erroreLogin=1;
+                    {
+                        index=-2;
+                        console.log("password sbagliata");
                         errors.push({
-                            msg: 'Username e/o password non validi.'
+                            msg: 'Incorrect  password'
                         });
                     }
                 }    
             }
         });
     }
-    if(errors.length > 0 || erroreLogin==404  || erroreLogin==1) {
+    if(index==-1)
+    {
+        errors.push({
+            msg: 'Username not found.'
+        });
+    }
+    if(index==-2)
+    {
+        errors.push({
+            msg: 'Incorrect  password'
+        });
+    }
+    if(index== -3)
+    {
+        errors=[];
+    }
+    if(errors.length > 0) {
+        console.log("errors");
         output.errors = errors;
         
-    } else {
-        if(erroreLogin==2){
-            //erroreLogin è 2 ovvero utente trovato e password corretta
-            output.success = 'Bentornato '+username.toString()+'!'
-            req.session.loggedin = true;
-            req.session.username=username;
-            console.log('Accesso effettuato da '+username.toString()+'!');
-        }
-        
+    } else 
+    {    
+        console.log("success");
+        output.success = 'Bentornato '+user.toString()+'!'
     }
     res.json(output);
 });
-
+*/
 
 
 //AUTENTICAZIONE LOGIN CON EJS
 //uso delle sessione per salvare l' utente autenticato
 app.post('/login/auth', function(req, res) {
-	var username = req.body.Username;
-	var password = req.body.Password;
+	var user= req.body.Username;
+	var pass = req.body.Password;
+    var index=-1;
 	request2server({
-            //mettere l'url del proprio database
-            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+username, 
-            method: 'GET',
-            headers: {'content-type': 'application/json'},
-            }, function(error, response, body){
-                console.log('effettuando il login...');
-            if(error) {
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: '{"selector": { }, "fields": ["Username","Password"], "skip": 0, "execution_stats": true }'
+        }, function(error, response, body){
+            if(error){
                 console.log(error);
             }
             else 
             {
-                //se lo user non è nel db manda error 404
-                if(response.statusCode==404) {
-                    
+
+                console.log('effettuando il login...');
+                var json=JSON.parse(body);
+                //console.log(json.docs[0].Password);
+                for(i=0;i<json.docs.length;i++)
+                {
+                    if(json.docs[i].Username==user)
+                    {
+                        index=i;
+                        break;
+                    }
+                }
+                if(index==-1)
+                {
                     // Login errato
                     console.log('username not found')
                     res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Username not found' });
                 }
                 else
                 {
-                    let json = JSON.parse(body);
-                    if(json.Password==password)
-                    {   
+                    if(json.docs[index].Username==user && json.docs[index].Password==pass)
+                    {
                         //login ok 
                         //console.log(response.statusCode);
-                        console.log('Accesso effettuato da '+username.toString()+'!');
+                        console.log('Accesso effettuato da '+user.toString()+'!');
                         req.session.loggedin = true;
-                        req.session.username= json.username;
+                        req.session.username= json.docs[index].Username;
                         res.redirect('/personalArea');
                     }
                     else
@@ -186,7 +225,6 @@ app.post('/login/auth', function(req, res) {
                         res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Incorrect  password' });
                     }
                 }
-                res.end();
             }
     });
 });
@@ -318,6 +356,109 @@ app.get('/register',function(req,res){
     console.log('fornita pagina registrazione ');
 });
 
+//POST REGISTER AJAX
+app.post('/ajax/register', (req, res) => {
+    var output = {};
+    var errors = [];
+    var username=req.body.Username;
+    var erroreUsername=0;
+    var erroreEmail=0;
+
+
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+username, 
+        method: 'GET',
+        headers: {'content-type': 'application/json'},
+        }, function(error, response, body){
+        if(error) {
+            console.log(error);
+        }
+        else 
+        {
+            
+            if(!response.statusCode==404){
+                erroreUsername=1;
+                errors.push({
+                    msg: 'Username già in uso.'
+                });
+            }
+        }
+    });
+
+
+
+
+
+
+
+
+
+    //fa la richiesta al database soltanto se entrambi i campi sono compilati
+    if(validator.isEmpty(req.body.Username) || validator.isEmpty(req.body.Password) ) {
+        errors.push({
+            msg: 'Username e/o password non validi.'
+        });
+    }
+    else
+    {
+        username = req.body.Username;
+        password = req.body.Password;
+        
+        request2server({
+            //mettere l'url del proprio database
+            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+username, 
+            method: 'GET',
+            headers: {'content-type': 'application/json'},
+            }, function(error, response, body){
+            if(error) {
+                console.log(error);
+            }
+            else 
+            {
+                
+                //se lo user non è nel db manda error 404
+                if(response.statusCode==404) {
+                    erroreLogin=404;
+                    errors.push({
+                        msg: 'Username e/o password non validi.'
+                    });
+                }
+                else
+                {
+                    json = JSON.parse(body);
+                    //se la password non è corretta restituisce 1 altrimenti 2
+                    if(json.Password==password)
+                    {   
+                        erroreLogin=2;
+                        //login ok 
+                    }
+                    else
+                    {   
+                        erroreLogin=1;
+                        errors.push({
+                            msg: 'Username e/o password non validi.'
+                        });
+                    }
+                }    
+            }
+        });
+    }
+    if(errors.length > 0 || erroreLogin==404  || erroreLogin==1) {
+        output.errors = errors;
+        
+    } else {
+        if(erroreLogin==2){
+            //erroreLogin è 2 ovvero utente trovato e password corretta
+            output.success = 'Bentornato '+username.toString()+'!'
+            req.session.loggedin = true;
+            req.session.username=username;
+            console.log('Accesso effettuato da '+username.toString()+'!');
+        }
+        
+    }
+    res.json(output);
+});
 //POST REGISTER
 app.post("/registerInsert", function(req,res){
     

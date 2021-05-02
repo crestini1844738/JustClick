@@ -10,8 +10,27 @@
     <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../styles/AboutUs.css" type="text/css"> 
+    <script>
+
+         /* function unlock(el1,el2){
+            if(el1.file.size>0){
+                document.getElementById(el2).disabled=false;
+            }
+            else{
+                document.getElementById(el2).disabled='disabled';
+            }
+        } */
+    
+        function mostra(div){
+            document.getElementById(div).style.display='block';
+        }
+
+        function nascondi(div){
+            document.getElementById(div).style.display='none';
+        }
+    </script>
 </head>
-<body>
+<body onload="nascondi('b'); mostra('a');">
 
     <div class="header">
         <img src="../logo/logo_small.png" alt="JustClick">
@@ -57,20 +76,86 @@
 
 
     <!-- parte del body da modificare ognuno di noi -->
-    <h1>Carica un nuovo video</h1>
-    <div class="card" style="width: 50rem;">
-        <form class="was-validated">
-        <div class="mb-3">
-            <input type="file" enctype="multipart/form-data" accept=video/* class="form-control" aria-label="file example" required>
-            <div class="invalid-feedback">Example invalid form file feedback</div>
-        </div>
-        
-        <div class="mb-3">
-            <label for="validationTextarea" class="form-label">Titolo</label>
-            <input type="text" class="form-control is-invalid" id="validationTextarea" placeholder="Inserisci il titolo" required/>
-            <div class="invalid-feedback">
-              Per favore inserisci il titolo del corso.
+
+    <div class="row">
+        <div class="col-sm-6" id="a">
+            <div class="card">
+                <div class="card-body">
+                    <h1>Carica un nuovo corso</h1>
+                        <form class="was-validated" id="videoform">
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Inserisci il video del corso</label>
+                                <input type="file" name="video" enctype="multipart/form-data" accept="video/*" class="form-control" aria-label="file example" onclick="unlock(this,'btn1')" required>
+                                <div class="invalid-feedback">Per favore inserisci un video valido</div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="formFileMultiple" class="form-label">Inserisci immagini aggiuntive al corso</label>
+                                <input type="file" enctype="multipart/form-data" accept="image/*" class="form-control" id="formFileMultiple" multiple>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="formFileMultiple" class="form-label">Inserisci file audio aggiuntivi al corso</label>
+                                <input type="file" enctype="multipart/form-data" accept="audio/*" class="form-control" id="formFileMultiple" multiple>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="formFileMultiple" class="form-label">Inserisci appunti aggiuntivi al corso</label>
+                                <input type="file" enctype="multipart/form-data" class="form-control" id="formFileMultiple" multiple>
+                            </div>
+
+                            <div class="mb-3">
+                                <button class="btn btn-primary" type="submit" id="btn1" onclick="nascondi('a'); mostra('b')"> Carica corso</button>
+                            </div>
+
+                        </form>
+                </div>
             </div>
+        </div>
+        <div class="col-sm-6" id="b">
+            <div class="card">
+                <div class="card-body">
+                    <h1>Informazioni aggiuntive del corso</h1>
+                    <form class="was-validated">
+        
+                    <div class="mb-3">
+                        <label for="validationTextarea" class="form-label">Titolo</label>
+                        <input type="text" class="form-control is-invalid" id="validationTextarea" placeholder="Inserisci il titolo" required/>
+                        <div class="invalid-feedback">
+                            Per favore inserisci il titolo del corso.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="validationTextarea" class="form-label">Descrizione</label>
+                         <textarea class="form-control is-invalid" id="validationTextarea" placeholder="Inserisci la descrizione del corso" required></textarea>
+                        <div class="invalid-feedback">
+                            Per favore inserisci la descrizione del corso.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <select class="form-select" required aria-label="select example">
+                        <option value="">Scegli una categoria</option>
+                        <option value="1">Informatica</option>
+                        <option value="2">Moda e bellezza</option>
+                        <option value="3">Musica</option>
+                        <option value="4">Notizie</option>
+                        <option value="5">Sport</option>
+                        <option value="6">Videogiochi</option>
+                        </select>
+                    <div class="invalid-feedback">Per favore seleziona una categoria</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <button class="btn btn-primary" onclick="nascondi('b'),mostra('a')" type="submit">Invia</button>
+                    </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
           </div>
 
           <div class="mb-3">
@@ -103,9 +188,8 @@
         </form>
     </div>
 
-
       <div>
-          <h1>Ultimi video caricati</h1>
+          <h1>Ultimi corsi caricati</h1>
       </div>
 
 
