@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../styles/AboutUs.css" type="text/css"> 
     <script>
-        
+
          /* function unlock(el1,el2){
             if(el1.file.size>0){
                 document.getElementById(el2).disabled=false;
@@ -156,6 +156,36 @@
                 </div>
             </div>
         </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="validationTextarea" class="form-label">Descrizione</label>
+            <textarea class="form-control is-invalid" id="validationTextarea" placeholder="Inserisci la descrizione del corso" required></textarea>
+            <div class="invalid-feedback">
+              Per favore inserisci la descrizione del corso.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <select class="form-select" required aria-label="select example">
+              <option value="">Scegli una categoria</option>
+              <option value="1">Informatica</option>
+              <option value="2">Moda e bellezza</option>
+              <option value="3">Musica</option>
+              <option value="4">Notizie</option>
+              <option value="5">Sport</option>
+              <option value="6">Videogiochi</option>
+              <option value="7">Scuola</option>
+            </select>
+            <div class="invalid-feedback">Per favore seleziona una categoria</div>
+          </div>
+
+          <div class="mb-3">
+            <button class="btn btn-primary" type="submit" >Carica il video</button>
+          </div>
+
+
+        </form>
     </div>
 
       <div>

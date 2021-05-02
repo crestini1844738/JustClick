@@ -57,10 +57,10 @@ app.get('/AboutUs', function(req,res) {
 //GET PAGINA LOGIN
 app.get('/login',function(req,res){
     //get login se uso ajax
-    res.sendFile(__dirname + '/public/views/login.html');   
+    //res.sendFile(__dirname + '/public/views/login.html');   
 
     //get login se uso ejs
-    //res.render(__dirname + '/public/views/login.ejs', { errormessage: '' });   
+    res.render(__dirname + '/public/views/login.ejs', { errormessage: '' });   
 });
 
 
@@ -70,12 +70,323 @@ app.get('/login',function(req,res){
 
 
 
-//AUTENTICAZIONE LOGIN CON AJAX
-app.post('/ajax/login', (req, res) => {
+//AUTENTICAZIONE LOGIN CON AJAX (NON FUNZIONA DIO ******)
+/*app.post('/ajax/login', (req, res) => {
     var output = {};
     var errors = [];
-    var username;
-    var password;
+    var user;
+    var pass;
+    var index=-1;
+    //fa la richiesta al database soltanto se entrambi i campi sono compilati
+    if(validator.isEmpty(req.body.Username) || validator.isEmpty(req.body.Password) ) {
+        errors.push({
+            msg: 'Username e/o password non validi.'
+        });
+    }
+    else
+    {
+        user = req.body.Username;
+        pass = req.body.Password;
+        
+        request2server({
+            //mettere l'url del proprio database
+            url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: '{"selector": { }, "fields": ["Username","Password"], "skip": 0, "execution_stats": true }'
+            }, function(error, response, body){
+            if(error) {
+                console.log(error);
+                
+            }
+            else 
+            {
+                console.log('effettuando il login...');
+                var json=JSON.parse(body);
+                //console.log(json.docs[0].Password);
+                for(i=0;i<json.docs.length;i++)
+                {
+                    if(json.docs[i].Username==user)
+                    {
+                        index=i;
+                        break;
+                    }
+                }
+                if(index==-1) {
+                    console.log("username sbagliato");
+                    errors.push({
+                        msg: 'Username not found.'
+                    });
+                }
+                else
+                {
+                    if(json.docs[index].Username==user && json.docs[index].Password==pass)
+                    {
+                        //login ok 
+                        //console.log(response.statusCode);
+                        req.session.loggedin = true;
+                        req.session.username=user;
+                        errors=[];
+                        console.log('Accesso effettuato da '+json.docs[index].Username.toString()+'!');
+                        index=-3;
+                    }
+                    else
+                    {
+                        index=-2;
+                        console.log("password sbagliata");
+                        errors.push({
+                            msg: 'Incorrect  password'
+                        });
+                    }
+                }    
+            }
+        });
+    }
+    if(index==-1)
+    {
+        errors.push({
+            msg: 'Username not found.'
+        });
+    }
+    if(index==-2)
+    {
+        errors.push({
+            msg: 'Incorrect  password'
+        });
+    }
+    if(index== -3)
+    {
+        errors=[];
+    }
+    if(errors.length > 0) {
+        console.log("errors");
+        output.errors = errors;
+        
+    } else 
+    {    
+        console.log("success");
+        output.success = 'Bentornato '+user.toString()+'!'
+    }
+    res.json(output);
+});
+*/
+
+
+//AUTENTICAZIONE LOGIN CON EJS
+//uso delle sessione per salvare l' utente autenticato
+app.post('/login/auth', function(req, res) {
+	var user= req.body.Username;
+	var pass = req.body.Password;
+    var index=-1;
+	request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: '{"selector": { }, "fields": ["Username","Password"], "skip": 0, "execution_stats": true }'
+        }, function(error, response, body){
+            if(error){
+                console.log(error);
+            }
+            else 
+            {
+
+                console.log('effettuando il login...');
+                var json=JSON.parse(body);
+                //console.log(json.docs[0].Password);
+                for(i=0;i<json.docs.length;i++)
+                {
+                    if(json.docs[i].Username==user)
+                    {
+                        index=i;
+                        break;
+                    }
+                }
+                if(index==-1)
+                {
+                    // Login errato
+                    console.log('username not found')
+                    res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Username not found' });
+                }
+                else
+                {
+                    if(json.docs[index].Username==user && json.docs[index].Password==pass)
+                    {
+                        //login ok 
+                        //console.log(response.statusCode);
+                        console.log('Accesso effettuato da '+user.toString()+'!');
+                        req.session.loggedin = true;
+                        req.session.username= json.docs[index].Username;
+                        res.redirect('/personalArea');
+                    }
+                    else
+                    {
+                        console.log('password non valida');
+                        res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Incorrect  password' });
+                    }
+                }
+            }
+    });
+});
+
+app.get('/logout',function(req, res){
+    if (req.session) {
+        req.session.destroy();
+    }
+    if (req.session) {
+        req.session.destroy(err => {
+          if (err) {
+            res.status(400).send('Unable to log out')
+          } else {
+            res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Logout successful' });
+          }
+        });
+      } else {
+        res.end()
+      }
+});
+
+
+//area personale di ogni utente
+//accesso solo se si è loggati. Uso delle sessioni per vedere se si è loggati oppue no 
+app.get('/personalArea', function(req, res) {
+    //se si è loggati restituisci l' area personale utente altrimenti loggati
+	if (req.session.loggedin) {
+		res.send('Welcome back, ' + req.session.username + '!');
+	} else {
+		res.redirect('/login');
+	}
+	res.end();
+});
+
+//pagina corsi
+app.get('/courses', function(req,res) {
+    var username1, username2, username3, username4, username5;
+    var courseName1, courseName2, courseName3, courseName4, courseName5;
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: '{"selector": { }, "fields": ["Username","Courses"], "skip": 0, "execution_stats": true }'
+        //"limit": 2, "sort": [{"courseFollower": "asc"}],
+        }, function(error, response, body){
+            tutto = JSON.parse(body);
+            console.log(tutto.docs[1].Courses);
+        }
+    );
+
+    res.render(__dirname + '/public/views/corsi.ejs', {
+        user1: username1, coursename1: courseName1,
+        user2: username2, coursename2: courseName2,
+        user3: username3, coursename3: courseName3,
+        user4: username4, coursename4: courseName4,
+        user5: username5, coursename5: courseName5,
+    });
+});
+
+
+
+//GET CORSI
+app.get('/courses2/:user/:coursename', function(req,res) {
+    //res.sendFile(__dirname + '/public/views/courses.html');
+    var user = req.params.user;
+    var coursename = req.params.coursename;
+    var nomeCorso;
+    var follower, pubblicazioni;
+    var first, second, third;
+    var corsi;
+
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+user, 
+        method: 'GET',
+        headers: {'content-type': 'application/json'},
+        }, function(error, response, body){
+            if(error) {
+                console.log(error);
+            }
+            else 
+            {
+                //se lo user non è nel db manda error 404
+                if(response.statusCode==404) {
+                    
+                    // Login errato
+                    console.log('username not found')
+                    //res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Username not found' });
+                }
+                else
+                {
+                    console.log('caricando il corso di...'+user);
+                    let corsi = JSON.parse(body);
+                    var corso = corsi.coursename;
+                    console.log(corso);
+                    nomeCorso = corso.Courses.courseName;
+                    follower = corso.Courses.courseFollower;
+                    pubblicazioni = corso.Courses.coursePublications;
+                    first = corso.Courses.firstEvidenza;
+                    second = corso.Courses.secondEvidenza;
+                    third = corso.Courses.thirdEvidenza;
+                    corsi = corso.Courses.courses;
+                    res.render(__dirname + '/public/views/course.ejs', {
+                        username: user, courseName: nomeCorso, 
+                        courseFollower: follower, coursePublications: pubblicazioni,
+                        firstEvidenza: first, secondEvidenza: second, thirdEvidenza: third,
+                        courses: corsi
+                        }
+                    );
+                }
+            }                   
+    });
+
+    
+});
+
+
+//GET REGISTER
+app.get('/register',function(req,res){
+    res.sendFile(__dirname + '/public/views/registrazione.html');
+    console.log('fornita pagina registrazione ');
+});
+
+//POST REGISTER AJAX
+app.post('/ajax/register', (req, res) => {
+    var output = {};
+    var errors = [];
+    var username=req.body.Username;
+    var erroreUsername=0;
+    var erroreEmail=0;
+
+
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+username, 
+        method: 'GET',
+        headers: {'content-type': 'application/json'},
+        }, function(error, response, body){
+        if(error) {
+            console.log(error);
+        }
+        else 
+        {
+            
+            if(!response.statusCode==404){
+                erroreUsername=1;
+                errors.push({
+                    msg: 'Username già in uso.'
+                });
+            }
+        }
+    });
+
+
+
+
+
+
+
+
+
     //fa la richiesta al database soltanto se entrambi i campi sono compilati
     if(validator.isEmpty(req.body.Username) || validator.isEmpty(req.body.Password) ) {
         errors.push({
@@ -132,7 +443,7 @@ app.post('/ajax/login', (req, res) => {
     } else {
         if(erroreLogin==2){
             //erroreLogin è 2 ovvero utente trovato e password corretta
-            output.success = 'Ben tornato '+username.toString()+'!'
+            output.success = 'Bentornato '+username.toString()+'!'
             req.session.loggedin = true;
             req.session.username=username;
             console.log('Accesso effettuato da '+username.toString()+'!');
@@ -141,120 +452,31 @@ app.post('/ajax/login', (req, res) => {
     }
     res.json(output);
 });
-
-
-
-//AUTENTICAZIONE LOGIN CON EJS
-//uso delle sessione per salvare l' utente autenticato
-app.post('/login/auth', function(req, res) {
-	var username = req.body.Username;
-	var password = req.body.Password;
-	request2server({
-            //mettere l'url del proprio database
-            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+username, 
-            method: 'GET',
-            headers: {'content-type': 'application/json'},
-            }, function(error, response, body){
-                console.log('effettuando il login...');
-            if(error) {
-                console.log(error);
-            }
-            else 
-            {
-                //se lo user non è nel db manda error 404
-                if(response.statusCode==404) {
-                    
-                    // Login errato
-                    console.log('username not found')
-                    res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Username not found' });
-                }
-                else
-                {
-                    let json = JSON.parse(body);
-                    if(json.Password==password)
-                    {   
-                        //login ok 
-                        //console.log(response.statusCode);
-                        console.log('Accesso effettuato da '+username.toString()+'!');
-                        req.session.loggedin = true;
-                        req.session.username= json.username;
-                        res.redirect('/personalArea');
-                    }
-                    else
-                    {
-                        console.log('password non valida');
-                        res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Incorrect  password' });
-                    }
-                }
-                res.end();
-            }
-        });
-});
-
-app.get('/logout',function(req, res){
-    if (req.session) {
-        req.session.destroy();
-    }
-    if (req.session) {
-        req.session.destroy(err => {
-          if (err) {
-            res.status(400).send('Unable to log out')
-          } else {
-            res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Logout successful' });
-          }
-        });
-      } else {
-        res.end()
-      }
-});
-
-
-//area personale di ogni utente
-//accesso solo se si è loggati. Uso delle sessioni per vedere se si è loggati oppue no 
-app.get('/personalArea', function(req, res) {
-    //se si è loggati restituisci l' area personale utente altrimenti loggati
-	if (req.session.loggedin) {
-		res.send('Welcome back, ' + req.session.username + '!');
-	} else {
-		res.redirect('/login');
-	}
-	res.end();
-});
-
-//GET CORSI
-app.get('/courses', function(req,res) {
-    //res.sendFile(__dirname + '/public/views/courses.html');
-    var user = 'Valerio';
-    var nomeCorso = 'Corso di prova'
-    var follower = 0; var pubblicazioni = 0;
-    var first = 'Primo contenuto!', second = 'Secondo!', third = 'Titolo';
-    var corsi = [ ["corso1","ciao"], ["corso2","ciaone"], ["corso3","ciaonissimo"]];
-    res.render(__dirname + '/public/views/course.ejs', {
-                                                        username: user, courseName: nomeCorso, 
-                                                        courseFollower: follower, coursePublications: pubblicazioni,
-                                                        firstEvidenza: first, secondEvidenza: second, thirdEvidenza: third,
-                                                        courses: corsi
-                                                        });
-});
-
-
-//GET REGISTER
-app.get('/register',function(req,res){
-    
-    res.sendFile(__dirname + '/public/views/registrazione.html');
-    console.log('fornita pagina registrazione ');
-});
-
 //POST REGISTER
 app.post("/registerInsert", function(req,res){
     
+    var msg=    '{ "Username":"'+req.body.Username+
+                '","Name":"'+req.body.Name+
+                '","Surname":"'+req.body.Surname+
+                '" ,"Date":"'+req.body.Date+
+                '","Email":"'+req.body.Email+
+                '","Password":"'+req.body.Password+
+                '","Courses": { }'+
+                '  }';
+
+    //corso vuoto
+    /*  '{ "courseName": "",'+
+        '"courseFollower": 0, "coursePublications": 0,'+
+        '"firstEvidenza": [], "secondEvidenza": [], "thirdEvidenza": [], "courses": [] }'+
+        '  }';*/
+
     console.log(req.body);
     request2server({
         //mettere l'url del proprio database
         url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.Username, 
         method: 'PUT',
         headers: {'content-type': 'application/json'},
-        body: '{ "Username":"'+req.body.Username+'","Name":"'+req.body.Name+'","Surname":"'+req.body.Surname+'" ,"Date":"'+req.body.Date+'","Email":"'+req.body.Email+'","Password":"'+req.body.Password+'"   }'
+        body: msg
         //body: JSON.stringify(body1)
     }, function(error, response, body){
         if(error) {
