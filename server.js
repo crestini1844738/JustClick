@@ -452,6 +452,7 @@ app.post('/ajax/register', (req, res) => {
     }
     res.json(output);
 });
+
 //POST REGISTER
 app.post("/registerInsert", function(req,res){
     
@@ -485,26 +486,6 @@ app.post("/registerInsert", function(req,res){
         else 
         {
             res.sendFile(__dirname + '/public/views/index.html');
-            /*
-            //per scrivere html su nodejs https://www.nodeacademy.it/restituire-pagine-html-un-server-node-js/
-            res.writeHead(200,{"Content-Type":"text/html"});
-            res.write('<!DOCTYPE html>'+
-            '<html>'+
-                '<head>'+     
-                    '<title> Project_X - Success!</title>'+
-                    '<meta charset="utf-8" />'+
-                    '<meta name="viewport" content="width=device-width, initial-scale=1"/>'+
-                    '<link rel="stylesheet" type="text/css" href="http://127.0.0.1:5500/css/bootstrap.min.css"/>'+
-                    '<script type="text/javascript" lang="javascript" src="http://127.0.0.1:5500/js/bootstrap.bundle.min.js"></script>'+
-                '</head>'+
-                '<body class="text-center">'+
-                    '<h1>SUCCESS</h1>'+
-                    '<br>'+
-                    '<img class="mb-4" src="http://127.0.0.1:5500/img.svg" alt="" width="1000" height="800" />'+
-                '</body>'+
-            '</html>');
-            
-            res.end();*/
             console.log(response.statusCode, body);
         }
     });
