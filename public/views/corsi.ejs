@@ -7,6 +7,7 @@
     <script type="text/javascript" lang="javascript" src="../js/bootstrap.min.js"></script> 
     <link rel=stylesheet href="../styles/index.css" type="text/css">
     <link rel=stylesheet href="../styles/courses.css" type="text/css">
+    <link rel=stylesheet href="../styles/corsi.css" type="text/css">
     <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../styles/AboutUs.css" type="text/css"> 
@@ -32,13 +33,13 @@
                 <a class="nav-link fw-bold" href="http://localhost:8889/login">LOGIN</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link fw-bold" href="http://localhost:8889/courses">COURSES</a>
+                <a class="nav-link active fw-bold" href="#">COURSES</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link fw-bold" href="http://localhost:8889/AboutUs">ABOUT US</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle active fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   PROFILO
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -57,24 +58,83 @@
 
 
     <!-- parte del body da modificare ognuno di noi -->
-    
+    <div class="center">
+      <h1>Categorie</h1>
+      <div class="row">
+        <div class="col categoria informatica bds text-center" > 
+          <a href="#">       
+            <h2> INFORMATICA </h2>
+            <!--<img src="../img/default_school.png" class="img-fluid" alt="JustClick"> -->
+          </a>  
+        </div>
+        <div class="col categoria informatica bds text-center" > 
+          <a href="#">       
+            <h2> MODA & BELLEZZA </h2>
+            <!--<img src="../img/default_school.png" class="img-fluid" alt="JustClick"> -->
+          </a>  
+        </div>
+        <div class="col categoria informatica bds text-center" > 
+          <a href="#">       
+            <h2> MUSICA </h2>
+            <!--<img src="../img/default_school.png" class="img-fluid" alt="JustClick"> -->
+          </a>  
+        </div>
+        <div class="col categoria informatica bds text-center" > 
+          <a href="#">       
+            <h2> NOTIZIE </h2>
+            <!--<img src="../img/default_school.png" class="img-fluid" alt="JustClick"> -->
+          </a>  
+        </div>
+      </div>
+      <div class="row">
+        <div class="col categoria informatica bds text-center" > 
+          <a href="#">       
+            <h2> SPORT </h2>
+            <!--<img src="../img/default_school.png" class="img-fluid" alt="JustClick"> -->
+          </a>  
+        </div>
+        <div class="col categoria informatica bds text-center" > 
+          <a href="#">       
+            <h2> VIDEOGIOCHI </h2>
+            <!--<img src="../img/default_school.png" class="img-fluid" alt="JustClick"> -->
+          </a>  
+        </div>
+        <div class="col categoria informatica bds text-center" > 
+          <a href="#">
+            <h2> SCUOLA </h2>
+            <!--<img src="../img/default_school.png" class="img-fluid" alt="JustClick"> -->
+          </a>  
+        </div>
+        <div class="col categoria informatica bds text-center" > 
+          <a href="#">       
+            <h2> POPOLARI </h2>
+            <!--<img src="../img/default_school.png" class="img-fluid" alt="JustClick"> -->
+          </a>  
+        </div>
+      </div>
+      
+    </div>
+
+
+
+
     <div class="row">
       <div class="col">
-        <a href="http://localhost:8889/courses2/<%= user1 %>/<%= coursename1 %>"><%= coursename1 %> </a>
+        <a href="http://localhost:8889/courses2/<%= user1 %>?coursename=<%= coursename1 %>"><%= coursename1 %> </a>
       </div>
       <div class="col">
-        <a href="http://localhost:8889/courses2/<%= user2 %>/<%= coursename2 %>"><%= coursename2 %> </a>
+        <a href="http://localhost:8889/courses2/<%= user2 %>?coursename=<%= coursename2 %>"><%= coursename2 %> </a>
       </div>
       <div class="col">
-        <a href="http://localhost:8889/courses2/<%= user3 %>/<%= coursename3 %>"><%= coursename3 %> </a>
+        <a href="http://localhost:8889/courses2/<%= user3 %>?coursename=<%= coursename3 %>"><%= coursename3 %> </a>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <a href="http://localhost:8889/courses2/<%= user4 %>/<%= coursename4 %>"><%= coursename4 %> </a>
+        <a href="http://localhost:8889/courses2/<%= user4 %>?coursename=<%= coursename4 %>"><%= coursename4 %> </a>
       </div>
       <div class="col">
-        <a href="http://localhost:8889/courses2/<%= user5 %>/<%= coursename5 %>"><%= coursename5 %> </a>
+        <a href="http://localhost:8889/courses2/<%= user5 %>?coursename=<%= coursename5 %>"><%= coursename5 %> </a>
       </div>
     </div>
 

@@ -261,41 +261,48 @@ app.get('/personalArea', function(req, res) {
 
 //pagina corsi
 app.get('/courses', function(req,res) {
-    var username1, username2, username3, username4, username5;
-    var courseName1, courseName2, courseName3, courseName4, courseName5;
+    var username = [];
+    var courseName = [];
     request2server({
         //mettere l'url del proprio database
         url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
-        body: '{"selector": { }, "fields": ["Username","Courses"], "skip": 0, "execution_stats": true }'
+        body: '{"selector": { }, "fields": ["Username","Courses.names"], "skip": 0, "execution_stats": true }'
         //"limit": 2, "sort": [{"courseFollower": "asc"}],
         }, function(error, response, body){
             tutto = JSON.parse(body);
-            console.log(tutto.docs[1].Courses);
+            console.log(tutto.docs);
+            for(var i=0; i<tutto.docs.length; i++) {                
+                username[i] = tutto.docs[i].Username;
+                courseName[i] = tutto.docs[i].Courses.names[0];
+            }
+
+            res.render(__dirname + '/public/views/corsi.ejs', {
+                user1: username[0], coursename1: courseName[0],
+                user2: username[1], coursename2: courseName[1],
+                user3: username[2], coursename3: courseName[2],
+                user4: username[3], coursename4: courseName[3],
+                user5: username[4], coursename5: courseName[4],
+            });
         }
     );
 
-    res.render(__dirname + '/public/views/corsi.ejs', {
-        user1: username1, coursename1: courseName1,
-        user2: username2, coursename2: courseName2,
-        user3: username3, coursename3: courseName3,
-        user4: username4, coursename4: courseName4,
-        user5: username5, coursename5: courseName5,
-    });
+    
 });
 
 
 
 //GET CORSI
-app.get('/courses2/:user/:coursename', function(req,res) {
-    //res.sendFile(__dirname + '/public/views/courses.html');
-    var user = req.params.user;
-    var coursename = req.params.coursename;
+app.get('/courses2/:num', function(req,res) {
+    var user = req.params.num;
+    var coursename = req.query.coursename;
+    //var user = req.params.userk;
+    //var coursename = req.params.coursename;
     var nomeCorso;
     var follower, pubblicazioni;
-    var first, second, third;
-    var corsi;
+    var first, second, third = [];
+    var materiali = [];
 
     request2server({
         //mettere l'url del proprio database
@@ -312,34 +319,34 @@ app.get('/courses2/:user/:coursename', function(req,res) {
                 if(response.statusCode==404) {
                     
                     // Login errato
-                    console.log('username not found')
+                    console.log(response.statusMessage);
                     //res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Username not found' });
                 }
                 else
                 {
                     console.log('caricando il corso di...'+user);
-                    let corsi = JSON.parse(body);
-                    var corso = corsi.coursename;
+                    let tutto = JSON.parse(body);
+                    var corsi = tutto.Courses;
+                    var corso = corsi.Corso0; //da cambiare
                     console.log(corso);
-                    nomeCorso = corso.Courses.courseName;
-                    follower = corso.Courses.courseFollower;
-                    pubblicazioni = corso.Courses.coursePublications;
-                    first = corso.Courses.firstEvidenza;
-                    second = corso.Courses.secondEvidenza;
-                    third = corso.Courses.thirdEvidenza;
-                    corsi = corso.Courses.courses;
+                    nomeCorso = corso.courseName;
+                    follower = corso.courseFollower;
+                    pubblicazioni = corso.coursePublications;
+                    first = corso.firstEvidenza;
+                    second = corso.secondEvidenza;
+                    third = corso.thirdEvidenza;
+                    materiali = corso.courses;
+                    
                     res.render(__dirname + '/public/views/course.ejs', {
                         username: user, courseName: nomeCorso, 
                         courseFollower: follower, coursePublications: pubblicazioni,
                         firstEvidenza: first, secondEvidenza: second, thirdEvidenza: third,
-                        courses: corsi
+                        courses: materiali
                         }
                     );
                 }
-            }                   
-    });
-
-    
+            } 
+    });    
 });
 
 
