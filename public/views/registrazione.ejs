@@ -59,7 +59,7 @@
     <div class="row">
         <div class="leftcolumn">
             <div class="text-center">
-                <form action="http://localhost:8889/registerInsert" class="form-Register"  method="post" name="registration" onsubmit="return formValidationRegister()">
+                <form action="http://localhost:8889/register/auth class="form-Register"  method="post" name="registration" onsubmit="return formValidationRegister()">
                     <div class="form-inner">
                      <h3>Registrazione</h3> 
                       
@@ -81,16 +81,7 @@
                       <pippo>Sei già registrato? <a href="http://localhost:8889/login">Accedi</a></pippo>
                       <br>
                       <br>
-                      <div  id=errorMessage></div>
-                      <script type="text/javascript">
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      </script>
+                      <p class="alert alert-danger"></p><%= errormessage %></p>
                     </div>
                  </form>
 
