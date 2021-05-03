@@ -1,0 +1,40 @@
+.div-info {
+    margin:0 auto 0;
+    width: 400px;
+    height: 200px;
+    background: rgb(66, 66, 66);
+    transition: width 2s, height 4s;
+  }
+  
+.div-info:hover {
+    width: 400px;
+    height: 400px;
+  }
+.div-info-center {
+    margin:0 auto 0;
+    width: 200px;
+    height: 200px;
+    background: rgb(66, 66, 66);
+    transition: width 2s, height 4s;
+  }
+  
+.div-info-center:hover {
+    width: 400px;
+    height: 400px;
+  }
+
+.table{
+    position: relative;
+    
+}
+
+.div-info-text {
+    position: relative;
+    padding-left: 50px;
+    margin-top: 10px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 26px;
+    text-transform: uppercase;
+  }
