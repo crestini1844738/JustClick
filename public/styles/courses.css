@@ -8,17 +8,44 @@
   color: white;
   padding: 30px;
   background-color: rgb(179, 231, 235);
-  background-image: url("../img/sfondo1.png");
   background-size:100% 65%;
   background-repeat: no-repeat;
   background-position: top;
 }
 
+.Informatica {
+  background-image: url("../img/categoryImgs/Informatica_cover.jpeg");
+}
+
+.Musica {
+  background-image: url("../img/categoryImgs/Musica_cover.jpeg");
+}
+
+.Notizie {
+  background-image: url("../img/categoryImgs/Notizie_cover.jpeg");
+}
+
+.Sport {
+  background-image: url("../img/categoryImgs/Sport_cover.jpeg");
+}
+
+.Videogiochi {
+  background-image: url("../img/categoryImgs/Videogiochi_cover.jpeg");
+}
+
+.Scuola {
+  background-image: url("../img/categoryImgs/Scuola_cover.jpeg");
+}
+
+.Moda {
+  background-image: url("../img/categoryImgs/Moda_cover.jpeg");
+}
+
 .profileimage {
   margin-top: 70px;
-  height: 500px;
-  width: 500px;
-  border-radius: 250px;
+  height: 450px;
+  width: 450px;
+  border-radius: 225px;
   margin-left: 30%;
   margin-right: 30%;
 }
