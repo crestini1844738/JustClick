@@ -1,0 +1,304 @@
+//CORSO 1
+
+{
+  "_id": "InformaticGeek",
+  "_rev": "1-9dd3a074118c403e4d841041ee698b6c",
+  "courseName": "InformaticGeek",
+  "author": "prova1",
+  "category": "Informatica",
+  "courseFollower": 102,
+  "coursePublications": 3,
+  "firstEvidenza": [
+    "primoMbanana"
+  ],
+  "secondEvidenza": [
+    "volevo farti un regalo... qualcosa di dolce... qualcosa diiii raro... eeeeeeee"
+  ],
+  "thirdEvidenza": [
+    "non un comune regalo"
+  ],
+  "courses": [
+    [
+      "primoMateriale",
+      "banana"
+    ],
+    [
+      "secondo",
+      "volevo farti un regalo... qualcosa di dolce... qualcosa diiii raro... eeeeeeee"
+    ],
+    [
+      "non un comune regalo",
+      "ciao poverih"
+    ]
+  ]
+}
+
+
+//CORSO 2
+
+{
+  "_id": "LastNews",
+  "_rev": "2-753a9393303d6183f2d7d2328e712d10",
+  "author": "prova3",
+  "courseName": "LastNews",
+  "category": "Notizie",
+  "courseFollower": 1024567,
+  "coursePublications": 3039493,
+  "firstEvidenza": [
+    "primoMbanana"
+  ],
+  "secondEvidenza": [
+    "volevo farti un regalo... qualcosa di dolce... qualcosa diiii raro... eeeeeeee"
+  ],
+  "thirdEvidenza": [
+    "non un comune regalo"
+  ],
+  "courses": [
+    [
+      "primoMateriale",
+      "banana"
+    ],
+    [
+      "secondo",
+      "volevo farti un regalo... qualcosa di dolce... qualcosa diiii raro... eeeeeeee"
+    ],
+    [
+      "non un comune regalo",
+      "ciao poverih"
+    ],
+    [
+      "",
+      ""
+    ],
+    [
+      "ne farò",
+      "più di 10"
+    ],
+    [
+      "6",
+      "tgf"
+    ],
+    [
+      "7",
+      "sdjndlcncsodubvn eoirsvn"
+    ],
+    [
+      "8",
+      "ciaosickocm"
+    ],
+    [
+      "akssndnjncj",
+      "ah 9 scus"
+    ],
+    [
+      "questo è l'ultimo!",
+      "10....il prossimo non si dovrebbe vedere..."
+    ],
+    [
+      "11",
+      "io non mi vedo!"
+    ]
+  ]
+}
+
+
+//CORSO 3
+
+{
+  "_id": "Musically",
+  "_rev": "1-d2bc69e1a63de09c0a5bbd4e91d6fec0",
+  "author": "prova2",
+  "courseName": "Musically",
+  "category": "Musica",
+  "courseFollower": 999,
+  "coursePublications": 37,
+  "firstEvidenza": [
+    "caccos"
+  ],
+  "secondEvidenza": [
+    "volsncsdjkcnsdjeeee"
+  ],
+  "thirdEvidenza": [
+    "non un comune regalc ncxjcndjo"
+  ],
+  "courses": [
+    [
+      "primoMateriale",
+      "banana"
+    ]
+  ]
+}
+
+
+//CORSO 4
+
+{
+  "_id": "Ripetizioni",
+  "_rev": "2-ac1e476b676c5cb5495acce421acff29",
+  "author": "Valerio",
+  "courseName": "Ripetizioni",
+  "category": "Scuola",
+  "courseFollower": 0,
+  "coursePublications": 0,
+  "firstEvidenza": [],
+  "secondEvidenza": [],
+  "thirdEvidenza": [],
+  "courses": []
+}
+
+
+//CORSO 5
+
+{
+  "_id": "SchoolRocks",
+  "_rev": "2-df338c5116a025b82d2fd0785c2c2640",
+  "author": "prova4",
+  "courseName": "SchoolRocks",
+  "category": "Scuola",
+  "courseFollower": 102,
+  "coursePublications": 3,
+  "firstEvidenza": [
+    "primoMbanana"
+  ],
+  "secondEvidenza": [
+    "volevo farti un regalo... qualcosa di dolce... qualcosa diiii raro... eeeeeeee"
+  ],
+  "thirdEvidenza": [
+    "non un comune regalo"
+  ],
+  "courses": [
+    [
+      "primoMateriale",
+      "banana"
+    ],
+    [
+      "secondo",
+      "volevo farti un regalo... qualcosa di dolce... qualcosa diiii raro... eeeeeeee"
+    ],
+    [
+      "non un comune regalo",
+      "ciao poverih"
+    ]
+  ]
+}
+
+//CORSO 6
+
+{
+  "_id": "YvesRocher",
+  "_rev": "1-13fb8428e5303a259ff4aba17a1e657b",
+  "author": "prova5",
+  "courseName": "YvesRocher",
+  "category": "Moda e bellezza",
+  "courseFollower": 102,
+  "coursePublications": 3,
+  "firstEvidenza": [
+    "primoMbanana"
+  ],
+  "secondEvidenza": [
+    "volevo farti un regalo... qualcosa di dolce... qualcosa diiii raro... eeeeeeee"
+  ],
+  "thirdEvidenza": [
+    "non un comune regalo"
+  ],
+  "courses": [
+    [
+      "primoMateriale",
+      "banana"
+    ],
+    [
+      "secondo",
+      "volevo farti un regalo... qualcosa di dolce... qualcosa diiii raro... eeeeeeee"
+    ],
+    [
+      "non un comune regalo",
+      "ciao poverih"
+    ]
+  ]
+}
+
+//PERSONE DI PROVA
+
+{
+  "_id": "prova1",
+  "_rev": "13-99bd57d68f4b77df1f828b16b569b44c",
+  "Username": "prova1",
+  "Name": "valerio",
+  "Surname": "deluca",
+  "Date": "2021-04-07",
+  "Email": "123@prova.it",
+  "Password": "HdHxj8viy5Zv6BT",
+  "Courses": [
+    "InformaticGeek"
+  ]
+}
+
+{
+  "_id": "prova2",
+  "_rev": "10-bf3ded733d0b38cb0082f222df1bf361",
+  "Username": "prova2",
+  "Name": "valerio",
+  "Surname": "deluca",
+  "Date": "2021-04-07",
+  "Email": "123@prova.it",
+  "Password": "HdHxj8viy5Zv6BT",
+  "Courses": [
+    "Musically"
+  ]
+}
+
+{
+  "_id": "prova3",
+  "_rev": "10-9a6d66952aeda85cc909b636747446d9",
+  "Username": "prova3",
+  "Name": "valerio",
+  "Surname": "deluca",
+  "Date": "2021-04-07",
+  "Email": "123@prova.it",
+  "Password": "HdHxj8viy5Zv6BT",
+  "Courses": [
+    "LastNews"
+  ]
+}
+
+{
+  "_id": "prova4",
+  "_rev": "10-81a7c546c1e9cb6a9f02a768b5e7fd36",
+  "Username": "prova4",
+  "Name": "valerio",
+  "Surname": "deluca",
+  "Date": "2021-04-07",
+  "Email": "123@prova.it",
+  "Password": "HdHxj8viy5Zv6BT",
+  "Courses": [
+    "SchoolRocks"
+  ]
+}
+
+{
+  "_id": "prova5",
+  "_rev": "10-7887ae7c77278b81f2c227be3681d7fb",
+  "Username": "prova5",
+  "Name": "valerio",
+  "Surname": "deluca",
+  "Date": "2021-04-07",
+  "Email": "123@prova.it",
+  "Password": "HdHxj8viy5Zv6BT",
+  "Courses": [
+    "YvesRocher"
+  ]
+}
+
+{
+  "_id": "Valerio",
+  "_rev": "2-9f611343feba5328d736fd26fffcb8a3",
+  "Username": "Valerio",
+  "Name": "valerio",
+  "Surname": "deluca",
+  "Date": "2021-04-07",
+  "Email": "123@prova.it",
+  "Password": "HdHxj8viy5Zv6BT",
+  "Courses": [
+    "Ripetizioni"
+  ]
+}

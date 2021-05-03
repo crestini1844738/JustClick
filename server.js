@@ -256,12 +256,19 @@ app.get('/logout',function(req, res){
 app.get('/personalArea', function(req, res) {
     //se si è loggati restituisci l' area personale utente altrimenti loggati
 	if (req.session.loggedin) {
-		res.send('Welcome back, ' + req.session.username + '!');
+		console.log('Welcome back, ' + req.session.username + '!');
+        res.sendFile('/public/views/profilo.html');
 	} else {
 		res.redirect('/login');
 	}
 	res.end();
 });
+
+//GET GESTISCI ACCOUNT
+app.get('/manageAccount', function(req,res) {
+    res.sendFile(__dirname+'/public/views/profilo.html');
+});
+
 
 //pagina corsi
 app.get('/courses', function(req,res) {
