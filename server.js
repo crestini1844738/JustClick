@@ -210,7 +210,7 @@ app.post('/login/auth', function(req, res) {
                 {
                     // Login errato
                     console.log('username not found')
-                    res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Username not found' });
+                    res.status(401).render(__dirname + '/public/views/login.ejs', { errormessage: 'Username not found' });
                 }
                 else
                 {
@@ -226,7 +226,7 @@ app.post('/login/auth', function(req, res) {
                     else
                     {
                         console.log('password non valida');
-                        res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Incorrect  password' });
+                        res.status(401).render(__dirname + '/public/views/login.ejs', { errormessage: 'Incorrect  password' });
                     }
                 }
             }
@@ -478,7 +478,6 @@ app.post('/register/auth', function(req, res) {
                 '  }';
     
 	request2server({
-        //mettere l'url del proprio database
         url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
@@ -491,43 +490,50 @@ app.post('/register/auth', function(req, res) {
             {
 
                 console.log('controllo registrazione...');
+                var errReg=0;
                 var json=JSON.parse(body);
-                console.log(json.docs);
-                for(i=0;i<json.docs.length;i++)
+                for(i=0;i<json.docs.length && errReg!=1 && errReg!=2;i++)
                 {
-                    if(json.docs[i].Username==user)
-                    {
-                        console.log('username già in uso')
-                        res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: 'Username gia utilizzato' });
-                    }
-                    if(json.docs[i].Email==email)
-                    {
-                        console.log('Email già in uso')
-                        
-                        res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: 'Email gia utilizzata' });
-                    }
+
+                    if(json.docs[i].Username==user) errReg=1;
+                    if(json.docs[i].Email==email) errReg=2;
+                }
+                if(errReg==1 )
+                {
+                    console.log(errReg,' username già in uso');
+                    output={   err: 'ERR', msg: 'Username gia in uso'};
+                    res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: output });
+                }
+                if(errReg==2)
+                {
+                    console.log(errReg, 'Email già in uso')
+                    output={   err: 'ERR', msg: 'Email gia in uso'};
+                    res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: output });
+                }
+                //se email e username non sono di alcun utente posso procedere con la registrazione
+                if(errReg==0)
+                {
+                    request2server({
+                        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+user, 
+                        method: 'PUT',
+                        headers: {'content-type': 'application/json'},
+                        body: msg
+                    }, function(error, response, body){
+                        if(error) {
+                            console.log(error);
+                        }
+                        else 
+                        {
+                            console.log("New user: ",user);
+                            output={   err: 'OK', msg: 'Registrazione avvenuta con successo'};
+                            res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: output });
+                        }
+                    });
                 }
                 
             }
     });
-    //se email e username non sono di alcun utente posso procedere con la registrazione
-    request2server({
-        //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.Username, 
-        method: 'PUT',
-        headers: {'content-type': 'application/json'},
-        body: msg
-        //body: JSON.stringify(body1)
-    }, function(error, response, body){
-        if(error) {
-            console.log(error);
-        }
-        else 
-        {
-            console.log("utente registrato");
-            res.redirect('/login');
-        }
-    });
+    
     
 });
 
