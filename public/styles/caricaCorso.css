@@ -1,0 +1,19 @@
+.card-body{
+    color:rgb(0, 89, 255);
+    border: 5px solid blue;
+    box-shadow: 10px 10px 5px blue;
+    border-radius: 10px;
+    width: 550px;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 60px;
+    background-color: white;
+}
+
+.center{
+    background-color: rgb(179,231,235);
+}
+
+h1{
+    font-family: "Arial Black";
+}
