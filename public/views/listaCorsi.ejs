@@ -8,6 +8,7 @@
     <link rel=stylesheet href="../styles/index.css" type="text/css">
     <link rel=stylesheet href="../styles/courses.css" type="text/css">
     <link rel=stylesheet href="../styles/listaCorsi.css" type="text/css">
+    <link rel=stylesheet href="../styles/corsi.css" type="text/css">
     <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 </head>
@@ -63,17 +64,25 @@
 
 
     <!-- parte del body da modificare ognuno di noi -->
-    <div class="center">
-    <% for( let i = 0; i < corsi.length; i++ ) { %>
+    <div class="row">
+      <div class="center">
+      <% for( let i = 0; i < corsi.length; i++ ) { %>
         <% var course = corsi[i] %> 
-        <div class="ListCard">
-            <a href="http://localhost:8889/courses2/<%= course.courseName %>"><%= course.courseName %> </a>
-            <img src="../img/courseImgs/<%= course.author %>_<%= course.courseName %>.png " class="ListImage" alt="JustClick">
-            <h1>Created by <%= course.author %> </h1>
+        <div class="ListCard Listbds <%= course.category %> ">
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              <img src="../img/courseImgs/<%= course.author %>_<%= course.courseName %>.png " class="ListImage Listbds" alt="JustClick">
+            </div>
+            <div class="p-2 flex-grow-1 w-100 align-self-center">
+              <a href="http://localhost:8889/courses2/<%= course.courseName %>"><%= course.courseName %> </a>           
+              <h3>Created by <%= course.author %> </h3>  
+              <h3>Followers: <%= course.courseFollower %> </h3>
+              <h3>Publications: <%= course.coursePublications %>  </h3>
+            </div>
+          </div>       
         </div>
-    <% } %>
-    
-       
+      <% } %>
+      </div>
     </div>
 
     
