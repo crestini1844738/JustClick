@@ -464,7 +464,7 @@ app.post('/ajax/register', (req, res) => {
 
 
 //POST REGISTRAZIONE E CONTROLLO CON EJS
-//non ci possone registrare utenti con stesso username o email
+//non si possono registrare utenti con stesso username o email
 app.post('/register/auth', function(req, res) {
 	var user= req.body.Username;
 	var email = req.body.Email;
@@ -492,19 +492,19 @@ app.post('/register/auth', function(req, res) {
 
                 console.log('controllo registrazione...');
                 var json=JSON.parse(body);
+                console.log(json.docs);
                 for(i=0;i<json.docs.length;i++)
                 {
                     if(json.docs[i].Username==user)
                     {
                         console.log('username già in uso')
-                        
-                        res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Username gia utilizzato' });
+                        res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: 'Username gia utilizzato' });
                     }
                     if(json.docs[i].Email==email)
                     {
                         console.log('Email già in uso')
                         
-                        res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Email gia utilizzata' });
+                        res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: 'Email gia utilizzata' });
                     }
                 }
                 
