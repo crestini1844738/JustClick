@@ -54,13 +54,15 @@
     box-shadow: 10px 10px 5px rgb(207, 110, 207);
 }
 
-.categoria h2{
-    font-size: 30px;
+.center h2{
+    font-size: 50px;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color:white;
+    color:black;
     font-weight:bolder;
+    margin-top: 0px;
+    margin-bottom: 30px;
     text-align: center;
-    margin-top: 50px;
+    padding: 30px;
 }
 
 .categoria img{
