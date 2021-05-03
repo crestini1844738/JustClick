@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active fw-bold" aria-current="page" href="#">HOME</a>
+              <a class="nav-link active fw-bold" aria-current="page" href="http://localhost:8889/">HOME</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -34,7 +34,7 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="http://localhost:8889/login">Accedi</a></li>
-                <li><a class="dropdown-item" href="http://localhost:8889/register">Registarti</a></li>
+                <li><a class="dropdown-item" href="http://localhost:8889/register">Registati</a></li>
               </ul>
             </li>
 
@@ -92,7 +92,7 @@
                       <% } %>
                       
                         <label for="Username">Username*</label>
-                        <input type="text" name="Username"   required />
+                        <input type="text" name="Username" placeholder="6-15 caratteri"  required />
                         <label for="Name">Nome*</label>
                         <input type="text" name="Name"   required/>
                         <label for="Surname">Cognome*</label>
@@ -101,8 +101,8 @@
                         <input type="date" name="Date"   required/>
                         <label for="Email">E-mail*</label>
                         <input type="email" name="Email"  placeholder="123@prova.it" required/>
-                        <label for="Password">Password*<h4>(Utilizzare lettere maiuscole,minuscole e numeri)</h4></label>
-                        <input type="password" name="Password"   required/>
+                        <label for="Password">Password*</label>
+                        <input type="password" name="Password" placeholder="Utilizzare lettere maiuscole,minuscole e numeri"  required/>
                         <input type="checkbox" id="custom-checkbox" required/>
                         <label for="custom-checkbox">Con la seguente si accettano i termini e condizioni. </label>
                         <input type="submit" value="Inviare" onclick="formValidationRegister()">
