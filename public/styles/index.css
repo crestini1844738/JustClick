@@ -90,6 +90,8 @@
   .leftcolumn {   
     float: left;
     width: 75%;
+    
+    background-image: url("../img/sfondoindex.png");
   }
   
   /* Right column */
