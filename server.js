@@ -263,29 +263,10 @@ app.get('/personalArea', function(req, res) {
 	res.end();
 });
 
+
 //pagina corsi
 app.get('/courses', function(req,res) {
     res.sendFile(__dirname+'/public/views/corsi.html');
-    /*var courseName = [];
-    request2server({
-        //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
-        method: 'POST',
-        headers: {'content-type': 'application/json'},
-        body: '{"selector": { "courseName":{"$gt":null} }, "fields": ["courseName"], "skip": 0, "execution_stats": true }'
-        //"limit": 2, "sort": [{"courseFollower": "asc"}],
-        }, function(error, response, body){
-            tutto = JSON.parse(body);
-            //console.log(tutto);
-            for(var i=0; i<tutto.docs.length; i++) {  
-                courseName[i] = tutto.docs[i].courseName;
-            }
-
-            res.render(__dirname + '/public/views/corsi.ejs', {
-                //
-            });
-        }
-    );*/
 });
 
 
@@ -552,11 +533,6 @@ app.post("/registerInsert", function(req,res){
                 '","Courses": { }'+
                 '  }';
 
-    //corso vuoto
-    /*  '{ "courseName": "",'+
-        '"courseFollower": 0, "coursePublications": 0,'+
-        '"firstEvidenza": [], "secondEvidenza": [], "thirdEvidenza": [], "courses": [] }'+
-        '  }';*/
 
     console.log(req.body);
     request2server({
