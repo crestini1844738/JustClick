@@ -5,97 +5,97 @@
 }
 
 .coverimage {
-    color: white;
-    padding: 30px;
-    background-color: rgb(179, 231, 235);
-    background-image: url("../img/sfondo1.png");
-    background-size:100% 65%;
-    background-repeat: no-repeat;
-    background-position: top;
-  }
+  color: white;
+  padding: 30px;
+  background-color: rgb(179, 231, 235);
+  background-image: url("../img/sfondo1.png");
+  background-size:100% 65%;
+  background-repeat: no-repeat;
+  background-position: top;
+}
 
-  .profileimage {
-    margin-top: 70px;
-    height: 500px;
-    width: 500px;
-    border-radius: 250px;
-    margin-left: 30%;
-    margin-right: 30%;
-  }
+.profileimage {
+  margin-top: 70px;
+  height: 500px;
+  width: 500px;
+  border-radius: 250px;
+  margin-left: 30%;
+  margin-right: 30%;
+}
 
-  .profilebds{
-    border-style:solid;
-    border-width: 10px;
-    border-radius: 250px;
-    border-color: white;
-  }
+.profilebds{
+  border-style:solid;
+  border-width: 10px;
+  border-radius: 250px;
+  border-color: white;
+}
 
-  .profilename{
-    font-size:60px;
-    font-style: italic;
-    font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
-    color:black;
-  }
+.profilename{
+  font-size:60px;
+  font-style: italic;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color:black;
+}
 
-  .modify{
-    height: 50px;
-    width: 50px;
-    border-radius: 25px;
-    margin-left: 20%;
-  }
+.modify{
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  margin-left: 20%;
+}
 
-  .center h1{
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bolder;
-    font-size:35px;
-    color:blue;
-  }
+.center h1{
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+  font-size:35px;
+  color:blue;
+}
 
-  .content-row {
-    padding: 70px 7%;
-    max-width: 100%;
-  }
+.content-row {
+  padding: 70px 7%;
+  max-width: 100%;
+}
 
-  .sized-card{
-    max-width: 30rem;
-    padding: 0px;
-  }
+.sized-card{
+  max-width: 30rem;
+  padding: 0px;
+}
 
-  .bds{
-    border-style:ridge;
-    border-radius: 20px;
-    border-color: blue;
-    border-width: thick;
-    width: 20px;
-  }
+.bds{
+  border-style:ridge;
+  border-radius: 20px;
+  border-color: blue;
+  border-width: thick;
+  width: 20px;
+}
 
-  .courses{
-    width: 75%;
-    height: 300px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    background-color: deepskyblue;
-    margin-left: 12.5%;
-    margin-right: 12.5%;
-    margin-top: 70px;
-    margin-bottom: 70px;
-  }
+.courses{
+  width: 75%;
+  height: 300px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background-color: deepskyblue;
+  margin-left: 12.5%;
+  margin-right: 12.5%;
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
 
-  .courses h2{
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    color:black;
-    font-weight: bold;
-  }
+.courses h2{
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color:black;
+  font-weight: bold;
+}
 
-  .courses img{
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
+.courses img{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
-  .switchcourses{
-    margin-left: 12.5%;
-    padding-bottom: 50px;
-  }
+.switchcourses{
+  margin-left: 12.5%;
+  padding-bottom: 50px;
+}
 
