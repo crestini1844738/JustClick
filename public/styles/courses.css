@@ -1,5 +1,5 @@
 .center{
-  background-color: rgb(179, 231, 235);
+  background-color: rgb(66,66,66);
   padding: 0px;
   margin:0px;
 }
@@ -7,7 +7,7 @@
 .coverimage {
   color: white;
   padding: 30px;
-  background-color: rgb(179, 231, 235);
+  background-color: rgb(66,66,66);
   background-size:100% 65%;
   background-repeat: no-repeat;
   background-position: top;
