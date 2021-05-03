@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <script type="text/javascript" lang="javascript" src="../js/bootstrap.min.js"></script> 
     <link rel=stylesheet href="../styles/index.css" type="text/css">
-    <link rel=stylesheet href="../styles/courses.css" type="text/css">
     <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="../styles/AboutUs.css" type="text/css"> 
+    <link rel=stylesheet href="../styles/caricaCorso.css" type="text/css">
 </head>
 <body>
 
@@ -63,9 +62,11 @@
 
 
     <!-- parte del body da modificare ognuno di noi -->
-    <form class="was-validated" onsubmit="window.close();" method="GET" {
-        
-    }>
+    <div class="row">
+    <div class="center">
+    <div class="card-body">
+        <h1>Completa il tuo corso</h1>
+    <form class="was-validated" onsubmit="window.close();" method="GET">
         <div class="mb-3">
             <label for="formFile" class="form-label">Inserisci il video del corso</label>
             <input type="file" name="video" enctype="multipart/form-data" accept="video/*" class="form-control" aria-label="file example" required>
@@ -91,7 +92,21 @@
             <button class="btn btn-primary" type="submit" id="btn1" onclick="return confirm('Grazie per aver inserito i tuoi dati, dopo aver confermato questa pagina verrà chiusa. Sei sicuro di voler continuare?');"> Carica corso</button>
         </div>
 
+        
+
     </form>
+    <nav class="pagina">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" >1</a></li>
+            <li class="page-item active" aria-current="page">
+                <a class="page-link">2</a>
+            </li>
+        </ul>
+    </nav>
+    </div>
+    </div>
+    </div>
+
 
 
 
