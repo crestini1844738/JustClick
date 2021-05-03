@@ -63,8 +63,8 @@
         <div class="coverimage">
             <div class="text-center">
                 <!-- immagine circolare con bordo-->
-                <img src="../img/courseImgs/<%= username %>_<%= courseName %>.png " class="profilebds profileimage" alt="JustClick">
-                <div class="profilename"><%= courseName %></div>
+                <img src="../img/courseImgs/<%= course.author %>_<%= course.courseName %>.png " class="profilebds profileimage" alt="JustClick">
+                <div class="profilename"><%= course.courseName %></div>
             </div>
         </div>
     
@@ -72,10 +72,10 @@
         <div class="container">
             <div class="row">
                 <div class="col text-center">
-                    <h1> Follower: <%= courseFollower %> </h1> 
+                    <h1> Follower: <%= course.courseFollower %> </h1> 
                 </div>
                 <div class="col text-center">
-                    <h1> Pubblicazioni: <%= coursePublications %> </h1> 
+                    <h1> Pubblicazioni: <%= course.coursePublications %> </h1> 
                 </div>
             </div>
     
@@ -98,7 +98,7 @@
                     <div class="card-header text-dark bg-primary mb-3">Titolo</div>
                     <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
                     <div class="card-body text-primary">
-                      <h5 class="card-title"><%= firstEvidenza %> </h5>
+                      <h5 class="card-title"><%= course.firstEvidenza %> </h5>
                       <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
                     </div>
                   </div>
@@ -109,7 +109,7 @@
                     <div class="card-header text-dark bg-primary mb-3">Titolo</div>
                     <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
                     <div class="card-body text-primary">
-                      <h5 class="card-title"><%= secondEvidenza %></h5>
+                      <h5 class="card-title"><%= course.secondEvidenza %></h5>
                       <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
                     </div>
                   </div>
@@ -120,7 +120,7 @@
                     <div class="card-header text-dark bg-primary mb-3">Titolo</div>
                     <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
                     <div class="card-body text-primary">
-                      <h5 class="card-title"><%= thirdEvidenza %></h5>
+                      <h5 class="card-title"><%= course.thirdEvidenza %></h5>
                       <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
                     </div>
                   </div>
@@ -130,16 +130,16 @@
  
         <!-- elenco dei corsi-->
         <% let it %> 
-        <% if (courses.length < 10) { %>
-          <% it= courses.length %> 
+        <% if (course.courses.length < 10) { %>
+          <% it= course.courses.length %> 
         <% } else { %>
          <% it= 10 %> 
         <% } %>
         <% for( let index = 0; index < it; index++ ) { %>
           <div class="courses bds text-center" >          
-            <h2> <%= courses[index][0] %>  <span class="badge rounded-pill bg-success">NEW!</span></h2>
+            <h2> <%= course.courses[index][0] %>  <span class="badge rounded-pill bg-success">NEW!</span></h2>
             <img src="../img/default_school.png" class="img-fluid" alt="JustClick">
-            <h5 class="card-text"><%= courses[index][1] %> </h5>
+            <h5 class="card-text"><%= course.courses[index][1] %> </h5>
           </div>
         <% } %>
 

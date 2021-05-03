@@ -1,24 +1,57 @@
 .bds{
-    border-style: ridge;
+    border-style:solid;
     border-radius: 20px;
-    border-color: black;
-    border-width: thick;
+    border-width: thin;
     width: 20px;
 }
 
 .categoria{
     width: 20%;
-    height: 250px;
-    padding-bottom: 10px;
-    padding-top: 10px;
     margin-left: 2.5%;
     margin-right: 2.5%;
     margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+    background-size: 100% 250px;
 }
 
 .informatica{
-    background-image: url("../img/sfondo1.png");
+    border-color: blue;
+    box-shadow: 10px 10px 5px blue;
+}
+
+.moda{
+    border-color: purple;
+    box-shadow: 10px 10px 5px rgb(121, 20, 151);
+}
+
+.musica{
+    border-color: rgb(202, 25, 25);
+    box-shadow: 10px 10px 5px rgb(119, 12, 4);
+}
+
+.notizie{
+    border-color: peachpuff;
+    box-shadow: 10px 10px 5px rgb(247, 191, 142);
+}
+
+.sport{
+    border-color: black;
+    box-shadow: 10px 10px 5px rgb(2, 1, 7);
+}
+
+.videogiochi{
+    border-color: orange;
+    box-shadow: 10px 10px 5px rgb(223, 131, 26);
+}
+
+.scuola{
+    border-color: greenyellow;
+    box-shadow: 10px 10px 5px rgb(60, 184, 56);
+}
+
+.popolari{
+    border-color: purple;
+    box-shadow: 10px 10px 5px rgb(207, 110, 207);
 }
 
 .categoria h2{
@@ -30,6 +63,9 @@
     margin-top: 50px;
 }
 
-/*.categoria img{
-    height: 100px;
-}*/
+.categoria img{
+    width: 100%;
+    height: 250px;
+    background-size: 100% 250px;
+    padding: 0px;
+}
