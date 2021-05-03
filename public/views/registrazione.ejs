@@ -28,9 +28,18 @@
             <li class="nav-item">
               <a class="nav-link active fw-bold" aria-current="page" href="#">HOME</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link fw-bold" href="http://localhost:8889/login">LOGIN</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                LOGIN
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="http://localhost:8889/login">Accedi</a></li>
+                <li><a class="dropdown-item" href="http://localhost:8889/register">Registarti</a></li>
+              </ul>
             </li>
+
+
+
             <li class="nav-item">
               <a class="nav-link fw-bold" href="http://localhost:8889/courses">COURSES</a>
             </li>
@@ -59,29 +68,47 @@
     <div class="row">
         <div class="leftcolumn">
             <div class="text-center">
-                <form action="http://localhost:8889/register/auth" class="form-Register"  method="post" name="registration" onsubmit="return formValidationRegister()">
+                <form action="http://localhost:8889/register/auth" class="form-Register"  method="post" name="registration" >
                     <div class="form-inner">
                      <h3>Registrazione</h3> 
+                     <% if (errormessage) { %>
+                      <% switch (errormessage.err) { 
+                        case 'ERR' : %>
+                        
+                            <p class="alert alert-danger mt-4"> 
+                              <strong>Ops!</strong> <%= errormessage.msg%>
+                            </p>
+                            <% break;
+                        case 'OK' : %>
+                           
+                            <p class="alert alert-success mt-4">
+                            
+                            <strong>Well done!</strong> <%= errormessage.msg%> 
+                            <br>
+                            <a href="http://localhost:8889/login">Vai al login!</a>
+                            </p>
+                            <% break;
+                        } %>
+                      <% } %>
                       
-                      <label for="Username">Username</label>
-                      <input type="text" name="Username"   required />
-                      <label for="Name">Nome</label>
-                      <input type="text" name="Name"   required/>
-                      <label for="Surname">Cognome</label>
-                      <input type="text" name="Surname"  required/>
-                      <label for="Date">Data di nascita</label>
-                      <input type="date" name="Date"   required/>
-                      <label for="Email">E-mail</label>
-                      <input type="email" name="Email"  placeholder="123@prova.it" required/>
-                      <label for="Password">Password</label>
-                      <input type="password" name="Password"   required/>
-                      <input type="checkbox" id="custom-checkbox" required/>
-                      <label for="custom-checkbox">Con la seguente si accettano i termini e condizioni. </label>
-                      <input type="submit" value="Inviare">
-                      <pippo>Sei già registrato? <a href="http://localhost:8889/login">Accedi</a></pippo>
-                      <br>
-                      <br>
-                      <p class="alert alert-danger"></p><%= errormessage %></p>
+                        <label for="Username">Username*</label>
+                        <input type="text" name="Username"   required />
+                        <label for="Name">Nome*</label>
+                        <input type="text" name="Name"   required/>
+                        <label for="Surname">Cognome*</label>
+                        <input type="text" name="Surname"  required/>
+                        <label for="Date">Data di nascita*</label>
+                        <input type="date" name="Date"   required/>
+                        <label for="Email">E-mail*</label>
+                        <input type="email" name="Email"  placeholder="123@prova.it" required/>
+                        <label for="Password">Password*<h4>(Utilizzare lettere maiuscole,minuscole e numeri)</h4></label>
+                        <input type="password" name="Password"   required/>
+                        <input type="checkbox" id="custom-checkbox" required/>
+                        <label for="custom-checkbox">Con la seguente si accettano i termini e condizioni. </label>
+                        <input type="submit" value="Inviare" onclick="formValidationRegister()">
+                        <pippo>Sei già registrato? <a href="http://localhost:8889/login">Accedi</a></pippo>
+                      
+                      
                     </div>
                  </form>
 
@@ -89,25 +116,6 @@
             </div>
 
         </div>
-        <div class="rightcolumn">
-            <div class="card">
-                <h2>About Me..</h2>
-                <div class="fakeimg" style="height:100px;">Image</div>
-                <p>Some text..</p>
-            </div>
-            <div class="card">
-                <h3>Popular Post</h3>
-                <div class="fakeimg"><p>Image</p></div>
-                <div class="fakeimg"><p>Image</p></div>
-                <div class="fakeimg"><p>Image</p></div>
-            </div>
-            <div class="card">
-                <h3>Follow Me</h3>
-                <p>Some text..</p>
-            </div>
-        </div>
-    </div>
-
     <footer>
       <h2>Seguici sui nostri canali social</h2>
       <a href="#" class="fa fa-facebook"></a>

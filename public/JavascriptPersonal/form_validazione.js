@@ -17,8 +17,7 @@ function formValidationRegister()
                 { 
                     if(email_validation(email))
                     {
-                        alert("Registrazione avvenuta con successo");
-                        return true
+                        return true;
                     } 
                 }
             }
@@ -35,7 +34,7 @@ function username_validation(uid,mx,my)
 var uid_len = uid.value.length;
 if (uid_len == 0 || uid_len >= my || uid_len < mx)
 {
-alert("Username Id should not be empty / length be between "+mx+" to "+my);
+alert("Username deve avere dai "+mx+" ai "+my+"caratteri");
 uid.focus();
 return false;
 }
@@ -46,18 +45,10 @@ return true;
 //validazione password
 function password_validation(passid,mx,my)
 {
-/*var passid_len = passid.value.length;
-if (passid_len == 0 ||passid_len >= my || passid_len < mx )
-{
-alert("Password should not be empty / length be between "+mx+" to "+my);
-passid.focus();
-return false;
-}
-*/
     var exp=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
     if(!passid.value.match(exp))
     {
-        alert("La password deve contenere minimo otto caratteri, almeno una lettera maiuscola, una lettera minuscola e un numero.");
+        alert("La password deve avere almeno otto caratteri,una lettera maiuscola, una lettera minuscola e un numero.");
         passid.focus();
         return false;
     }
@@ -93,7 +84,7 @@ function email_validation(uemail)
     }
     else
     {
-        alert("You have entered an invalid email address!");
+        alert("Indirizzo email non valido");
         uemail.focus();
         return false;
     }
