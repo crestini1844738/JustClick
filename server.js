@@ -582,6 +582,10 @@ app.post('/carica', function(req,res) {
         res.sendFile(__dirname + '/public/php/myform.html');
 });
 
+app.get('/course4', function(req,res) {
+    console.log("ciao");
+});
+
 
 app.listen(8889);
 console.log('Server running at port 8889');
