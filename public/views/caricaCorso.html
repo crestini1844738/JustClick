@@ -72,65 +72,82 @@
 
 
     <!-- parte del body da modificare ognuno di noi -->
-    <div class="row">
-    <div class="center">
-        <div class="card-body">
-                    <h1>Carica un nuovo corso</h1>
-                    <form class="was-validated" onsubmit="window.open('../views/caricaInfo.html');" method="GET">
-        
-                    <div class="mb-3">
-                        <label for="validationTextarea" class="form-label">Titolo</label>
-                        <input type="text" class="form-control is-invalid" id="validationTextarea" placeholder="Inserisci il titolo" required/>
-                        <div class="invalid-feedback">
-                            Per favore inserisci il titolo del corso.
-                        </div>
-                    </div>
 
-                    <div class="mb-3">
-                        <label for="validationTextarea" class="form-label">Descrizione</label>
-                         <textarea class="form-control is-invalid" id="validationTextarea" placeholder="Inserisci la descrizione del corso" required></textarea>
-                        <div class="invalid-feedback">
-                            Per favore inserisci la descrizione del corso.
-                        </div>
-                    </div>
+<div class="card" id="zonaDinamica">
+  <h1>Carica un nuovo corso</h1>
+  <div class="progress">
+    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+  </div>
 
-                    <div class="mb-3">
-                        <select class="form-select" required aria-label="select example">
-                        <option value="">Scegli una categoria</option>
-                        <option value="1">Informatica</option>
-                        <option value="2">Moda e bellezza</option>
-                        <option value="3">Musica</option>
-                        <option value="4">Notizie</option>
-                        <option value="5">Scuola</option>
-                        <option value="6">Sport</option>
-                        <option value="7">Videogiochi</option>
-                        </select>
-                    <div class="invalid-feedback">Per favore seleziona una categoria</div>
-                    </div>
+<form action="#" name="formprova">
+  <div class="mb-3">
+  <label for="validationTextarea" class="form-label">Titolo</label>
+    <input class="form-control" type="text" id="validationTextarea" placeholder="Inserisci il titolo" required/>
+    </div>
+    <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Descrizione</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Inserisci la descrizione del corso" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+    <select class="form-select" name="opt" aria-label="Default select example">
+      <option selected>Seleziona una categoria</option>
+      <option value="1">Informatica</option>
+      <option value="2">Moda e bellezza</option>
+      <option value="3">Musica</option>
+      <option value="4">Notizie</option>
+      <option value="5">Scuola</option>
+      <option value="6">Sport</option>
+      <option value="7">Videogiochi</option>
+    </select>
+    </div>
+    <button class="btn btn-primary" type="button" id="ciao">Carica Corso</button>
+</form>
+</div>
 
-                    <div class="mb-3">
-                        <button class="btn btn-primary" type="submit">Carica corso</button>
-                    </div>
+<script>
+    var bottone = document.getElementById("ciao");
+    var titolo = document.formprova.titolo;
+    var descrizione = document.formprova.desc;
+    var opzioni = document.formprova.opt;
+    bottone.onclick = myFunction;
+    //bottone.onmouseenter= boh;
 
+    function myFunction(e) { 
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = gestisciResponse;
+        httpRequest.open("GET", "caricaInfo.html", true);
+        httpRequest.send();
+        var httpRequest2 = new XMLHttpRequest();
+        //httpRequest.setRequestHeader("{'content-type': 'application/json'}", '{ "Username":"'+titolo+'"}');
+        httpRequest2.open("GET", "http://localhost:8889/course4", true);
+        httpRequest2.send();
+        //document.getElementById("demo").innerHTML = "Hello JavaScript!";
+    }
 
-                    </form>
-                    <nav class="pagina">
-                        <ul class="pagination">
-                            <li class="page-item active" aria-current="page">
-                                <a class="page-link">1</a>
-                            <li class="page-item"><a class="page-link" >2</a></li>
+    function gestisciResponse(e) {
+        if(e.target.readyState == XMLHttpRequest.DONE && e.target.status == 200) {
+            document.getElementById("zonaDinamica").innerHTML = e.target.responseText;
+        }
+    }
+
+    /*function boh(e) {
+        var lclcl = document.getElementById("djdhd");
+        bottone.style.color = "red";
+        //alert("io non vengo usata");
+    } */
+
+    function validaForm() {
+        var invio = document.getElementById("invio");
+        //invio.style.color = "blue";
+        if(titolo.value.length == 0) alert("oooo");
+    }
+</script>
+    
+                  
+
                             
-                            </li>
-                        </ul>
-                    </nav>
-        </div>
 
-      <div>
-          <h1>Ultimi corsi caricati</h1>
-      </div>
-    </div>
-    </div>
-
+       
       
 
     
