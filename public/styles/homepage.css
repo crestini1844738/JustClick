@@ -42,7 +42,7 @@ overflow: hidden;
 
 .diagonal-box-right {
   float: right;
-	background-image: linear-gradient(45deg, #89d624de, #57522d);
+	background-image: linear-gradient(45deg, #fb922fde, #57522d);
  
   transform: skewX(-11deg);
   margin: 10px;
@@ -186,7 +186,40 @@ overflow: hidden;
 
 
 .popolari{
-    float: center;
-    
-    background-image: url("../img/sfondoindex.png");
+  height: 400px;
+  width: auto;
+  border: 4px solid rgb(61, 60, 60);
+}
+
+
+
+.card {
+  float:left;
+  margin-left: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card button:hover {
+  opacity: 0.7;
 }
