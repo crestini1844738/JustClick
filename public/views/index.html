@@ -9,7 +9,7 @@
     <link rel=stylesheet href="../styles/homepage.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
-    <script src="/lib/jquery-1.12.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
     
 </head>
 <body>
@@ -20,48 +20,12 @@
         
     </div>
 
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-blue">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active fw-bold" aria-current="page" href="#">HOME</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  LOGIN
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="/login">Accedi</a></li>
-                  <li><a class="dropdown-item" href="/register">Registarti</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link fw-bold" href="/courses">COURSES</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link fw-bold" href="/AboutUs">ABOUT US</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  PROFILO
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="/manageAccount">Gestisci account</a></li>
-                  <li><a class="dropdown-item" href="/personalArea">Il mio account</a></li>
-                </ul>
-              </li>
-            </ul>
-            <form class="d-flex" action="/search" method="GET">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn  btn-outline-light" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-      </nav>
+    <div id="nav-bar-placeholder"></div>
+    <script>
+      $(function(){
+      $("#nav-bar-placeholder").load("../views/navbar.html");
+      });
+    </script>
 
 
     <!-- parte del body da modificare ognuno di noi -->
@@ -91,20 +55,24 @@
         
                         
 
-
+        <br>
 
         <div class="popolari">
-            <div class="areapopolari">
-            <div class="div-info-text">Corsi più popolari</div>
-            
-            <table class="table">
-            <tr>
-              <td><div class="div-info">Valerio salame</div></td>
-              <td><div class="div-info"></div></td>
-              <td><div class="div-info"></div></td>
-              <td><div class="div-info"></div></td>
-            </tr>
-            </table>
+          <p>popolari</p>
+          <div class="card">
+            <img src="jeans3.jpg" alt="Denim Jeans" style="width:100%">
+            <h1>Tailored Jeans</h1>
+            <p class="price">$19.99</p>
+            <p>Some text about the jeans..</p>
+            <p><button>Vai al corso</button></p>
+          </div>
+          <div class="card">
+            <img src="jeans3.jpg" alt="Denim Jeans" style="width:100%">
+            <h1>Tailored Jeans</h1>
+            <p class="price">$19.99</p>
+            <p>Some text about the jeans..</p>
+            <p><button>Vai al corso</button></p>
+          </div> 
           </div>
         </div>
             <!--
