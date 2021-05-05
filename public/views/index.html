@@ -19,14 +19,55 @@
         <img src="../logo/logo_small.png" alt="JustClick">
         
     </div>
-
+    <!--
     <div id="nav-bar-placeholder"></div>
     <script>
       $(function(){
       $("#nav-bar-placeholder").load("../views/navbar.html");
       });
-    </script>
-
+    </script>-->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-blue" id="1">
+      <div class="container-fluid" id="2">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active fw-bold" aria-current="page" href="#" id="home">HOME</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                LOGIN
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/login">Accedi</a></li>
+                <li><a class="dropdown-item" href="/register">Registarti</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold" href="/courses">COURSES</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold" href="/AboutUs">ABOUT US</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                PROFILO
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/manageAccount">Gestisci account</a></li>
+                <li><a class="dropdown-item" href="/personalArea">Il mio account</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="d-flex" action="../php/myform.html">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn  btn-outline-light" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
 
     <!-- parte del body da modificare ognuno di noi -->
     
@@ -114,15 +155,14 @@
 
 
     
-    <footer>
-        <h2>Seguici sui nostri canali social</h2>
-        <a href="#" class="fa fa-facebook"></a>
-        <a href="#" class="fa fa-instagram"></a>
-        <a href="#" class="fa fa-youtube"></a>
-        <a href="#" class="fa fa-twitter"></a>
-        <h2 class="logo">JustClick</h2>
-        <div class="text-center">JustClick Copyright &copy; 2021 - Piattaforma tutorial </div>
-    </footer>
+    
+
+    <div id="footer"></div>
+    <script>
+      $(function(){
+      $("#footer").load("../views/footer.html");
+      });
+    </script>
 
 </body>
 </html>
