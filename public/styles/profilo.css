@@ -19,3 +19,8 @@ h3{
 .card{
     width: 100%;
 }
+
+.card-title{
+    font-family: 'Arial Black';
+    text-align: center;
+}
