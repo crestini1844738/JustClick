@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" lang="javascript" src="../JavascriptPersonal/invioDati.js"></script>
+</head>
+<body>
+
+<h1>My First JavaScript</h1>
+
+<p>JavaScript can change the content of an HTML element:</p>
+
+<button type="button" id="ciao">Click Me!</button>
+
+<div id="zonaDinamica">
+<form action="#" name="formprova">
+    <input type="text" id="titolo" name="titolo" placeholder="Titolo">   
+    <input type="text" id="desc" name="desc" placeholder="Descrizione">  
+    <input type="text" id="opt" name="opt" placeholder="Opzioni">  
+</form>
+</div>
+
+<script>
+    var bottone = document.getElementById("ciao");
+    var titolo = document.formprova.titolo;
+    var descrizione = document.formprova.desc;
+    var opzioni = document.formprova.opt;
+    bottone.onclick = myFunction;
+    bottone.onmouseenter= boh;
+
+    function myFunction(e) { 
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = gestisciResponse;
+        httpRequest.open("GET", "prova.html", true);
+        httpRequest.send();
+        var httpRequest2 = new XMLHttpRequest();
+        //httpRequest.setRequestHeader("{'content-type': 'application/json'}", '{ "Username":"'+titolo+'"}');
+        httpRequest2.open("GET", "http://localhost:8889/course4", true);
+        httpRequest2.send();
+        //document.getElementById("demo").innerHTML = "Hello JavaScript!";
+    }
+
+    function gestisciResponse(e) {
+        if(e.target.readyState == XMLHttpRequest.DONE && e.target.status == 200) {
+            document.getElementById("zonaDinamica").innerHTML = e.target.responseText;
+        }
+    }
+
+    function boh(e) {
+        var lclcl = document.getElementById("djdhd");
+        bottone.style.color = "red";
+        //alert("io non vengo usata");
+    }
+
+    function validaForm() {
+        var invio = document.getElementById("invio");
+        invio.style.color = "blue";
+        if(titolo.value.length == 0) alert("oooo");
+    }
+</script>
+
+</body>
+</html>

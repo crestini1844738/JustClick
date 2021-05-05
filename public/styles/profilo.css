@@ -1,0 +1,27 @@
+#user{
+    font-size:200px;
+    color: white;
+    text-align: center;
+    margin: auto;
+    display: inline-block;
+    text-decoration: none;
+    margin-left: 130px;
+}
+
+#profilo{
+    background-color: #00bfff;
+}
+
+h3{
+    color: white;
+    text-align: center;
+}
+
+.card{
+    width: 100%;
+}
+
+.card-title{
+    font-family: 'Arial Black';
+    text-align: center;
+}
