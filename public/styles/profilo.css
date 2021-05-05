@@ -1,0 +1,21 @@
+#user{
+    font-size:200px;
+    color: white;
+    text-align: center;
+    margin: auto;
+    display: inline-block;
+    text-decoration: none;
+}
+
+#profilo{
+    background-color: #00bfff;
+}
+
+h3{
+    color: white;
+    text-align: center;
+}
+
+.card{
+    width: 100%;
+}

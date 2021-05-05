@@ -108,7 +108,7 @@
     var bottone = document.getElementById("ciao");
     var titolo = document.formprova.titolo;
     var descrizione = document.formprova.desc;
-    var opzioni = document.formprova.opt;
+    var opzioni = document.formprova.opt.options[document.formprova.opt.selectedIndex];
     bottone.onclick = myFunction;
     //bottone.onmouseenter= boh;
 
@@ -165,3 +165,23 @@
 
 </body>
 </html>
+
+
+var titolo = document.formprova.titolo.value;
+var options = document.formprova.opt.options[document.formprova.opt.selectedIndex].value;
+if((titolo =="") || (titolo == "undefined")){
+  alert("Il campo titolo è obbligatorio");
+  document.formprova.titolo.focus();
+  return false;
+}
+else if((opt =="") || (opt="undefined")){
+  alert("Il campo categoria è obbligatorio");
+  document.modulo.opt.focus();
+  return false;
+}
+else{
+  //invio form al sever
+}
+
+
+
