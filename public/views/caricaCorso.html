@@ -108,20 +108,37 @@
     var bottone = document.getElementById("ciao");
     var titolo = document.formprova.titolo;
     var descrizione = document.formprova.desc;
-    var opzioni = document.formprova.opt.options[document.formprova.opt.selectedIndex];
+    var opzioni = document.formprova.opt.selectedIndex;
     bottone.onclick = myFunction;
     //bottone.onmouseenter= boh;
 
     function myFunction(e) { 
+      var titolo = document.formprova.titolo.value;
+      var options = document.formprova.opt.options[document.formprova.opt.selectedIndex];
+      if((titolo =="") || (titolo == "undefined")){
+        alert("Il campo titolo è obbligatorio");
+        document.formprova.titolo.focus();
+        return false;
+      }
+      else if(opzioni == 0){
+        alert("Il campo categoria è obbligatorio");
+        document.modulo.opt.focus();
+        return false;
+      }
+      else{
+        alert(opzioni);
         var httpRequest = new XMLHttpRequest();
         httpRequest.onreadystatechange = gestisciResponse;
-        httpRequest.open("GET", "caricaInfo.html", true);
+        httpRequest.open("GET", "/caricaInfo", true);
         httpRequest.send();
         var httpRequest2 = new XMLHttpRequest();
         //httpRequest.setRequestHeader("{'content-type': 'application/json'}", '{ "Username":"'+titolo+'"}');
-        httpRequest2.open("GET", "http://localhost:8889/course4", true);
-        httpRequest2.send();
+       // httpRequest2.open("GET", "/course4", true);
+        //httpRequest2.send();
         //document.getElementById("demo").innerHTML = "Hello JavaScript!";
+      }
+    
+      
     }
 
     function gestisciResponse(e) {
@@ -140,6 +157,10 @@
         var invio = document.getElementById("invio");
         //invio.style.color = "blue";
         if(titolo.value.length == 0) alert("oooo");
+        else {
+          httpRequest2.open("GET", "/course4", true);
+        httpRequest2.send();
+        }
     }
 </script>
     
