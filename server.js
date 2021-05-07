@@ -595,20 +595,70 @@ app.post("/registerInsert", function(req,res){
 const fileupload = require('express-fileupload');
 app.use(fileupload());
 app.post('/carica', function(req,res) {
-        if(!req.files) console.log('error 400: nessuna immagine selezionata');
-        else if(req.files.image.size > 50000) console.log('immagine troppo grande');
-        else {
-            if(req.files.image.mimetype!='image/jpeg' && req.files.image.mimetype!='image/jpg' && req.files.image.mimetype!='image/png' &&
-            req.files.image.mimetype!='image/gif' && req.files.image.mimetype!='image/svg+xml' ) 
-                console.log('formato immagine non valido');
-            else {
-                req.files.image.name = 'banana.png';
-                req.files.image.mv(__dirname+'/public/img/profileImgs/'+req.files.image.name, function(err) {
-                    if(err) return res.status(500).send(err);
-                });
-                console.log('file uploaded!');
-            }
+        var user = "ignoto";
+        var pubblicazioni = 0;
+        var materiale = "";
+        var loaded = "not loaded";
+        if(!req.files) {
+            loaded = "not loaded";
         }
+        else {
+            if(req.files.image) {
+                loaded = "loaded";
+            }
+            if(req.files.materiale) {
+                pubblicazioni++;
+                materiale = '["' +req.files.materiale.name+ '","'+req.body.descMateriale+'"]';
+            }
+
+            if(!req.files.image) {
+                console.log('error 400: nessuna immagine selezionata');
+                loaded = "not loaded";
+    
+            }
+            else if(req.files.image.size > 50000) console.log('immagine troppo grande');
+            else {
+                if(req.files.image.mimetype!='image/jpeg' && req.files.image.mimetype!='image/jpg' && req.files.image.mimetype!='image/png' &&
+                req.files.image.mimetype!='image/gif' && req.files.image.mimetype!='image/svg+xml' ) 
+                    console.log('formato immagine non valido');
+                else {
+                    req.files.image.name = user+'_'+req.body.titolo+'.png';
+                    req.files.image.mv(__dirname+'/public/img/courseImgs/'+req.files.image.name, function(err) {
+                        if(err) return res.status(500).send(err);
+                    });
+                    console.log('file uploaded!');
+                }
+            }
+
+        }
+        
+        console.log(req.body);
+        //creazione corso
+        var msg=    '{ "courseName":"'+req.body.titolo+
+                '","author":"'+user+
+                '","image":"'+loaded+
+                '","category":"'+req.body.opt+
+                '" ,"courseFollower": 0'+
+                ',"coursePublications": '+pubblicazioni+
+                ',"firstEvidenza":[], "secondEvidenza": [], "thirdEvidenza": []'+
+                ',"courses": [' +materiale+ ']'+
+                '  }';
+
+        request2server({
+            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.titolo, 
+            method: 'PUT',
+            headers: {'content-type': 'application/json'},
+            body: msg
+        }, function(error, response, body){
+            if(error) {
+                console.log(error);
+            }
+            else 
+            {
+                console.log("ce l'abbiamo fatta!");
+            }
+        });
+
         res.sendFile(__dirname + '/public/php/myform.html');
 });
 
