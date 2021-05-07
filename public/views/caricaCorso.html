@@ -9,16 +9,6 @@
     <link rel=stylesheet href="../styles/caricaCorso.css" type="text/css"> 
     <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/> 
-    <!-- <script>
-    
-        function mostra(div){
-            document.getElementById(div).style.display='block';
-        }
-
-        function nascondi(div){
-            document.getElementById(div).style.display='none';
-        }
-    </script> -->
 </head>
 <body>
 
@@ -73,14 +63,13 @@
 
     <!-- parte del body da modificare ognuno di noi -->
 
-
+  <div class="card">
   <h1>Carica un nuovo corso</h1>
   <div class="progress">
     <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
   </div>
 
 <form action="#" name="formprova">
-  <div class="card" id="zonaDinamica">
   <div class="mb-3">
   <label for="validationTextarea" class="form-label">Titolo</label>
     <input class="form-control" name="titolo" type="text" id="validationTextarea" placeholder="Inserisci il titolo"/>
@@ -101,64 +90,27 @@
       <option value="7">Videogiochi</option>
     </select>
     </div>
-    <button class="btn btn-primary" type="button" id="ciao">Prosegui</button>
-    </div>
+    <div class="mb-3">
+      <label for="formFile" class="form-label">Inserisci l'immagine di profilo del corso</label>
+      <input type="file" accept="image/*" name="image" class="form-control" id="image">
+  </div>
+
+  <div class="mb-3">
+      <label for="formFileMultiple" class="form-label">Inserisci il materiale del corso (video, immagini, appunti, ecc.)</label>
+      <input type="file" class="form-control" name="materiale" id="materiale">
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Inserisci la descrizione relativa al materiale</label>
+    <textarea class="form-control" name="descMateriale" id="descMateriale" placeholder="Inserisci la descrizione" rows="3"></textarea>
+  </div>
+
+  <div class="mb-3">
+      <input class="btn btn-primary" type="submit" id="invio" value="Carica corso" onclick="return validaForm()">
+  </div>
+
 </form>
-
-
-<script>
-    var bottone = document.getElementById("ciao");
-    var titolo = document.formprova.titolo;
-    var descrizione = document.formprova.desc;
-    var opzioni = document.formprova.opt.selectedIndex;
-    bottone.onclick = myFunction;
-    //bottone.onmouseenter= boh;
-
-    function myFunction(e) { 
-      var titolo = document.formprova.titolo.value;
-      var options = document.formprova.opt.options[document.formprova.opt.selectedIndex];
-      if((titolo =="") || (titolo == "undefined")){
-        alert("Il campo titolo è obbligatorio");
-        document.formprova.titolo.focus();
-        return false;
-      }
-      else {
-        var httpRequest = new XMLHttpRequest();
-        httpRequest.onreadystatechange = gestisciResponse;
-        httpRequest.open("GET", "/caricaInfo", true);
-        httpRequest.send();
-        var httpRequest2 = new XMLHttpRequest();
-        //httpRequest.setRequestHeader("{'content-type': 'application/json'}", '{ "Username":"'+titolo+'"}');
-       // httpRequest2.open("GET", "/course4", true);
-        //httpRequest2.send();
-        //document.getElementById("demo").innerHTML = "Hello JavaScript!";
-      }
-    
-      
-    }
-
-    function gestisciResponse(e) {
-        if(e.target.readyState == XMLHttpRequest.DONE && e.target.status == 200) {
-            document.getElementById("zonaDinamica").innerHTML = e.target.responseText;
-        }
-    }
-
-    /*function boh(e) {
-        var lclcl = document.getElementById("djdhd");
-        bottone.style.color = "red";
-        //alert("io non vengo usata");
-    } */
-
-    function validaForm() {
-        var invio = document.getElementById("invio");
-        //invio.style.color = "blue";
-        if(titolo.value.length == 0) alert("oooo");
-        else {
-          httpRequest2.open("GET", "/course4", true);
-        httpRequest2.send();
-        }
-    }
-</script>
+</div>
     
                   
 
@@ -182,23 +134,4 @@
 
 </body>
 </html>
-
-
-var titolo = document.formprova.titolo.value;
-var options = document.formprova.opt.options[document.formprova.opt.selectedIndex].value;
-if((titolo =="") || (titolo == "undefined")){
-  alert("Il campo titolo è obbligatorio");
-  document.formprova.titolo.focus();
-  return false;
-}
-else if((opt =="") || (opt="undefined")){
-  alert("Il campo categoria è obbligatorio");
-  document.modulo.opt.focus();
-  return false;
-}
-else{
-  //invio form al sever
-}
-
-
 
