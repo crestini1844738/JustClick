@@ -273,6 +273,29 @@ app.get('/logout',function(req, res){
       }
 });
 
+//GET SEARCH
+app.get('/search', function(req,res) {
+    var username = [];
+    var courses = [];
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: '{"selector": { "courseName": { "$regex": "('+req.query.search+')"} }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
+        }, function(error, response, body){
+            tutto = JSON.parse(body);
+            //console.log(tutto);
+            for(var i=0; i<tutto.docs.length; i++) {   
+                courses[i] = tutto.docs[i];
+                console.log("caricato il corso "+courses[i].courseName);
+            }
+            res.render(__dirname + '/public/views/listaCorsi.ejs', {
+                corsi: courses
+            });
+        }
+    );
+});
 
 //area personale di ogni utente
 //accesso solo se si è loggati. Uso delle sessioni per vedere se si è loggati oppue no 
@@ -280,18 +303,20 @@ app.get('/personalArea', function(req, res) {
     //se si è loggati restituisci l' area personale utente altrimenti loggati
 	if (req.session.loggedin) {
 		console.log('Welcome back, ' + req.session.username + '!');
-        res.sendFile('/public/views/profilo.html');
+        res.sendFile(__dirname+'/public/views/profilo.html');
 	} else {
 		res.redirect('/login');
 	}
-	res.end();
 });
 
 //GET GESTISCI ACCOUNT
 app.get('/manageAccount', function(req,res) {
-    res.sendFile(__dirname+'/public/views/profilo.html');
+    res.sendFile(__dirname+'/public/views/caricaCorso.html');
 });
 
+app.get('/caricaInfo', function(req,res) {
+    res.sendFile(__dirname+'/public/views/caricaInfo.html');
+});
 
 //pagina corsi
 app.get('/courses', function(req,res) {
@@ -342,6 +367,8 @@ app.get('/courses2/:c', function(req,res) {
 
 //get categorie corsi
 app.get('/courses3', function(req,res) {
+    // 'http://admin:admin@127.0.0.1:5984/progetto/_index'
+    //'{ "index": { "fields": ["courseFollower"] } , "name" : "Follower-index", "type":"json" }'
     var username = [];
     var courses = [];
     request2server({
@@ -349,10 +376,10 @@ app.get('/courses3', function(req,res) {
         url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
-        body: '{"selector": { "category": "'+req.query.q+'" }, "limit": 10, "skip": 0, "execution_stats": true }'       
+        body: '{ "selector": { "category": "'+req.query.q+'" }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
         }, function(error, response, body){
             tutto = JSON.parse(body);
-            //console.log(tutto);
+            console.log(tutto);
             for(var i=0; i<tutto.docs.length; i++) {   
                 courses[i] = tutto.docs[i];
                 console.log("caricato il corso "+courses[i].courseName);
@@ -365,6 +392,9 @@ app.get('/courses3', function(req,res) {
 });
 
 
+app.post('/course4', function(req,res) {
+    console.log(req.body);
+});
 
 
 //POST REGISTER AJAX
@@ -588,27 +618,73 @@ app.post("/registerInsert", function(req,res){
 const fileupload = require('express-fileupload');
 app.use(fileupload());
 app.post('/carica', function(req,res) {
-        if(!req.files) console.log('error 400: nessuna immagine selezionata');
-        else if(req.files.image.size > 50000) console.log('immagine troppo grande');
-        else {
-            if(req.files.image.mimetype!='image/jpeg' && req.files.image.mimetype!='image/jpg' && req.files.image.mimetype!='image/png' &&
-            req.files.image.mimetype!='image/gif' && req.files.image.mimetype!='image/svg+xml' ) 
-                console.log('formato immagine non valido');
-            else {
-                req.files.image.name = 'banana.png';
-                req.files.image.mv(__dirname+'/public/img/profileImgs/'+req.files.image.name, function(err) {
-                    if(err) return res.status(500).send(err);
-                });
-                console.log('file uploaded!');
-            }
+        var user = "ignoto";
+        var pubblicazioni = 0;
+        var materiale = "";
+        var loaded = "not loaded";
+        if(!req.files) {
+            loaded = "not loaded";
         }
+        else {
+            if(req.files.image) {
+                loaded = "loaded";
+            }
+            if(req.files.materiale) {
+                pubblicazioni++;
+                materiale = '["' +req.files.materiale.name+ '","'+req.body.descMateriale+'"]';
+            }
+
+            if(!req.files.image) {
+                console.log('error 400: nessuna immagine selezionata');
+                loaded = "not loaded";
+    
+            }
+            else if(req.files.image.size > 50000) console.log('immagine troppo grande');
+            else {
+                if(req.files.image.mimetype!='image/jpeg' && req.files.image.mimetype!='image/jpg' && req.files.image.mimetype!='image/png' &&
+                req.files.image.mimetype!='image/gif' && req.files.image.mimetype!='image/svg+xml' ) 
+                    console.log('formato immagine non valido');
+                else {
+                    req.files.image.name = user+'_'+req.body.titolo+'.png';
+                    req.files.image.mv(__dirname+'/public/img/courseImgs/'+req.files.image.name, function(err) {
+                        if(err) return res.status(500).send(err);
+                    });
+                    console.log('file uploaded!');
+                }
+            }
+
+        }
+        
+        console.log(req.body);
+        //creazione corso
+        var msg=    '{ "courseName":"'+req.body.titolo+
+                '","author":"'+user+
+                '","image":"'+loaded+
+                '","category":"'+req.body.opt+
+                '" ,"courseFollower": 0'+
+                ',"coursePublications": '+pubblicazioni+
+                ',"firstEvidenza":[], "secondEvidenza": [], "thirdEvidenza": []'+
+                ',"courses": [' +materiale+ ']'+
+                '  }';
+
+        request2server({
+            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.titolo, 
+            method: 'PUT',
+            headers: {'content-type': 'application/json'},
+            body: msg
+        }, function(error, response, body){
+            if(error) {
+                console.log(error);
+            }
+            else 
+            {
+                console.log("ce l'abbiamo fatta!");
+            }
+        });
+
         res.sendFile(__dirname + '/public/php/myform.html');
 });
 
-app.get('/course4', function(req,res) {
-    console.log("ciao");
-});
-
-
-app.listen(8889);
-console.log('Server running at port 8889');
+var port = 8889;
+app.listen(port);
+console.log('Server running at port '+port);

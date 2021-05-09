@@ -47,7 +47,7 @@
                 PROFILO
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Gestisci account</a></li>
+                <li><a class="dropdown-item" href="#">Carica corso</a></li>
                 <li><a class="dropdown-item" href="#">Il mio account</a></li>
               </ul>
             </li>
@@ -69,7 +69,11 @@
         <div class="coverimage <%= course.category %> ">
             <div class="text-center">
                 <!-- immagine circolare con bordo-->
-                <img src="../img/courseImgs/<%= course.author %>_<%= course.courseName %>.png " class="profilebds profileimage" alt="JustClick">
+                <% if (course.image == "not loaded") { %> 
+                  <img src="../img/courseImgs/default_image.png" class="profilebds profileimage" alt="JustClick">
+                <% } else { %>
+                  <img src="../img/courseImgs/<%= course.author %>_<%= course.courseName %>.png " class="profilebds profileimage" alt="JustClick">
+                <% } %>       
                 <div class="profilename"><%= course.courseName %></div>
             </div>
         </div>
