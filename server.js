@@ -336,7 +336,7 @@ app.get('/courses2/:c', function(req,res) {
                     let corso= JSON.parse(body);
                     //console.log(corso);
                     
-                    res.render(__dirname + '/public/views/course.ejs', {    course: corso   });
+                    res.render(__dirname + '/public/views/course_modify.ejs', {    course: corso   });
                 }
             } 
     });    
@@ -348,29 +348,48 @@ app.get('/courses3', function(req,res) {
     //'{ "index": { "fields": ["courseFollower"] } , "name" : "Follower-index", "type":"json" }'
     var username = [];
     var courses = [];
-    request2server({
-        //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
-        method: 'POST',
-        headers: {'content-type': 'application/json'},
-        body: '{ "selector": { "category": "'+req.query.q+'" }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
-        }, function(error, response, body){
-            tutto = JSON.parse(body);
-            console.log(tutto);
-            for(var i=0; i<tutto.docs.length; i++) {   
-                courses[i] = tutto.docs[i];
-                console.log("caricato il corso "+courses[i].courseName);
+    if(req.query.q != "Popolari") {
+        request2server({
+            //mettere l'url del proprio database
+            url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: '{ "selector": { "category": "'+req.query.q+'" }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
+            }, function(error, response, body){
+                tutto = JSON.parse(body);
+                //console.log(tutto);
+                for(var i=0; i<tutto.docs.length; i++) {   
+                    courses[i] = tutto.docs[i];
+                    console.log("caricato il corso "+courses[i].courseName);
+                }
+                res.render(__dirname + '/public/views/listaCorsi.ejs', {
+                    corsi: courses
+                });
             }
-            res.render(__dirname + '/public/views/listaCorsi.ejs', {
-                corsi: courses
-            });
-        }
-    );
-});
+        );
+    }
 
-
-app.post('/course4', function(req,res) {
-    console.log(req.body);
+    else {
+        request2server({
+            //mettere l'url del proprio database
+            url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: '{ "selector": { "category": {"$gt": null} }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
+            }, function(error, response, body){
+                tutto = JSON.parse(body);
+                //console.log(tutto);
+                for(var i=0; i<tutto.docs.length; i++) {   
+                    courses[i] = tutto.docs[i];
+                    console.log("caricato il corso "+courses[i].courseName);
+                }
+                res.render(__dirname + '/public/views/listaCorsi.ejs', {
+                    corsi: courses
+                });
+            }
+        );
+    }
+    
 });
 
 
@@ -595,6 +614,7 @@ app.post("/registerInsert", function(req,res){
 const fileupload = require('express-fileupload');
 app.use(fileupload());
 app.post('/carica', function(req,res) {
+        //console.log(req.files);
         var user = "ignoto";
         var pubblicazioni = 0;
         var materiale = "";
@@ -632,7 +652,7 @@ app.post('/carica', function(req,res) {
 
         }
         
-        console.log(req.body);
+        //console.log(req.body);
         //creazione corso
         var msg=    '{ "courseName":"'+req.body.titolo+
                 '","author":"'+user+
@@ -662,6 +682,74 @@ app.post('/carica', function(req,res) {
         res.sendFile(__dirname + '/public/php/myform.html');
 });
 
-var port = 8889;
+//per rendere array una stringa con codifica json
+function array_to_string(array) {
+    var string = "[";
+    for(var i=0; i<array.length; i++) {
+        if(Array.isArray(array[i])) string += array_to_string(array[i]);
+        else {
+           string+='"'+array[i]+'"';
+        }
+        if(i!=array.length-1) string+=',';
+    }
+    string+="]";
+    return string;
+}
+//per aumentare i follower
+//NOTA: OBBLIGATORIO FARE LA GET PERCHÈ IL REV CAMBIA SEMPRE
+app.post('/iscrivi', function(req, res) {
+    var msg;
+    //console.log(req.body);
+    request2server({
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.course, 
+        method: 'GET',
+        headers: {'content-type': 'application/json'},
+        body: msg
+    }, function(error, response, body){
+        if(error) {
+            console.log(error);
+        }
+        else {
+            var tutto = JSON.parse(body);
+            //console.log(body);
+            msg=    '{ "courseName":"'+tutto.courseName+
+                '","_rev":"'+tutto._rev+
+                '","author":"'+tutto.author+
+                '","image":"'+tutto.image+
+                '","category":"'+tutto.category+
+                '","courseFollower": '+ req.body.newFollower+
+                ',"coursePublications": '+tutto.coursePublications+
+                ',"firstEvidenza": '+array_to_string(tutto.firstEvidenza)+
+                ',"secondEvidenza": '+array_to_string(tutto.secondEvidenza)+
+                ',"thirdEvidenza": '+array_to_string(tutto.thirdEvidenza)+
+                ',"courses": '+array_to_string(tutto.courses)+
+                '  }';
+
+            request2server({
+                url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.course, 
+                method: 'PUT',
+                headers: {'content-type': 'application/json'},
+                body: msg
+            }, function(error, response, body){
+                if(error) {
+                    console.log(error);
+                }
+                else {
+                    //console.log(msg);
+                    //console.log(body);
+                    console.log("update follower effettuato!");
+                }
+            });
+        }
+    });
+});
+
+app.post('/updateImg/:c', function(req, res) {
+    console.log(req.files);
+    res.redirect('/courses2/'+req.params.c);
+});
+
+
+var port = 8888;
 app.listen(port);
 console.log('Server running at port '+port);

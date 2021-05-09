@@ -4,7 +4,7 @@
     <title> Progetto RDC LTW</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <script type="text/javascript" lang="javascript" src="../js/bootstrap.min.js"></script> 
+    <script type="text/javascript" lang="javascript" src="../js/bootstrap.min.js"></script>
     <link rel=stylesheet href="../styles/index.css" type="text/css">
     <link rel=stylesheet href="../styles/courses.css" type="text/css">
     <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
@@ -17,43 +17,43 @@
         <p>Tutto il sapere a portata di click</p>
     </div>
 
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-blue">
-      <div class="container-fluid">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-blue" id="1">
+      <div class="container-fluid" id="2">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link fw-bold" aria-current="page" href="http://localhost:8889/">HOME</a>
+              <a class="nav-link fw-bold" aria-current="page" href="/" id="home">HOME</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 LOGIN
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="http://localhost:8889/login">Accedi</a></li>
-                <li><a class="dropdown-item" href="http://localhost:8889/register">Registarti</a></li>
+                <li><a class="dropdown-item" href="/login">Accedi</a></li>
+                <li><a class="dropdown-item" href="/register">Registarti</a></li>
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link active fw-bold" href="#">COURSES</a>
+              <a class="nav-link active fw-bold" href="/courses">COURSES</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fw-bold" href="http://localhost:8889/AboutUs">ABOUT US</a>
+              <a class="nav-link fw-bold" href="/AboutUs">ABOUT US</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 PROFILO
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Gestisci account</a></li>
-                <li><a class="dropdown-item" href="#">Il mio account</a></li>
+                <li><a class="dropdown-item" href="/manageAccount">Gestisci account</a></li>
+                <li><a class="dropdown-item" href="/personalArea">Il mio account</a></li>
               </ul>
             </li>
           </ul>
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <form class="d-flex" action="/search">
+            <input class="form-control me-2" type="search" id="search" name="search" placeholder="Search" aria-label="Search" required>
             <button class="btn  btn-outline-light" type="submit">Search</button>
           </form>
         </div>
@@ -66,35 +66,52 @@
     <div class="center">
 
         <!-- immagine profilo e copertina -->
-        <div class="coverimage">
+        <div class="coverimage <%= course.category %> ">
             <div class="text-center">
                 <!-- immagine circolare con bordo-->
-                <img src="../img/courseImgs/<%= username %>_<%= courseName %>.png " class="profilebds profileimage" alt="JustClick">
-                <div><input type="image" class="modify" src="../img/modify.png" alt="Cambia Immagine"></div>
-                <div class="profilename"><%= courseName %></div>
-            </div>
+                <% if (course.image == "not loaded") { %> 
+                  <img src="../img/courseImgs/default_image.png" class="profilebds profileimage" alt="JustClick">
+                <% } else { %>
+                  <img src="../img/courseImgs/<%= course.author %>_<%= course.courseName %>.png " class="profilebds profileimage" alt="JustClick">
+                <% } %>       
+                <input type="image" src="../img/modify.png" class="modify-image" alt="Modifica" data-bs-toggle="offcanvas" 
+                 data-bs-target="#cambiaImmagine" aria-controls="cambiaImmagine">
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="cambiaImmagine" aria-labelledby="offcanvasExampleLabel">
+                  <div class="offcanvas-header">
+                    <h5 class="offcanvas-title">Modifica immagine</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body">
+                    <form action="/updateImg/<%= course.courseName %> " enctype="multipart/form-data" method="POST">
+                      <h5>Seleziona immagine da caricare</h5>
+                      <input type="file" id="newImage" name="newImage">
+                      <input type="submit" id="imageBtn" value="Invia">
+                    </form>            
+                  </div>
+                </div>
+            </div>     
         </div>
-    
+
+        <div class="profilename text-center text-modify"><%= course.courseName %></div>
         <!-- informazioni varie -->
         <div class="container">
             <div class="row">
                 <div class="col text-center">
-                    <h1> Follower: <%= courseFollower %> </h1> 
+                    <h1 id = "followerText"> Follower: <%= course.courseFollower %> </h1> 
                 </div>
                 <div class="col text-center">
-                    <h1> Pubblicazioni: <%= coursePublications %> </h1> 
+                    <h1> Pubblicazioni: <%= course.coursePublications %> </h1> 
                 </div>
             </div>
     
             <div class="row">
                 <div class="col text-center">
-                    <div class="btn btn-outline-success">Iscriviti al canale</div>
+                    <button class="btn btn-outline-success" id="followerBtn" disabled>Iscriviti al canale</button>
                 </div>
                 <div class="col text-center">
-                    <div class="btn btn-outline-success">Visualizza materiale</div>
-                </div>
+                    <button class="btn btn-outline-success disabled" disabled>Visualizza materiale</button>
+                </div> 
             </div>
-        </div>
         
 
         <!-- materiale in evidenza -->
@@ -104,82 +121,85 @@
                 <div class="card h-100 border-primary mb-3 sized-card">
                     <div class="card-header text-dark bg-primary mb-3">Titolo</div>
                     <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+                    <input type="image" src="../img/modify.png" class="modify-evidence" alt="Modifica">
                     <div class="card-body text-primary">
-                      <h5 class="card-title"><%= firstEvidenza %> </h5>
+                      <h5 class="card-title"><%= course.firstEvidenza %> </h5>
                       <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
                     </div>
-                  </div>
+                </div>               
             </div>
     
             <div class="col">
                 <div class="card h-100 border-primary mb-3 sized-card">
                     <div class="card-header text-dark bg-primary mb-3">Titolo</div>
                     <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+                    <input type="image" src="../img/modify.png" class="modify-evidence" alt="Modifica">
                     <div class="card-body text-primary">
-                      <h5 class="card-title"><%= secondEvidenza %></h5>
+                      <h5 class="card-title"><%= course.secondEvidenza %></h5>
                       <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
                     </div>
-                  </div>
+                </div>
             </div>
     
             <div class="col">
                 <div class="card h-100 border-primary mb-3 sized-card">
                     <div class="card-header text-dark bg-primary mb-3">Titolo</div>
                     <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+                    <input type="image" src="../img/modify.png" class="modify-evidence" alt="Modifica">
                     <div class="card-body text-primary">
-                      <h5 class="card-title"><%= thirdEvidenza %></h5>
+                      <h5 class="card-title"><%= course.thirdEvidenza %></h5>
                       <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
                     </div>
-                  </div>
+                </div>
             </div>
 
         </div>
  
         <!-- elenco dei corsi-->
         <% let it %> 
-        <% if (courses.length < 10) { %>
-          <% it= courses.length %> 
+        <% if (course.courses.length < 10) { %>
+          <% it= course.courses.length %> 
         <% } else { %>
          <% it= 10 %> 
-         <h1><%= courses.length %> </h1> 
         <% } %>
         <% for( let index = 0; index < it; index++ ) { %>
           <div class="courses bds text-center" >          
-            <h2> <%= courses[index][0] %>  <span class="badge rounded-pill bg-success">NEW!</span></h2>
+            <h2> <%= course.courses[index][0] %>  <span class="badge rounded-pill bg-success">NEW!</span></h2>
             <img src="../img/default_school.png" class="img-fluid" alt="JustClick">
-            <h5 class="card-text"><%= courses[index][1] %> </h5>
+            <h5 class="card-text"><%= course.courses[index][1] %> </h5> 
+            <input type="image" src="../img/modify.png" class="modify-evidence" alt="Modifica">
           </div>
         <% } %>
 
         <!-- cambia pagina per altri corsi-->
         <nav aria-label="Search other courses">
-            <ul class="pagination center switchcourses">
-              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-              <!-- decommenta per disabilitare --
-              <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li> -->
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
-    
-    </div>
-    
-    
+          <ul class="pagination center switchcourses">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <!-- decommenta per disabilitare --
+            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li> -->
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+      </nav>
+  
+  </div>
+  
+  
 
-    
-    <!-- fine parte del body da modificare-->
+  
+  <!-- fine parte del body da modificare-->
 
-    <footer>
-        <h2>Seguici sui nostri canali social</h2>
-        <a href="#" class="fa fa-facebook"></a>
-        <a href="#" class="fa fa-instagram"></a>
-        <a href="#" class="fa fa-youtube"></a>
-        <a href="#" class="fa fa-twitter"></a>
-        <h2 class="logo">JustClick</h2>
-        <div class="text-center">JustClick Copyright &copy; 2021 - Piattaforma tutorial </div>
-    </footer>
+  <footer>
+      <h2>Seguici sui nostri canali social</h2>
+      <a href="#" class="fa fa-facebook"></a>
+      <a href="#" class="fa fa-instagram"></a>
+      <a href="#" class="fa fa-youtube"></a>
+      <a href="#" class="fa fa-twitter"></a>
+      <h2 class="logo">JustClick</h2>
+      <div class="text-center">JustClick Copyright &copy; 2021 - Piattaforma tutorial </div>
+  </footer>
 
 </body>
 </html>
