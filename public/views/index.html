@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
     <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" lang="javascript" src="../JavascriptPersonal/homepage.js"></script>
     
 </head>
 <body>
@@ -42,7 +43,7 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="/login">Accedi</a></li>
-                <li><a class="dropdown-item" href="/register">Registarti</a></li>
+                <li><a class="dropdown-item" href="/register">Registrati</a></li>
               </ul>
             </li>
             <li class="nav-item">
@@ -90,73 +91,24 @@
           </div>
         </div>
       </div>
-
-
-
-        
-                        
-
-        <br>
-
+      <br>
         <div class="popolari">
-          <p>popolari</p>
-          <div class="card">
-            <img src="jeans3.jpg" alt="Denim Jeans" style="width:100%">
-            <h1>Tailored Jeans</h1>
-            <p class="price">$19.99</p>
-            <p>Some text about the jeans..</p>
-            <p><button>Vai al corso</button></p>
+          <h2>popolari</h2>
+          <div class="bodypopolari" id="bodypopolari">
+            
           </div>
-          <div class="card">
-            <img src="jeans3.jpg" alt="Denim Jeans" style="width:100%">
-            <h1>Tailored Jeans</h1>
-            <p class="price">$19.99</p>
-            <p>Some text about the jeans..</p>
-            <p><button>Vai al corso</button></p>
-          </div> 
-          </div>
+          <script type="text/javascript">
+            $(document).ready(generaPopolari());
+          </script>
         </div>
-            <!--
-            <div class="card">
-                <h2>Rudimenti di Java</h2>
-                <h5>Valerio Salame</h5>
-                <div class="fakeimg" style="height:200px;">Image</div>
-                <p>Primo corso</p>
-                <p>Descrizione...</p>
-            </div>
-            <div class="card">
-                <h2>C/C++</h2>
-                <h5>Valerio Salame</h5>
-                <div class="fakeimg" style="height:200px;">Image</div>
-                <p>Secondo corso.</p>
-                <p>Descrizione...</p>
-            </div>
-        </div>
-        <div class="rightcolumn">
-            <div class="card">
-                <h2>About Me..</h2>
-                <div class="fakeimg" style="height:100px;">Image</div>
-                <p>Some text..</p>
-            </div>
-            <div class="card">
-                <h3>Popular Post</h3>
-                <div class="fakeimg"><p>Image</p></div>
-                <div class="fakeimg"><p>Image</p></div>
-                <div class="fakeimg"><p>Image</p></div>
-            </div>
-            <div class="card">
-                <h3>Follow Me</h3>
-                <p>Some text..</p>
-            </div>-->
-        
+          
+          
+
+
+        </div>  
       </div>
       
     <!-- fine parte del body da modificare-->
-
-
-    
-    
-
     <div id="footer"></div>
     <script>
       $(function(){
