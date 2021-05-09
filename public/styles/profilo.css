@@ -1,5 +1,6 @@
-
-
+.card{
+    box-shadow: 10px 10px 5px;
+}
 
 h3{
     color: white;
@@ -18,11 +19,7 @@ h3{
 #fig{
     display: block;
     text-align: center;
-    background-color: #00bfff;
-}
-
-#colore{
-    background-color: #00bfff;
+    background-color: #48cae4;
 }
 
 img{
@@ -33,4 +30,8 @@ img{
     color: white;
     font-family: 'Arial Black';
     font-size: large;
+}
+
+body{
+    background-color: #48cae4;
 }
