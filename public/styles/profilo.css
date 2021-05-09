@@ -1,16 +1,5 @@
-#user{
-    font-size:200px;
-    color: white;
-    text-align: center;
-    margin: auto;
-    display: inline-block;
-    text-decoration: none;
-    margin-left: 30%;
-    margin-right: 30%;
-}
-
-#profilo{
-    background-color: #00bfff;
+.card{
+    box-shadow: 10px 10px 5px;
 }
 
 h3{
@@ -25,4 +14,24 @@ h3{
 .card-title{
     font-family: 'Arial Black';
     text-align: center;
+}
+
+#fig{
+    display: block;
+    text-align: center;
+    background-color: #48cae4;
+}
+
+img{
+    margin-top: 20px;
+}
+
+#nome{
+    color: white;
+    font-family: 'Arial Black';
+    font-size: large;
+}
+
+body{
+    background-color: #48cae4;
 }

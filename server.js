@@ -68,7 +68,30 @@ app.get('/register',function(req,res){
     res.render(__dirname + '/public/views/registrazione.ejs',{ errormessage: '' });
 });
 
-
+//GET POPOLARI HOMEPAGE
+app.post('/homepage/popolari', function(req,res) {
+    var output = {};
+    var courses=[];
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: '{"selector": { "category": "Scuola" }, "limit": 10, "skip": 0, "execution_stats": true }'       
+        }, function(error, response, body){
+            tutto = JSON.parse(body);
+            
+            for(var i=0; i<tutto.docs.length; i++) {   
+                courses[i] = tutto.docs[i];
+                console.log("caricato il corso "+courses[i].courseName);
+            }
+            console.log(courses);
+            output={corsi:courses};
+            res.json(output);
+            
+        }
+    )
+});
 
 
 
