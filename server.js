@@ -97,7 +97,8 @@ app.post('/homepage/popolari', function(req,res) {
 
 
 
-//AUTENTICAZIONE LOGIN CON AJAX (NON FUNZIONA DIO ******)
+
+//AUTENTICAZIONE LOGIN CON AJAX (NON FUNZIONA)
 /*app.post('/ajax/login', (req, res) => {
     var output = {};
     var errors = [];
@@ -308,6 +309,36 @@ app.get('/personalArea', function(req, res) {
 		res.redirect('/login');
 	}
 });
+
+//GET PROFILO PERSONALE
+app.post('/profiloUtente', function(req,res) {
+    if (req.session.loggedin) {
+        var username=req.session.username;
+        var output = {};
+        var profilo;
+        request2server({
+            //mettere l'url del proprio database
+            url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: '{"selector": { "Username": "'+username+'" }, "limit": 10, "skip": 0, "execution_stats": true }'       
+            }, function(error, response, body){
+                ris = JSON.parse(body);
+                profilo=ris.docs[0];
+                output={utente:profilo};
+                console.log(profilo);
+                res.json(output);
+                
+            }
+        )
+	} else {
+		res.redirect('/login');
+	}
+
+
+   
+});
+
 
 //GET GESTISCI ACCOUNT
 app.get('/manageAccount', function(req,res) {
@@ -844,6 +875,6 @@ app.post('/updateImg/:c', function(req, res) {
 });
 
 
-var port = 8888;
+var port = 8889;
 app.listen(port);
 console.log('Server running at port '+port);

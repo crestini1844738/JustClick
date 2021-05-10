@@ -9,6 +9,8 @@
     <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/> 
     <link rel=stylesheet href="../styles/profilo.css" type="text/css">
+    <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" lang="javascript" src="../JavascriptPersonal/profilo.js"></script> 
 </head>
 <body>
 
@@ -52,65 +54,35 @@
                 </ul>
               </li>
             </ul>
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex" action="/search">
+              <input class="form-control me-2" type="search" id="search" name="search" placeholder="Search" aria-label="Search" required>
               <button class="btn  btn-outline-light" type="submit">Search</button>
             </form>
+            
           </div>
         </div>
       </nav>
 
 
     <!-- parte del body da modificare ognuno di noi -->
-    <div class="card" >
-        <div class="row g-0">
-          <div class="col-md-3" id="fig">
-            <img src="../img/user-icon.png" alt="..." width="179" height="179"> </p>
-            <!-- <i class="fa fa-user" aria-hidden="true" id="user"></i> -->
-            <p id="nome">Martina Tombolini</p>
-          </div>
-          <div class="col-md-9">
-            <div class="card-body">
-              <h2 class="card-title">Informazioni</h2>
-              <hr>
-              <div class="row justify-content-evenly">
-                <div class="col-6">
-                    <h5>Data di nascita:</h5>
-                  30/10/1999
-                </div>
-                <div class="col-6">
-                    <h5>Email:</h5>
-                  <p>tombolini.1844737@studenti.uniroma1.it</p>
-                </div>
-              </div>
-              <div class="row justify-content-evenly">
-                <div class="col-6">
-                    <h5>Username:</h5>
-                  martinatombolini
-                </div>
-                <div class="col-6">
-                    <h5>Password:</h5>
-                  0000
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    
+    <div class="corpoProfilo" id="corpoProfilo">
 
+    </div>
+    <script type="text/javascript">
+      $(document).ready(personalArea());
+    </script>
+  
     
     <!-- fine parte del body da modificare-->
     <br>
     <br>
-    <footer>
-        <h2>Seguici sui nostri canali social</h2>
-        <a href="#" class="fa fa-facebook"></a>
-        <a href="#" class="fa fa-instagram"></a>
-        <a href="#" class="fa fa-youtube"></a>
-        <a href="#" class="fa fa-twitter"></a>
-        <h2 class="logo">JustClick</h2>
-        <div class="text-center">JustClick Copyright &copy; 2021 - Piattaforma tutorial </div>
-    </footer>
+    <div id="footer"></div>
+    <script>
+      $(function(){
+      $("#footer").load("../views/footer.html");
+      });
+    </script>
 
 </body>
 </html>
