@@ -120,7 +120,7 @@
                 }
                 else {
                   followers--;
-                  httpRequest.open("POST", "/update/follower", true);
+                  httpRequest.open("POST", "/iscrivi", true);
                   httpRequest.setRequestHeader("Content-type", "application/json");
                   httpRequest.send( '{ "newFollower": '+followers+
                                     ',"course": "'+'<%- course.courseName %>'+'" }');
@@ -136,9 +136,9 @@
 
         <!-- materiale in evidenza -->
         <div class="row content-row">
+
           <% if (course.firstEvidenza.length != 0) { %>
             <div class="col">
-              <ev id="ev" name="ev" hidden>1</ev>
               <div class="card h-100 border-primary mb-3 sized-card">
                   <div class="card-header text-dark bg-primary mb-3">Titolo</div>
                   <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
@@ -154,7 +154,6 @@
             
           <% if (course.secondEvidenza.length != 0) { %>
             <div class="col">
-              <ev id="ev" name="ev" hidden>2</ev>
               <div class="card h-100 border-primary mb-3 sized-card">
                   <div class="card-header text-dark bg-primary mb-3">Titolo</div>
                   <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
@@ -168,7 +167,6 @@
 
           <% if (course.thirdEvidenza.length != 0) { %>
             <div class="col">
-              <ev id="ev" name="ev" hidden>3</ev>
               <div class="card h-100 border-primary mb-3 sized-card">
                   <div class="card-header text-dark bg-primary mb-3">Titolo</div>
                   <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
@@ -179,6 +177,8 @@
               </div>
             </div>
           <% } %>
+
+        </div>
  
         <!-- elenco dei corsi-->
         <% let it %> 
