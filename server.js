@@ -77,7 +77,7 @@ app.post('/homepage/popolari', function(req,res) {
         url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
-        body: '{"selector": { "category": "Scuola" }, "limit": 10, "skip": 0, "execution_stats": true }'       
+        body: '{"selector": { "category": {"$gt":null} }, "limit": 10, "skip": 0, "execution_stats": true }'       
         }, function(error, response, body){
             tutto = JSON.parse(body);
             
@@ -85,7 +85,7 @@ app.post('/homepage/popolari', function(req,res) {
                 courses[i] = tutto.docs[i];
                 console.log("caricato il corso "+courses[i].courseName);
             }
-            console.log(courses);
+            
             output={corsi:courses};
             res.json(output);
             
