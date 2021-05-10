@@ -666,6 +666,7 @@ app.post("/registerInsert", function(req,res){
 
 //POST PER UPLOAD DI FILE
 const fileupload = require('express-fileupload');
+const { response } = require('express');
 app.use(fileupload());
 app.post('/carica', function(req,res) {
         //console.log(req.files);
@@ -751,7 +752,7 @@ function array_to_string(array) {
 }
 //per aumentare i follower
 //NOTA: OBBLIGATORIO FARE LA GET PERCHÈ IL REV CAMBIA SEMPRE
-app.post('/iscrivi', function(req, res) {
+app.post('/update/:elem', function(req, res) {
     var msg;
     //console.log(req.body);
     request2server({
@@ -766,12 +767,28 @@ app.post('/iscrivi', function(req, res) {
         else {
             var tutto = JSON.parse(body);
             //console.log(body);
+            switch(req.params.elem) {
+                case "follower":
+                    tutto.courseFollower = req.body.newFollower;
+                    break;
+                case "courses":
+                    var oldCourses = tutto.courses.splice(req.body.index,1);
+                    //console.log(oldCourses);
+                    break;
+                case "evidenza":
+                    if(req.body.evidenza == 1) tutto.firstEvidenza = [];
+                    else if(req.body.evidenza == 2) tutto.secondEvidenza = [];
+                    else tutto.thirdEvidenza = [];
+                default:
+                    break;
+            }
+
             msg=    '{ "courseName":"'+tutto.courseName+
                 '","_rev":"'+tutto._rev+
                 '","author":"'+tutto.author+
                 '","image":"'+tutto.image+
                 '","category":"'+tutto.category+
-                '","courseFollower": '+ req.body.newFollower+
+                '","courseFollower": '+ tutto.courseFollower+
                 ',"coursePublications": '+tutto.coursePublications+
                 ',"firstEvidenza": '+array_to_string(tutto.firstEvidenza)+
                 ',"secondEvidenza": '+array_to_string(tutto.secondEvidenza)+
@@ -791,7 +808,7 @@ app.post('/iscrivi', function(req, res) {
                 else {
                     //console.log(msg);
                     //console.log(body);
-                    console.log("update follower effettuato!");
+                    console.log("update "+req.params.elem+" effettuato!");
                 }
             });
         }
@@ -799,8 +816,30 @@ app.post('/iscrivi', function(req, res) {
 });
 
 app.post('/updateImg/:c', function(req, res) {
-    console.log(req.files);
-    res.redirect('/courses2/'+req.params.c);
+    request2server({
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.params.c, 
+        method: 'GET',
+        headers: {'content-type': 'application/json'}
+    }, function(error, response, body){
+        if(error) {
+            console.log(error);
+        }
+        else 
+        {
+            //console.log(req.files);
+            //console.log(body);
+            var tutto = JSON.parse(body);
+            if(tutto.image == "loaded") {
+                req.files.newImage.name = tutto.author+'_'+tutto.courseName+'.png';
+                req.files.newImage.mv(__dirname+'/public/img/courseImgs/'+req.files.newImage.name, function(err) {
+                    if(err) return res.status(500).send(err);
+                });
+                console.log("Immagine di "+tutto.courseName+" modificata con successo");
+                res.redirect('/courses2/'+req.params.c);
+            }
+        }
+    });
+    //res.redirect('/courses2/'+req.params.c);
 });
 
 

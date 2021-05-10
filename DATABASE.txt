@@ -1,5 +1,31 @@
  //IL MIO IP: 79.52.245.83
 
+//INDICE
+{
+  "_id": "_design/b4a56fcd3a99280fe5a702c70a4e371b8b825630",
+  "_rev": "1-f0ebe15f8e97f10095a35a0569c6030c",
+  "language": "query",
+  "views": {
+    "Follower-index": {
+      "map": {
+        "fields": {
+          "courseFollower": "asc"
+        },
+        "partial_filter_selector": {}
+      },
+      "reduce": "_count",
+      "options": {
+        "def": {
+          "fields": [
+            "courseFollower"
+          ]
+        }
+      }
+    }
+  }
+}
+
+
 //CORSO 1
 
 {
