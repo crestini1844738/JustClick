@@ -17,43 +17,43 @@
         <p>Tutto il sapere a portata di click</p>
     </div>
 
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-blue">
-      <div class="container-fluid">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-blue" id="1">
+      <div class="container-fluid" id="2">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link fw-bold" aria-current="page" href="http://localhost:8889/">HOME</a>
+              <a class="nav-link fw-bold" aria-current="page" href="/" id="home">HOME</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 LOGIN
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="http://localhost:8889/login">Accedi</a></li>
-                <li><a class="dropdown-item" href="http://localhost:8889/register">Registarti</a></li>
+                <li><a class="dropdown-item" href="/login">Accedi</a></li>
+                <li><a class="dropdown-item" href="/register">Registarti</a></li>
               </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link active fw-bold" href="#">COURSES</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fw-bold" href="http://localhost:8889/AboutUs">ABOUT US</a>
+              <a class="nav-link fw-bold" href="/AboutUs">ABOUT US</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 PROFILO
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Carica corso</a></li>
-                <li><a class="dropdown-item" href="#">Il mio account</a></li>
+                <li><a class="dropdown-item" href="/manageAccount">Gestisci account</a></li>
+                <li><a class="dropdown-item" href="/personalArea">Il mio account</a></li>
               </ul>
             </li>
           </ul>
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <form class="d-flex" action="/search">
+            <input class="form-control me-2" type="search" id="search" name="search" placeholder="Search" aria-label="Search" required>
             <button class="btn  btn-outline-light" type="submit">Search</button>
           </form>
         </div>
