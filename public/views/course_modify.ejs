@@ -84,13 +84,26 @@
                   <div class="offcanvas-body">
                     <form action="/updateImg/<%= course.courseName %> " enctype="multipart/form-data" method="POST">
                       <h5>Seleziona immagine da caricare</h5>
-                      <input type="file" id="newImage" name="newImage">
-                      <input type="submit" id="imageBtn" value="Invia">
+                      <input type="file" id="newImage" name="newImage" accept="image/*" required>
+                      <input type="submit" id="imageBtn" value="Invia" onclick="return validaForm()">
                     </form>            
                   </div>
                 </div>
             </div>     
         </div>
+        <script>
+          function validaForm() {
+            var file = document.getElementById("newImage").files[0];
+            if(file.size > 50000) {
+              alert("Immagine troppo grande");
+              return false;
+            }
+            if(file.type!='image/jpeg' && file.type!='image/jpg' && file.type!='image/png' && file.type!='image/gif' && file.type!='image/svg+xml' ) {
+              alert("formato immagine non valido");
+              return false;
+            }
+          }
+        </script>
 
         <div class="profilename text-center text-modify"><%= course.courseName %></div>
         <!-- informazioni varie -->
@@ -116,44 +129,73 @@
 
         <!-- materiale in evidenza -->
         <div class="row content-row">
+          <% if (course.firstEvidenza.length != 0) { %>
+            <div class="col">
+              <ev id="ev" name="ev" hidden>1</ev>
+              <div class="card h-100 border-primary mb-3 sized-card">
+                  <div class="card-header text-dark bg-primary mb-3">Titolo</div>
+                  <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+                  <input type="image" src="../img/delete.png" class="modify-evidence" id="firstBtn" alt="Modifica">
+                  <div class="card-body text-primary">
+                    <h5 class="card-title"><%= course.firstEvidenza %> </h5>
+                    <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
+                  </div>
+              </div>               
+            </div>
+          <% } %>
+            
 
+            
+          <% if (course.secondEvidenza.length != 0) { %>
             <div class="col">
-                <div class="card h-100 border-primary mb-3 sized-card">
-                    <div class="card-header text-dark bg-primary mb-3">Titolo</div>
-                    <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
-                    <input type="image" src="../img/modify.png" class="modify-evidence" alt="Modifica">
-                    <div class="card-body text-primary">
-                      <h5 class="card-title"><%= course.firstEvidenza %> </h5>
-                      <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
-                    </div>
-                </div>               
+              <ev id="ev" name="ev" hidden>2</ev>
+              <div class="card h-100 border-primary mb-3 sized-card">
+                  <div class="card-header text-dark bg-primary mb-3">Titolo</div>
+                  <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+                  <input type="image" src="../img/delete.png" class="modify-evidence" alt="Modifica">
+                  <div class="card-body text-primary">
+                    <h5 class="card-title"><%= course.secondEvidenza %></h5>
+                    <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
+                  </div>
+              </div>
             </div>
-    
+          <% } %>
+
+          <% if (course.thirdEvidenza.length != 0) { %>
             <div class="col">
-                <div class="card h-100 border-primary mb-3 sized-card">
-                    <div class="card-header text-dark bg-primary mb-3">Titolo</div>
-                    <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
-                    <input type="image" src="../img/modify.png" class="modify-evidence" alt="Modifica">
-                    <div class="card-body text-primary">
-                      <h5 class="card-title"><%= course.secondEvidenza %></h5>
-                      <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
-                    </div>
-                </div>
+              <ev id="ev" name="ev" hidden>3</ev>
+              <div class="card h-100 border-primary mb-3 sized-card">
+                  <div class="card-header text-dark bg-primary mb-3">Titolo</div>
+                  <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+                  <input type="image" src="../img/delete.png" class="modify-evidence" alt="Modifica">
+                  <div class="card-body text-primary">
+                    <h5 class="card-title"><%= course.thirdEvidenza %></h5>
+                    <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
+                  </div>
+              </div>
             </div>
-    
-            <div class="col">
-                <div class="card h-100 border-primary mb-3 sized-card">
-                    <div class="card-header text-dark bg-primary mb-3">Titolo</div>
-                    <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
-                    <input type="image" src="../img/modify.png" class="modify-evidence" alt="Modifica">
-                    <div class="card-body text-primary">
-                      <h5 class="card-title"><%= course.thirdEvidenza %></h5>
-                      <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
-                    </div>
-                </div>
-            </div>
+          <% } %>
 
         </div>
+
+        <script>
+          var httpRequest = new XMLHttpRequest();
+          var bottoni = document.getElementsByClassName("modify-evidence");
+          for(var i=0; i<bottoni.length; i++) {
+            bottoni[i].onclick = delete_evidence;
+          }
+
+          function delete_evidence(e) {
+            //e.target.parentElement.parentElement.style.visibility = "hidden";
+            httpRequest.open("POST", "/update/evidenza", true);
+            httpRequest.setRequestHeader("Content-type", "application/json");
+            httpRequest.send( '{ "evidenza": '+e.target.parentElement.parentElement.getElementsByTagName("ev")[0].innerHTML+
+                              ',"course": "'+'<%- course.courseName %>'+'" }');
+            //alert( '{ "evidenza": '+e.target.parentElement.parentElement.getElementsByTagName("ev")[0].innerHTML+
+            //                  ',"course": "'+'<%- course.courseName %>'+'" }');
+            e.target.parentElement.parentElement.remove();
+          }
+        </script>
  
         <!-- elenco dei corsi-->
         <% let it %> 
@@ -163,11 +205,12 @@
          <% it= 10 %> 
         <% } %>
         <% for( let index = 0; index < it; index++ ) { %>
-          <div class="courses bds text-center" >          
+          <div class="courses bds text-center" > 
+            <index id="index" hidden><%= index %> </index>         
             <h2> <%= course.courses[index][0] %>  <span class="badge rounded-pill bg-success">NEW!</span></h2>
             <img src="../img/default_school.png" class="img-fluid" alt="JustClick">
             <h5 class="card-text"><%= course.courses[index][1] %> </h5> 
-            <input type="image" src="../img/modify.png" class="modify-evidence" alt="Modifica">
+            <input type="image" src="../img/delete.png" class="modify-courses" alt="Modifica">
           </div>
         <% } %>
 
@@ -185,6 +228,28 @@
       </nav>
   
   </div>
+
+  <script>
+    var bottoni = document.getElementsByClassName("modify-courses");
+    var httpRequest = new XMLHttpRequest();
+    for(var i=0; i<bottoni.length; i++) {
+      bottoni[i].onclick = delete_courses;
+    }
+    function delete_courses(e) {
+      //e.target.parentElement.parentElement.style.visibility = "hidden";
+     httpRequest.open("POST", "/update/courses", true);
+     httpRequest.setRequestHeader("Content-type", "application/json");
+     httpRequest.send( '{ "index": '+e.target.parentElement.getElementsByTagName("index")[0].innerHTML+
+                        ',"course": "'+'<%- course.courseName %>'+'" }');
+      //alert( '{ "index": '+e.target.parentElement.getElementsByTagName("index")[0].innerHTML+
+      //                  ',"course": "'+'<%- course.courseName %>'+'" }');
+      e.target.parentElement.remove();
+      var newIndexes = document.getElementsByTagName("index");
+      for(var i=0; i<newIndexes.length; i++) {
+        newIndexes[i].innerHTML = i;
+      }
+    }
+  </script>
   
   
 

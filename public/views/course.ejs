@@ -109,7 +109,7 @@
                 if(e.target.innerHTML == 'Iscriviti al canale') {  
                   followers++;
                   //httpRequest.onreadystatechange = gestisciResponse;
-                  httpRequest.open("POST", "/iscrivi", true);
+                  httpRequest.open("POST", "/update/follower", true);
                   httpRequest.setRequestHeader("Content-type", "application/json");
                   httpRequest.send( '{ "newFollower": '+followers+
                                     ',"course": "'+'<%- course.courseName %>'+'" }');
@@ -120,7 +120,7 @@
                 }
                 else {
                   followers--;
-                  httpRequest.open("POST", "/iscrivi", true);
+                  httpRequest.open("POST", "/update/follower", true);
                   httpRequest.setRequestHeader("Content-type", "application/json");
                   httpRequest.send( '{ "newFollower": '+followers+
                                     ',"course": "'+'<%- course.courseName %>'+'" }');
@@ -136,41 +136,49 @@
 
         <!-- materiale in evidenza -->
         <div class="row content-row">
+          <% if (course.firstEvidenza.length != 0) { %>
+            <div class="col">
+              <ev id="ev" name="ev" hidden>1</ev>
+              <div class="card h-100 border-primary mb-3 sized-card">
+                  <div class="card-header text-dark bg-primary mb-3">Titolo</div>
+                  <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+                  <div class="card-body text-primary">
+                    <h5 class="card-title"><%= course.firstEvidenza %> </h5>
+                    <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
+                  </div>
+              </div>               
+            </div>
+          <% } %>
+            
 
+            
+          <% if (course.secondEvidenza.length != 0) { %>
             <div class="col">
-                <div class="card h-100 border-primary mb-3 sized-card">
-                    <div class="card-header text-dark bg-primary mb-3">Titolo</div>
-                    <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
-                    <div class="card-body text-primary">
-                      <h5 class="card-title"><%= course.firstEvidenza %> </h5>
-                      <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
-                    </div>
+              <ev id="ev" name="ev" hidden>2</ev>
+              <div class="card h-100 border-primary mb-3 sized-card">
+                  <div class="card-header text-dark bg-primary mb-3">Titolo</div>
+                  <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+                  <div class="card-body text-primary">
+                    <h5 class="card-title"><%= course.secondEvidenza %></h5>
+                    <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
                   </div>
+              </div>
             </div>
-    
-            <div class="col">
-                <div class="card h-100 border-primary mb-3 sized-card">
-                    <div class="card-header text-dark bg-primary mb-3">Titolo</div>
-                    <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
-                    <div class="card-body text-primary">
-                      <h5 class="card-title"><%= course.secondEvidenza %></h5>
-                      <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
-                    </div>
-                  </div>
-            </div>
-    
-            <div class="col">
-                <div class="card h-100 border-primary mb-3 sized-card">
-                    <div class="card-header text-dark bg-primary mb-3">Titolo</div>
-                    <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
-                    <div class="card-body text-primary">
-                      <h5 class="card-title"><%= course.thirdEvidenza %></h5>
-                      <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
-                    </div>
-                  </div>
-            </div>
+          <% } %>
 
-        </div>
+          <% if (course.thirdEvidenza.length != 0) { %>
+            <div class="col">
+              <ev id="ev" name="ev" hidden>3</ev>
+              <div class="card h-100 border-primary mb-3 sized-card">
+                  <div class="card-header text-dark bg-primary mb-3">Titolo</div>
+                  <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+                  <div class="card-body text-primary">
+                    <h5 class="card-title"><%= course.thirdEvidenza %></h5>
+                    <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
+                  </div>
+              </div>
+            </div>
+          <% } %>
  
         <!-- elenco dei corsi-->
         <% let it %> 

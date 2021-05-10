@@ -45,15 +45,15 @@
   margin-top: 70px;
   height: 450px;
   width: 450px;
-  border-radius: 225px;
+  border-radius:225px;
   margin-left: 30%;
   margin-right: 30%;
 }
 
 .profilebds{
   border-style:solid;
-  border-width: 10px;
-  border-radius: 250px;
+  border-width: 8px;
+  border-radius: 225px;
   border-color: white;
 }
 
@@ -75,7 +75,7 @@
   margin-bottom: 30px;
 }
 
-.modify-evidence{
+.modify-evidence, .modify-courses{
   height: 50px;
   width: 50px;
   border-radius: 25px;
