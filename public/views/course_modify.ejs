@@ -129,6 +129,21 @@
 
         <!-- materiale in evidenza -->
         <div class="row content-row">
+          <% if (!(course.firstEvidenza.length != 0 && course.secondEvidenza.length != 0 && course.thirdEvidenza.length != 0)) { %>
+            <div class="col">
+              <ev id="ev" name="ev" hidden>0</ev>
+              <div class="card h-100 border-primary mb-3 sized-card">
+                  <div class="card-header text-dark bg-primary mb-3">Titolo</div>
+                  <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+                  <input type="image" src="../img/delete.png" class="modify-evidence" id="firstBtn" alt="Modifica">
+                  <div class="card-body text-primary">
+                    <h5 class="card-title"><%= course.firstEvidenza %> </h5>
+                    <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
+                  </div>
+              </div>               
+            </div>
+          <% } %>
+
           <% if (course.firstEvidenza.length != 0) { %>
             <div class="col">
               <ev id="ev" name="ev" hidden>1</ev>
