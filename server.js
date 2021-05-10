@@ -827,15 +827,47 @@ app.post('/updateImg/:c', function(req, res) {
         else 
         {
             //console.log(req.files);
-            //console.log(body);
+            console.log(body);
             var tutto = JSON.parse(body);
-            if(tutto.image == "loaded") {
-                req.files.newImage.name = tutto.author+'_'+tutto.courseName+'.png';
-                req.files.newImage.mv(__dirname+'/public/img/courseImgs/'+req.files.newImage.name, function(err) {
-                    if(err) return res.status(500).send(err);
+
+            req.files.newImage.name = tutto.author+'_'+tutto.courseName+'.png';
+            req.files.newImage.mv(__dirname+'/public/img/courseImgs/'+req.files.newImage.name, function(err) {
+                if(err) return res.status(500).send(err);
+            });
+
+            console.log("Immagine di "+tutto.courseName+" modificata con successo");
+            if(tutto.image == "loaded") res.redirect('/courses2/'+req.params.c);
+            else {
+                msg=    '{ "courseName":"'+tutto.courseName+
+                '","_rev":"'+tutto._rev+
+                '","author":"'+tutto.author+
+                '","image":"'+'loaded'+
+                '","category":"'+tutto.category+
+                '","courseFollower": '+ tutto.courseFollower+
+                ',"coursePublications": '+tutto.coursePublications+
+                ',"firstEvidenza": '+array_to_string(tutto.firstEvidenza)+
+                ',"secondEvidenza": '+array_to_string(tutto.secondEvidenza)+
+                ',"thirdEvidenza": '+array_to_string(tutto.thirdEvidenza)+
+                ',"courses": '+array_to_string(tutto.courses)+
+                '  }';
+
+                request2server({
+                    url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.params.c, 
+                    method: 'PUT',
+                    headers: {'content-type': 'application/json'},
+                    body: msg
+                }, function(error, response, body){
+                    if(error) {
+                        console.log(error);
+                    }
+                    else {
+                        //console.log(msg);
+                        //console.log(body);
+                        console.log("Immagine di "+tutto.courseName+" modificata con successo");
+                        res.redirect('/courses2/'+req.params.c);
+                    }
                 });
-                console.log("Immagine di "+tutto.courseName+" modificata con successo");
-                res.redirect('/courses2/'+req.params.c);
+                
             }
         }
     });

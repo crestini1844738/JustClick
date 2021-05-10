@@ -135,12 +135,12 @@
               <div class="card h-100 border-primary mb-3 sized-card">
                   <div class="card-header text-dark bg-primary mb-3">Titolo</div>
                   <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
-                  <input type="image" src="../img/delete.png" class="modify-evidence" id="firstBtn" alt="Modifica">
+                  <input type="image" src="../img/modify.png" class="modify-evidence" id="firstBtn" alt="Modifica">
                   <div class="card-body text-primary">
-                    <h5 class="card-title"><%= course.firstEvidenza %> </h5>
+                    <h5 class="card-title">Materiale in evidenza</h5>
                     <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
                   </div>
-              </div>               
+              </div>
             </div>
           <% } %>
 
@@ -192,25 +192,6 @@
           <% } %>
 
         </div>
-
-        <script>
-          var httpRequest = new XMLHttpRequest();
-          var bottoni = document.getElementsByClassName("modify-evidence");
-          for(var i=0; i<bottoni.length; i++) {
-            bottoni[i].onclick = delete_evidence;
-          }
-
-          function delete_evidence(e) {
-            //e.target.parentElement.parentElement.style.visibility = "hidden";
-            httpRequest.open("POST", "/update/evidenza", true);
-            httpRequest.setRequestHeader("Content-type", "application/json");
-            httpRequest.send( '{ "evidenza": '+e.target.parentElement.parentElement.getElementsByTagName("ev")[0].innerHTML+
-                              ',"course": "'+'<%- course.courseName %>'+'" }');
-            //alert( '{ "evidenza": '+e.target.parentElement.parentElement.getElementsByTagName("ev")[0].innerHTML+
-            //                  ',"course": "'+'<%- course.courseName %>'+'" }');
-            e.target.parentElement.parentElement.remove();
-          }
-        </script>
  
         <!-- elenco dei corsi-->
         <% let it %> 
@@ -263,6 +244,29 @@
       for(var i=0; i<newIndexes.length; i++) {
         newIndexes[i].innerHTML = i;
       }
+    }
+
+    var buttons = document.getElementsByClassName("modify-evidence");
+    buttons[0].onclick = create_evidence;
+    for(var i=1; i<buttons.length; i++) {
+      buttons[i].onclick = delete_evidence;
+    }
+
+    function create_evidence(e) {
+      /*for(var i=0; i<bottoni.length; i++) {
+        bottoni[i].getAttributeNode("src") = "../img/create.jpg";
+      }*/
+    }
+
+    function delete_evidence(e) {
+      //e.target.parentElement.parentElement.style.visibility = "hidden";
+      httpRequest.open("POST", "/update/evidenza", true);
+      httpRequest.setRequestHeader("Content-type", "application/json");
+      httpRequest.send( '{ "evidenza": '+e.target.parentElement.parentElement.getElementsByTagName("ev")[0].innerHTML+
+                        ',"course": "'+'<%- course.courseName %>'+'" }');
+      //alert( '{ "evidenza": '+e.target.parentElement.parentElement.getElementsByTagName("ev")[0].innerHTML+
+      //                  ',"course": "'+'<%- course.courseName %>'+'" }');
+      e.target.parentElement.parentElement.remove();
     }
   </script>
   
