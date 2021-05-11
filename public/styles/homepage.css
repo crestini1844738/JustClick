@@ -76,7 +76,7 @@ overflow: hidden;
   text-align: right;
 
   
-
+  font-size: 18px;
   transform: skewX(-11deg);
   opacity: 90%;
   margin-left: -200px;
@@ -96,16 +96,16 @@ overflow: hidden;
   transform: skewX(-11deg);
   margin: 230px; 
   text-align: left;
-  padding: 30px;
+  padding: 20px;
   padding-right: 100px;
-
+  font-size: 18px;
   margin-right: -100px;
   height: 200px;
   width: 500px;
   transition: width 1s, height 4s;
 }
 .diagonal-box-right-interna:hover {
-  width: 1000px;
+  width: 900px;
   height: 500px;
 } 
 
