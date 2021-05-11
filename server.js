@@ -739,6 +739,7 @@ app.post('/carica', function(req,res) {
 
 //per rendere array una stringa con codifica json
 function array_to_string(array) {
+    if(!array) return "[]";
     var string = "[";
     for(var i=0; i<array.length; i++) {
         if(Array.isArray(array[i])) string += array_to_string(array[i]);
@@ -750,7 +751,8 @@ function array_to_string(array) {
     string+="]";
     return string;
 }
-//per aumentare i follower
+
+//per fare update di un corso su couchdb
 //NOTA: OBBLIGATORIO FARE LA GET PERCHÈ IL REV CAMBIA SEMPRE
 app.post('/update/:elem', function(req, res) {
     var msg;
@@ -773,12 +775,24 @@ app.post('/update/:elem', function(req, res) {
                     break;
                 case "courses":
                     var oldCourses = tutto.courses.splice(req.body.index,1);
+                    tutto.coursePublications = tutto.courses.length;
                     //console.log(oldCourses);
                     break;
                 case "evidenza":
                     if(req.body.evidenza == 1) tutto.firstEvidenza = [];
                     else if(req.body.evidenza == 2) tutto.secondEvidenza = [];
                     else tutto.thirdEvidenza = [];
+                case "setEvidenza":
+                    if(tutto.firstEvidenza.length == 0) tutto.firstEvidenza = tutto.courses[req.body.index];
+                    else if(tutto.secondEvidenza.length == 0) tutto.secondEvidenza = tutto.courses[req.body.index];
+                    else  tutto.thirdEvidenza = tutto.courses[req.body.index];
+                    break;
+                case "setCorsi":
+                    var materiale = [];
+                    materiale.push(req.files.materiale.name);
+                    materiale.push(req.body.descMateriale);
+                    tutto.courses.push(materiale);
+                    tutto.coursePublications = tutto.courses.length;
                 default:
                     break;
             }
@@ -809,12 +823,14 @@ app.post('/update/:elem', function(req, res) {
                     //console.log(msg);
                     //console.log(body);
                     console.log("update "+req.params.elem+" effettuato!");
+                    if(req.params.elem == "setCorsi") res.redirect('/courses2/'+req.body.course);
                 }
             });
         }
     });
 });
 
+//cambiare immagine del corso
 app.post('/updateImg/:c', function(req, res) {
     request2server({
         url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.params.c, 
@@ -875,6 +891,6 @@ app.post('/updateImg/:c', function(req, res) {
 });
 
 
-var port = 8889;
+var port = 8888;
 app.listen(port);
 console.log('Server running at port '+port);
