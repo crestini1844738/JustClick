@@ -9,6 +9,7 @@
     <link rel=stylesheet href="../styles/caricaCorso.css" type="text/css"> 
     <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/> 
+    <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
     <script type="text/javascript" language="javascript">
     function validaForm(){
       if(document.formprova.titolo.value==""){
@@ -22,7 +23,6 @@
         return false;
 
       }
-      //NON FUNZIONA
       var file = document.getElementById("materiale").files;
       if((file.length==0) && (document.formprova.descMateriale.value!="")){
         alert("Non puoi inserire la descrizione senza caricare il materiale");
@@ -36,6 +36,35 @@
       
       
     </script>
+    <script>
+      $(document).ready(function(){
+        $("#validationTextarea").change(function(){
+          $(".progress-bar").css("width","17%");
+        });
+        $("#exampleFormControlTextarea1").change(function(){
+          $(".progress-bar").css("width","34%");
+        });
+        $("select").change(function(){
+          $(".progress-bar").css("width","51%");
+        });
+        $("#image").change(function(){
+          $(".progress-bar").css("width","68%");
+        });
+        $("#materiale").change(function(){
+          $(".progress-bar").css("width","85%");
+        });
+        $("#descMateriale").change(function(){
+          $(".progress-bar").css("width","100%");
+        });
+        $("#reset").click(function(){
+          $(".progress-bar").css("width","0%");
+        });
+
+
+
+        
+      });
+      </script>
 </head>
 <body>
 
@@ -93,7 +122,7 @@
   <div class="card" id="zonaDinamica">
   <h1>Carica un nuovo corso</h1>
   <div class="progress">
-    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:0%;" aria-valuemin="0" aria-valuemax="100"></div>
   </div>
 
 <form action="/carica" name="formprova" method="POST" enctype="multipart/form-data" onsubmit="return validaForm();">
@@ -134,7 +163,7 @@
 
   <div class="mb-3">
       <input class="btn btn-primary" type="submit" id="invio" value="Carica corso" onclick="return validaForm()">
-      <input class="btn btn-primary" type="reset" value="Cancella tutto">
+      <input class="btn btn-primary" type="reset" id="reset" value="Cancella tutto">
   </div>
 
 </form>
