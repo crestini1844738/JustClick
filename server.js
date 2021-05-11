@@ -77,7 +77,7 @@ app.post('/homepage/popolari', function(req,res) {
         url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
-        body: '{"selector": { "category": {"$gt":null} }, "limit": 10, "skip": 0, "execution_stats": true }'       
+        body: '{ "selector": { "category": {"$gt": null} }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'         
         }, function(error, response, body){
             tutto = JSON.parse(body);
             
@@ -92,6 +92,7 @@ app.post('/homepage/popolari', function(req,res) {
         }
     )
 });
+
 
 
 
@@ -339,6 +340,30 @@ app.post('/profiloUtente', function(req,res) {
    
 });
 
+//GET CORSI PROFILO PERSONALE
+app.post('/corsiUtente', (req, res) => {
+    if (req.session.loggedin) {
+        var output = {};
+        var corsi;
+        request2server({
+            //mettere l'url del proprio database
+            url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: '{ "selector": { "category": {"$gt": null} }, "skip": 0, "execution_stats": true }'       
+            }, function(error, response, body){
+                ris = JSON.parse(body);
+                console.log(ris.docs);
+                corsi=ris.docs
+                output={tuttiICorsi:corsi};
+                res.json(output);
+                
+            }
+        )
+	} else {
+		res.redirect('/login');
+	}
+});
 
 //GET GESTISCI ACCOUNT
 app.get('/manageAccount', function(req,res) {
@@ -891,6 +916,6 @@ app.post('/updateImg/:c', function(req, res) {
 });
 
 
-var port = 8888;
+var port = 8889;
 app.listen(port);
 console.log('Server running at port '+port);
