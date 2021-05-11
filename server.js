@@ -15,6 +15,7 @@ var validator = require('validator');
 //variabili login
 var erroreLogin=0;
 var json;
+var hour = 60*60*1000;
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -246,6 +247,9 @@ app.post('/login/auth', function(req, res) {
                         console.log('Accesso effettuato da '+user.toString()+'!');
                         req.session.loggedin = true;
                         req.session.username= json.docs[index].Username;
+
+                        req.session.cookie.expires = new Date(Date.now() + hour)
+                        req.session.cookie.maxAge = hour
                         res.redirect('/personalArea');
                     }
                     else
@@ -414,8 +418,14 @@ app.get('/courses2/:c', function(req,res) {
                     console.log('caricando il corso '+CourseLoaded);
                     let corso= JSON.parse(body);
                     //console.log(corso);
+                    if(req.session) {
+                        if(req.session.username == corso.author) {
+                            res.render(__dirname + '/public/views/course_modify.ejs', {    course: corso   });
+                        }
+                        else res.render(__dirname + '/public/views/course.ejs', {    course: corso   });
+                    }
+                    else res.render(__dirname + '/public/views/course.ejs', {    course: corso   });
                     
-                    res.render(__dirname + '/public/views/course_modify.ejs', {    course: corso   });
                 }
             } 
     });    
