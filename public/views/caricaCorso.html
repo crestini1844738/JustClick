@@ -22,6 +22,14 @@
         return false;
 
       }
+      //NON FUNZIONA
+      var file = document.getElementById("materiale").files;
+      if((file.length==0) && (document.formprova.descMateriale.value!="")){
+        alert("Non puoi inserire la descrizione senza caricare il materiale");
+        document.formprova.materiale.focus();
+        return false;
+
+      }
       return true;
     }
       
@@ -95,7 +103,7 @@
     </div>
     <div class="mb-3">
     <label for="exampleFormControlTextarea1" class="form-label">Descrizione</label>
-    <textarea class="form-control" name="desc" id="exampleFormControlTextarea1" placeholder="Inserisci la descrizione del corso" rows="3"></textarea>
+    <textarea class="form-control" name="desc" id="exampleFormControlTextarea1" placeholder="Inserisci la descrizione del corso" rows="3" size="100" maxlength="100"></textarea>
     </div>
     <div class="mb-3">
     <select class="form-select" name="opt" aria-label="Default select example">
@@ -126,6 +134,7 @@
 
   <div class="mb-3">
       <input class="btn btn-primary" type="submit" id="invio" value="Carica corso" onclick="return validaForm()">
+      <input class="btn btn-primary" type="reset" value="Cancella tutto">
   </div>
 
 </form>
