@@ -11,6 +11,7 @@
     <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../styles/AboutUs.css" type="text/css"> 
+    <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
 </head>
 <body>
 
@@ -115,15 +116,12 @@
     
     <!-- fine parte del body da modificare-->
 
-    <footer>
-        <h2>Seguici sui nostri canali social</h2>
-        <a href="#" class="fa fa-facebook"></a>
-        <a href="#" class="fa fa-instagram"></a>
-        <a href="#" class="fa fa-youtube"></a>
-        <a href="#" class="fa fa-twitter"></a>
-        <h2 class="logo">JustClick</h2>
-        <div class="text-center">JustClick Copyright &copy; 2021 - Piattaforma tutorial </div>
-    </footer>
+    <div id="footer"></div>
+    <script>
+      $(function(){
+      $("#footer").load("../views/footer.html");
+      });
+    </script>
 
 </body>
 </html>
