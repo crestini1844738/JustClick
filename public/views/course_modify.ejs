@@ -83,9 +83,11 @@
                   </div>
                   <div class="offcanvas-body">
                     <form action="/updateImg/<%= course.courseName %> " enctype="multipart/form-data" method="POST">
-                      <h5>Seleziona immagine da caricare</h5>
-                      <input type="file" id="newImage" name="newImage" accept="image/*" required>
-                      <input type="submit" id="imageBtn" value="Invia" onclick="return validaForm()">
+                      <div class="mb-3">
+                        <label for="formFileMultiple" class="form-label">Seleziona immagine da caricare</label>
+                        <input type="file" class="form-control" id="newImage" name="newImage" accept="image/*" required>
+                      </div>  
+                      <input type="submit" class="btn btn-success" id="imageBtn" value="Invia" onclick="return validaForm()">
                     </form>            
                   </div>
                 </div>
@@ -113,7 +115,7 @@
                     <h1 id = "followerText"> Follower: <%= course.courseFollower %> </h1> 
                 </div>
                 <div class="col text-center">
-                    <h1> Pubblicazioni: <%= course.coursePublications %> </h1> 
+                    <h1 id = "publicationsText"> Pubblicazioni: <span id="publications"><%=course.coursePublications%></span> </h1> 
                 </div>
             </div>
     
@@ -135,12 +137,12 @@
               <div class="card h-100 border-primary mb-3 sized-card">
                   <div class="card-header text-dark bg-primary mb-3">Titolo</div>
                   <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
-                  <input type="image" src="../img/delete.png" class="modify-evidence" id="firstBtn" alt="Modifica">
+                  <input type="image" src="../img/modify.png" class="modify-evidence" id="firstBtn" alt="Modifica">
                   <div class="card-body text-primary">
-                    <h5 class="card-title"><%= course.firstEvidenza %> </h5>
+                    <h5 class="card-title">Materiale in evidenza</h5>
                     <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
                   </div>
-              </div>               
+              </div>
             </div>
           <% } %>
 
@@ -165,7 +167,7 @@
             <div class="col">
               <ev id="ev" name="ev" hidden>2</ev>
               <div class="card h-100 border-primary mb-3 sized-card">
-                  <div class="card-header text-dark bg-primary mb-3">Titolo</div>
+                  <div class="card-header text-dark bg-primary mb-3">create.jpg</div>
                   <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
                   <input type="image" src="../img/delete.png" class="modify-evidence" alt="Modifica">
                   <div class="card-body text-primary">
@@ -192,27 +194,48 @@
           <% } %>
 
         </div>
-
-        <script>
-          var httpRequest = new XMLHttpRequest();
-          var bottoni = document.getElementsByClassName("modify-evidence");
-          for(var i=0; i<bottoni.length; i++) {
-            bottoni[i].onclick = delete_evidence;
-          }
-
-          function delete_evidence(e) {
-            //e.target.parentElement.parentElement.style.visibility = "hidden";
-            httpRequest.open("POST", "/update/evidenza", true);
-            httpRequest.setRequestHeader("Content-type", "application/json");
-            httpRequest.send( '{ "evidenza": '+e.target.parentElement.parentElement.getElementsByTagName("ev")[0].innerHTML+
-                              ',"course": "'+'<%- course.courseName %>'+'" }');
-            //alert( '{ "evidenza": '+e.target.parentElement.parentElement.getElementsByTagName("ev")[0].innerHTML+
-            //                  ',"course": "'+'<%- course.courseName %>'+'" }');
-            e.target.parentElement.parentElement.remove();
-          }
-        </script>
  
         <!-- elenco dei corsi-->
+        <div class="courses bds text-center" > 
+          <index id="index" hidden>-1</index>         
+          <h2> Nuovo materiale  <span class="badge rounded-pill bg-success">NEW!</span></h2>
+          <img src="../img/default_school.png" class="img-fluid" alt="JustClick">
+          <h5 class="card-text">Aggiungi qui il tuo materiale!</h5> 
+          <input type="image" src="../img/modify.png" class="create-course" alt="Modifica" data-bs-toggle="offcanvas" 
+          data-bs-target="#creaMateriale" aria-controls="creaMateriale">
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="creaMateriale" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title">Aggiungi materiale</h5>
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <form action="/update/setCorsi" enctype="multipart/form-data" method="POST">
+                <input type="text" id="course" name="course" value="<%= course.courseName %>" hidden>
+                <div class="mb-3">
+                  <label for="formFileMultiple" class="form-label">Inserisci il materiale del corso (video, immagini, appunti, ecc.)</label>
+                  <input type="file" class="form-control" name="materiale" id="materiale" required>
+                </div>
+            
+                <div class="mb-3">
+                  <label for="exampleFormControlTextarea1" class="form-label">Inserisci la descrizione relativa al materiale</label>
+                  <textarea class="form-control" name="descMateriale" id="descMateriale" placeholder="Inserisci la descrizione" rows="3"></textarea>
+                </div>
+                <input type="submit" class="btn btn-success" id="imageBtn" value="Invia" onclick="return validaForm()">
+              </form>            
+            </div>
+          </div>
+        </div>
+
+        <script>
+          function validaForm() {
+            var file = document.getElementById("materiale").files[0];
+            if(file.size > 10000000) {
+              alert("File troppo grande");
+              return false;
+            }
+          }
+        </script>
+
         <% let it %> 
         <% if (course.courses.length < 10) { %>
           <% it= course.courses.length %> 
@@ -221,6 +244,7 @@
         <% } %>
         <% for( let index = 0; index < it; index++ ) { %>
           <div class="courses bds text-center" > 
+            <vl hidden><%=course.courses[index][0]%></vl>
             <index id="index" hidden><%= index %> </index>         
             <h2> <%= course.courses[index][0] %>  <span class="badge rounded-pill bg-success">NEW!</span></h2>
             <img src="../img/default_school.png" class="img-fluid" alt="JustClick">
@@ -245,6 +269,9 @@
   </div>
 
   <script>
+
+    var pubblicazioni = document.getElementById("publications").innerHTML;
+    //document.getElementById("publicationsText");
     var bottoni = document.getElementsByClassName("modify-courses");
     var httpRequest = new XMLHttpRequest();
     for(var i=0; i<bottoni.length; i++) {
@@ -252,17 +279,101 @@
     }
     function delete_courses(e) {
       //e.target.parentElement.parentElement.style.visibility = "hidden";
-     httpRequest.open("POST", "/update/courses", true);
-     httpRequest.setRequestHeader("Content-type", "application/json");
-     httpRequest.send( '{ "index": '+e.target.parentElement.getElementsByTagName("index")[0].innerHTML+
-                        ',"course": "'+'<%- course.courseName %>'+'" }');
+     
+      var evidenze = document.getElementsByTagName("ev");
+      for(var i=0; i<evidenze.length; i++) {
+        //alert(evidenze[i].parentElement.getElementsByClassName("card-header")[0].innerHTML);
+        if(evidenze[i].parentElement.getElementsByClassName("card-header")[0].innerHTML == e.target.parentElement.getElementsByTagName("vl")[0].innerHTML ) {
+          alert("non puoi rimuovere un corso in evidenza!");
+          return false;
+        }
+      }
+      pubblicazioni --;
+      //alert(pubblicazioni);
+      document.getElementById("publications").innerHTML = pubblicazioni;
+      httpRequest.open("POST", "/update/courses", true);
+      httpRequest.setRequestHeader("Content-type", "application/json");
+      httpRequest.send( '{ "index": '+e.target.parentElement.getElementsByTagName("index")[0].innerHTML+
+                          ',"course": "'+'<%- course.courseName %>'+'" }');
       //alert( '{ "index": '+e.target.parentElement.getElementsByTagName("index")[0].innerHTML+
       //                  ',"course": "'+'<%- course.courseName %>'+'" }');
       e.target.parentElement.remove();
       var newIndexes = document.getElementsByTagName("index");
-      for(var i=0; i<newIndexes.length; i++) {
+      for(var i=-1; i<newIndexes.length-1; i++) {
         newIndexes[i].innerHTML = i;
       }
+      
+    }
+
+    var buttons = document.getElementsByClassName("modify-evidence");
+    for(var i=0; i<buttons.length; i++) {
+      buttons[i].onclick = delete_evidence;
+      if(buttons[i].parentElement.parentElement.getElementsByTagName("ev")[0].innerHTML == 0) buttons[i].onclick = create_evidence;
+    }
+
+    function create_evidence(e) {
+      for(var i=0; i<bottoni.length; i++) {
+        bottoni[i].getAttributeNode("src").value = "../img/create.jpg";
+        bottoni[i].onclick = add_course_to_evidence;
+      }
+      e.target.getAttributeNode("src").value = "../img/back.png";
+        e.target.onclick = go_back;
+    }
+
+    function delete_evidence(e) {
+      //e.target.parentElement.parentElement.style.visibility = "hidden";
+      httpRequest.open("POST", "/update/evidenza", true);
+      httpRequest.setRequestHeader("Content-type", "application/json");
+      httpRequest.send( '{ "evidenza": '+e.target.parentElement.parentElement.getElementsByTagName("ev")[0].innerHTML+
+                        ',"course": "'+'<%- course.courseName %>'+'" }');
+      //alert( '{ "evidenza": '+e.target.parentElement.parentElement.getElementsByTagName("ev")[0].innerHTML+
+      //                  ',"course": "'+'<%#- course.courseName %>'+'" }');
+      if(document.getElementsByTagName("ev").length == 3) {
+        if(document.getElementsByTagName("ev")[0].innerHTML != 0) {
+          var nuovaCard = e.target.parentElement;
+          nuovaCard.getElementsByClassName("modify-evidence")[0].getAttributeNode("src").value = "../img/modify.png";
+          nuovaCard.getElementsByClassName("modify-evidence")[0].onclick = create_evidence;
+        }
+        else e.target.parentElement.parentElement.remove();
+      }
+      else e.target.parentElement.parentElement.remove();
+    }
+
+    function add_course_to_evidence(e) {
+      httpRequest.open("POST", "/update/setEvidenza", true);
+      httpRequest.setRequestHeader("Content-type", "application/json");
+      httpRequest.send( '{ "index": '+e.target.parentElement.getElementsByTagName("index")[0].innerHTML+
+                        ',"course": "'+'<%- course.courseName %>'+'" }');
+      alert("Il corso è stato messo in evidenza!");
+      location.reload();
+
+     /* for(var i=0; i<bottoni.length; i++) {
+        bottoni[i].getAttributeNode("src").value = "../img/delete.png";
+        bottoni[i].onclick = delete_courses;
+      }
+      var evs = document.getElementsByTagName("ev");
+      var evToChange = 0;
+      for(var i=1; i<evs.length; i++) {
+        if(evs[i].innerHTML == 1) evToChange = 2;
+        if(evs[i].innerHTML == 2 && evToChange == 2) evToChange = 3;
+      }
+      var nuovoEv = evs[0];
+      nuovoEv.innerHTML = evToChange;
+      var nuovaCard = nuovoEv.parentElement;
+      nuovaCard.getElementsByClassName("modify-evidence")[0].getAttributeNode("src").value = "../img/delete.png";
+      nuovaCard.getElementsByClassName("modify-evidence")[0].onclick = delete_evidence;
+      alert(e.target.parentElement.getElementsByClassName("card-text")[0].innerHTML);
+      nuovaCard.getElementsByClassName("card-title")[0].innerHTML = e.target.parentElement.getElementsByClassName("card-text")[0].innerHTML;
+      */
+    }
+
+    function go_back(e) {
+      for(var i=0; i<bottoni.length; i++) {
+        bottoni[i].getAttributeNode("src").value = "../img/delete.png";
+        bottoni[i].onclick = delete_courses;
+      }
+      e.target.getAttributeNode("src").value = "../img/modify.png";
+      e.target.onclick = create_evidence;
     }
   </script>
   

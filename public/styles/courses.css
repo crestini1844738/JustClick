@@ -75,7 +75,7 @@
   margin-bottom: 30px;
 }
 
-.modify-evidence, .modify-courses{
+.modify-evidence, .modify-courses, .create-course{
   height: 50px;
   width: 50px;
   border-radius: 25px;
