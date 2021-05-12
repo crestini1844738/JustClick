@@ -10,61 +10,7 @@
     <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/> 
     <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
-    <script type="text/javascript" language="javascript">
-    function validaForm(){
-      if(document.formprova.titolo.value==""){
-        alert("Inserisci il titolo del corso");
-        document.formprova.titolo.focus();
-        return false;
-      }
-      if(document.formprova.opt.value=="nessuna"){
-        alert("Scegli la categoria del tuo corso");
-        document.formprova.opt.focus();
-        return false;
-
-      }
-      var file = document.getElementById("materiale").files;
-      if((file.length==0) && (document.formprova.descMateriale.value!="")){
-        alert("Non puoi inserire la descrizione senza caricare il materiale");
-        document.formprova.materiale.focus();
-        return false;
-
-      }
-      return true;
-    }
-      
-      
-      
-    </script>
-    <script>
-      $(document).ready(function(){
-        $("#validationTextarea").change(function(){
-          $(".progress-bar").css("width","17%");
-        });
-        $("#exampleFormControlTextarea1").change(function(){
-          $(".progress-bar").css("width","34%");
-        });
-        $("select").change(function(){
-          $(".progress-bar").css("width","51%");
-        });
-        $("#image").change(function(){
-          $(".progress-bar").css("width","68%");
-        });
-        $("#materiale").change(function(){
-          $(".progress-bar").css("width","85%");
-        });
-        $("#descMateriale").change(function(){
-          $(".progress-bar").css("width","100%");
-        });
-        $("#reset").click(function(){
-          $(".progress-bar").css("width","0%");
-        });
-
-
-
-        
-      });
-      </script>
+    <script type="text/javascript" src="../JavascriptPersonal/caricaCorso.js"></script>
 </head>
 <body>
 
