@@ -91,17 +91,33 @@
     
             <div class="row">
                 <div class="col text-center">
-                    <button class="btn btn-outline-success" id="followerBtn">Iscriviti al canale</button>
+                  <button class="btn btn-outline-success" id="followerBtn">Iscriviti al canale</button>     
                 </div>
                 <div class="col text-center">
-                    <button class="btn btn-outline-success">Visualizza materiale</button>
+                  <button class="btn btn-outline-success">Visualizza materiale</button>
                 </div> 
             </div>
             <script type="text/javascript" lang="javascript">
               var followerBtn = document.getElementById("followerBtn");
               var followers = '<%- course.courseFollower %>';
               followerBtn.onclick = iscrivi;
-        
+
+              var viewer = '<%-course.viewer%>';
+              var follower = <%- JSON.stringify(course.follower) %>;
+              //alert(viewer);
+              if(viewer != "unknown") {
+                
+                for(var i=0; i<follower.length; i++) {
+                  if(follower[i] == viewer) {
+                    followerBtn.setAttribute("class","btn btn-outline-danger");
+                    followerBtn.innerHTML = 'Non seguire più';  
+                  }
+                }
+              }
+              else {
+                followerBtn.setAttribute("disabled",true);
+              }
+
               function iscrivi(e) {
                 var followerText = document.getElementById("followerText");     
                 var httpRequest = new XMLHttpRequest();
@@ -112,6 +128,8 @@
                   httpRequest.open("POST", "/update/follower", true);
                   httpRequest.setRequestHeader("Content-type", "application/json");
                   httpRequest.send( '{ "newFollower": '+followers+
+                                    ',"follower": "'+'<%- course.viewer %>'+
+                                    '","delete": '+'"no"'+
                                     ',"course": "'+'<%- course.courseName %>'+'" }');
 
                   followerText.innerHTML = 'Follower: '+followers;
@@ -120,9 +138,11 @@
                 }
                 else {
                   followers--;
-                  httpRequest.open("POST", "/iscrivi", true);
+                  httpRequest.open("POST", "/update/follower", true);
                   httpRequest.setRequestHeader("Content-type", "application/json");
                   httpRequest.send( '{ "newFollower": '+followers+
+                                    ',"follower": "'+'<%- course.viewer %>'+
+                                    '","delete": '+'"yes"'+
                                     ',"course": "'+'<%- course.courseName %>'+'" }');
 
                   followerText.innerHTML = 'Follower: '+followers;

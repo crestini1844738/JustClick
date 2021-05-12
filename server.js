@@ -418,13 +418,20 @@ app.get('/courses2/:c', function(req,res) {
                     console.log('caricando il corso '+CourseLoaded);
                     let corso= JSON.parse(body);
                     //console.log(corso);
-                    if(req.session) {
+                    //console.log(req.session);
+                    if(req.session.username) {
                         if(req.session.username == corso.author) {
                             res.render(__dirname + '/public/views/course_modify.ejs', {    course: corso   });
                         }
-                        else res.render(__dirname + '/public/views/course.ejs', {    course: corso   });
+                        else {
+                            corso.viewer = req.session.username;
+                            res.render(__dirname + '/public/views/course.ejs', {    course: corso });
+                        }
                     }
-                    else res.render(__dirname + '/public/views/course.ejs', {    course: corso   });
+                    else {
+                        corso.viewer = "unknown";
+                        res.render(__dirname + '/public/views/course.ejs', {    course: corso  });
+                    } 
                     
                 }
             } 
@@ -807,6 +814,15 @@ app.post('/update/:elem', function(req, res) {
             switch(req.params.elem) {
                 case "follower":
                     tutto.courseFollower = req.body.newFollower;
+                    if(req.body.delete == "no") tutto.follower.push(req.body.follower); 
+                    else {
+                        for(var i=0; i<tutto.follower.length; i++) {
+                            if(tutto.follower[i]==req.body.follower) {
+                                var old = tutto.follower.splice(i,1);
+                                console.log(old);
+                            }
+                        }
+                    }
                     break;
                 case "courses":
                     var oldCourses = tutto.courses.splice(req.body.index,1);
@@ -843,6 +859,7 @@ app.post('/update/:elem', function(req, res) {
                 ',"secondEvidenza": '+array_to_string(tutto.secondEvidenza)+
                 ',"thirdEvidenza": '+array_to_string(tutto.thirdEvidenza)+
                 ',"courses": '+array_to_string(tutto.courses)+
+                ',"follower": '+array_to_string(tutto.follower)+
                 '  }';
 
             request2server({
@@ -855,8 +872,8 @@ app.post('/update/:elem', function(req, res) {
                     console.log(error);
                 }
                 else {
-                    //console.log(msg);
-                    //console.log(body);
+                    console.log(msg);
+                    console.log(body);
                     console.log("update "+req.params.elem+" effettuato!");
                     if(req.params.elem == "setCorsi") res.redirect('/courses2/'+req.body.course);
                 }
