@@ -100,6 +100,7 @@ overflow: hidden;
   padding-right: 100px;
   font-size: 18px;
   margin-right: -100px;
+  margin-top: 30px;
   height: 200px;
   width: 500px;
   transition: width 1s, height 4s;
@@ -305,7 +306,19 @@ h3{
   margin-right: 30%;
 }
 
-
+#treD1 {
+  color: #fff;
+    text-shadow: 0 1px 0 #999, 
+        0 2px 0 #888, 
+        0 3px 0 #777, 
+        0 4px 0 #666, 
+        0 5px 0 #555, 
+        0 6px 0 #444, 
+        0 7px 0 #333, 
+        0 8px 7px #001135;
+    font-family: 'Arial Black', Gadget, sans-serif;
+    font-size: 30px;
+}
 
 
 
