@@ -776,7 +776,7 @@ app.post('/carica', function(req,res) {
             }
         });
 
-        res.sendFile(__dirname + '/public/php/myform.html');
+        res.redirect('/personalArea');
 });
 
 //per rendere array una stringa con codifica json

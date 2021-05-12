@@ -34,7 +34,7 @@
     padding: 0;
     background-color: #233d42 ;
     color: white;
-    display: inline-block;
+    display: inline-block; 
     border: 1px solid #16282b;
     margin: 10px;
     -webkit-box-shadow: -2px 2px 12px 0px rgba(0,0,0,0.75);
