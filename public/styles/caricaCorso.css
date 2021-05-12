@@ -14,10 +14,14 @@
 }
 
 h1{
-    font-family: "Arial Black";
-    text-shadow: 2px 2px 3px blue;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  text-shadow: 0.1em 0.1em 0.15em #333;
 }
-
+#prova{
+    font-size: 35px;
+}
 
 
 .pagina{
@@ -27,3 +31,9 @@ h1{
 #zonaDinamica{
     border: 5px solid blue;
 }
+
+.progress{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
