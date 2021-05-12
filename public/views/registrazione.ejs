@@ -30,7 +30,7 @@
               <a class="nav-link active fw-bold" aria-current="page" href="/">HOME</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle active fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 LOGIN
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -52,8 +52,8 @@
                 PROFILO
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Carica corso</a></li>
                 <li><a class="dropdown-item" href="/personalArea">Il mio account</a></li>
+                <li><a class="dropdown-item" href="/manageAccount">Carica corso</a></li>
               </ul>
             </li>
           </ul>
@@ -69,7 +69,7 @@
     <div class="row">
         <div class="leftcolumn">
             <div class="text-center">
-                <form action="http://localhost:8889/register/auth" class="form-Register"  method="post" name="registration" >
+                <form action="/register/auth" class="form-Register"  method="post" name="registration" >
                     <div class="form-inner">
                      <h3>Registrazione</h3> 
                      <% if (errormessage) { %>
@@ -86,7 +86,7 @@
                             
                             <strong>Well done!</strong> <%= errormessage.msg%> 
                             <br>
-                            <a href="http://localhost:8889/login">Vai al login!</a>
+                            <a href="/login">Vai al login!</a>
                             </p>
                             <% break;
                         } %>
@@ -107,7 +107,7 @@
                         <input type="checkbox" id="custom-checkbox" required/>
                         <label for="custom-checkbox">Con la seguente si accettano i termini e condizioni. </label>
                         <input type="submit" value="Inviare" onclick="formValidationRegister()">
-                        <pippo>Sei già registrato? <a href="http://localhost:8889/login">Accedi</a></pippo>
+                        <pippo>Sei già registrato? <a href="/login">Accedi</a></pippo>
                       
                       
                     </div>

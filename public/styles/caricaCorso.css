@@ -8,10 +8,14 @@
     margin-bottom: 60px;
     background-color: white;
     width: 550px;
+    background-image: url(/public/img/sfondoRegistrazione.png);
+    background: linear-gradient(to right bottom,rgba(43, 44, 78, .5),rgba(104, 22, 96, .5));
+    background-size: cover;
 }
 
 h1{
     font-family: "Arial Black";
+    text-shadow: 2px 2px 3px blue;
 }
 
 

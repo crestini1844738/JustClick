@@ -30,7 +30,7 @@
               <a class="nav-link fw-bold" aria-current="page" href="/">HOME</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle active fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 LOGIN
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -49,8 +49,8 @@
                 PROFILO
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Carica corso</a></li>
                 <li><a class="dropdown-item" href="/personalArea">Il mio account</a></li>
+                <li><a class="dropdown-item" href="/manageAccount">Carica corso</a></li>
               </ul>
             </li>
           </ul>
@@ -66,7 +66,7 @@
     <div class="row">
         <div class="leftcolumn">
             <div class="text-center">
-                 <form  action="http://localhost:8889/login/auth" class="form-Login" method="POST" name="loginsend" id="loginsend">
+                 <form  action="/login/auth" class="form-Login" method="POST" name="loginsend" id="loginsend">
                     <div class="form-inner" id="login">
                         <h3>Login</h3>
                         
@@ -76,7 +76,7 @@
                         <input type="password" name="Password"id="Password" required/>
                         <input type="submit" value="Inviare">
                         <!--<input type="button" id="sendLogin" value="Invia">-->
-                        <pippo>Non hai un account? <a href="http://localhost:8889/register">Registrati</a></pippo>
+                        <pippo>Non hai un account? <a href="/register">Registrati</a></pippo>
                         <br>
                         <br>
                         <% if (errormessage) { %>
