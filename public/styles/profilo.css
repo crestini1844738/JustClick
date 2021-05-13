@@ -35,3 +35,10 @@ img{
 body{
     background-color: #48cae4;
 }
+
+#titolo{
+    font-size: 30px;
+    text-align: center;
+    color: white;
+    font-family: 'Arial Black';
+}

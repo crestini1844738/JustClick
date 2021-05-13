@@ -17,6 +17,12 @@ function validaForm(){
       return false;
 
     }
+    var foto = document.getElementById("image").files[0];
+    if(foto.size>50000){
+      alert("La dimensione dell'immagine profilo è troppo grande!");
+      document.formprova.image.focus();
+      return false;
+    }
     return true;
   }
 

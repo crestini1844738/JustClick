@@ -80,7 +80,7 @@ function personalArea(utente)
             }
 
           }
-        $("#corpoProfilo").append(bodyProfilo+"<br><h5>I miei corsi</h5><br>"+corsiProfilo);
+        $("#corpoProfilo").append(bodyProfilo+"<br><h5 id='titolo'>I miei corsi</h5><br>"+corsiProfilo);
         }  
         };
         $.ajax( settingscorsi );
