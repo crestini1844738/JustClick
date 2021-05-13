@@ -2,6 +2,7 @@ function validaForm(){
     if(document.formprova.titolo.value==""){
       alert("Inserisci il titolo del corso");
       document.formprova.titolo.focus();
+      //prova
       return false;
     }
     if(document.formprova.opt.value=="nessuna"){
