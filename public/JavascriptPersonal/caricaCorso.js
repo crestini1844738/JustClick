@@ -2,8 +2,38 @@ function validaForm(){
     if(document.formprova.titolo.value==""){
       alert("Inserisci il titolo del corso");
       document.formprova.titolo.focus();
-      //prova
       return false;
+    }
+    else
+    {
+      var controllo=true;
+      var titolo=document.formprova.titolo.value
+      var settings={
+      url: "/getcorsi",
+      async: false,
+      type: "POST",
+      dataType: 'JSON',
+      success: function(response){
+        var tuttiicorsi=response.tuttiICorsi;
+          for(j=0;j<tuttiicorsi.length;j++)
+          {
+             if(tuttiicorsi[j].courseName==titolo)
+             {
+                controllo=false;
+             }
+
+          }
+        }
+          
+      };
+      $.ajax(settings);
+      if(controllo==false)
+      {
+        alert("Titolo già in uso");
+        document.formprova.titolo.focus();
+        return false;
+      }
+
     }
     if(document.formprova.opt.value=="nessuna"){
       alert("Scegli la categoria del tuo corso");
