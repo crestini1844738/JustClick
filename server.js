@@ -291,7 +291,7 @@ app.post('/profiloUtente', function(req,res) {
                 ris = JSON.parse(body);
                 profilo=ris.docs[0];
                 output={utente:profilo};
-                console.log(profilo);
+                //console.log(profilo);
                 res.json(output);
                 
             }
@@ -314,11 +314,11 @@ app.post('/getcorsi', (req, res) => {
             url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
             method: 'POST',
             headers: {'content-type': 'application/json'},
-            body: '{ "selector": { "category": {"$gt": null} }, "skip": 0, "execution_stats": true }'       
+            body: '{ "selector": { "author": "'+req.session.username+'"}, "sort": [{"courseFollower": "desc"}], "skip": 0, "execution_stats": true }'       
             }, function(error, response, body){
                 ris = JSON.parse(body);
-                console.log(ris.docs);
-                corsi=ris.docs
+                //console.log(ris.docs);
+                corsi=ris.docs;
                 output={tuttiICorsi:corsi};
                 res.json(output);
                 
@@ -331,7 +331,8 @@ app.post('/getcorsi', (req, res) => {
 
 //GET GESTISCI ACCOUNT
 app.get('/manageAccount', function(req,res) {
-    res.sendFile(__dirname+'/public/views/caricaCorso.html');
+    if(req.session.loggedin) res.sendFile(__dirname+'/public/views/caricaCorso.html');
+    else res.redirect('/login');
 });
 
 app.get('/caricaInfo', function(req,res) {
@@ -416,7 +417,7 @@ app.get('/courses3', function(req,res) {
                 //console.log(tutto);
                 for(var i=0; i<tutto.docs.length; i++) {   
                     courses[i] = tutto.docs[i];
-                    console.log("caricato il corso "+courses[i].courseName);
+                    //console.log("caricato il corso "+courses[i].courseName);
                 }
                 res.render(__dirname + '/public/views/listaCorsi.ejs', {
                     corsi: courses
@@ -437,7 +438,7 @@ app.get('/courses3', function(req,res) {
                 //console.log(tutto);
                 for(var i=0; i<tutto.docs.length; i++) {   
                     courses[i] = tutto.docs[i];
-                    console.log("caricato il corso "+courses[i].courseName);
+                    //console.log("caricato il corso "+courses[i].courseName);
                 }
                 res.render(__dirname + '/public/views/listaCorsi.ejs', {
                     corsi: courses
@@ -672,7 +673,7 @@ const { response } = require('express');
 app.use(fileupload());
 app.post('/carica', function(req,res) {
         //console.log(req.files);
-        var user = "ignoto";
+        var user = req.session.username;
         var pubblicazioni = 0;
         var materiale = "";
         var loaded = "not loaded";
@@ -686,6 +687,10 @@ app.post('/carica', function(req,res) {
             if(req.files.materiale) {
                 pubblicazioni++;
                 materiale = '["' +req.files.materiale.name+ '","'+req.body.descMateriale+'"]';
+                req.files.materiale.name = req.body.titolo+'_'+req.files.materiale.name;
+                req.files.materiale.mv(__dirname+'/public/materiale/'+req.files.materiale.name, function(err) {
+                    if(err) return res.status(500).send(err);
+                });
             }
 
             if(!req.files.image) {
@@ -713,12 +718,14 @@ app.post('/carica', function(req,res) {
         //creazione corso
         var msg=    '{ "courseName":"'+req.body.titolo+
                 '","author":"'+user+
+                '","desc":"'+req.body.desc+
                 '","image":"'+loaded+
                 '","category":"'+req.body.opt+
                 '" ,"courseFollower": 0'+
                 ',"coursePublications": '+pubblicazioni+
                 ',"firstEvidenza":[], "secondEvidenza": [], "thirdEvidenza": []'+
                 ',"courses": [' +materiale+ ']'+
+                ',"follower": []'+
                 '  }';
 
         request2server({
@@ -732,10 +739,52 @@ app.post('/carica', function(req,res) {
             }
             else 
             {
-                console.log("ce l'abbiamo fatta!");
+                //console.log(body);
+                console.log("corso "+req.body.titolo+" creato!");
             }
         });
+/*
+        request2server({
+            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+user, 
+            method: 'GET',
+            headers: {'content-type': 'application/json'},
+            body: msg
+        }, function(error, response, body){
+            if(error) {
+                console.log(error);
+            }
+            else {
+                var tutto = JSON.parse(body);
+                tutto.Courses.push(req.body.titolo);
+                //console.log(body);
+                msg=    '{ "_rev":"'+tutto._rev+
+                '","Username":"'+user+
+                '","Name":"'+tutto.Name+
+                '","Surname":"'+tutto.Surname+
+                '","Date":"'+tutto.Date+
+                '" ,"Email":"'+tutto.Email+
+                '","Password":"'+tutto.Password+
+                '","Courses": '+array_to_string(tutto.Courses)+
+                '  }';
 
+
+                request2server({
+                    url: 'http://admin:admin@127.0.0.1:5984/progetto/'+user, 
+                    method: 'PUT',
+                    headers: {'content-type': 'application/json'},
+                    body: msg
+                }, function(error, response, body){
+                    if(error) {
+                        console.log(error);
+                    }
+                    else 
+                    {
+                        console.log(body);
+                        console.log("utente aggiornato!");
+                    }
+                });
+            }
+        });*/
         res.redirect('/personalArea');
 });
 
@@ -779,7 +828,7 @@ app.post('/update/:elem', function(req, res) {
                         for(var i=0; i<tutto.follower.length; i++) {
                             if(tutto.follower[i]==req.body.follower) {
                                 var old = tutto.follower.splice(i,1);
-                                console.log(old);
+                                //console.log(old);
                             }
                         }
                     }
@@ -804,6 +853,10 @@ app.post('/update/:elem', function(req, res) {
                     materiale.push(req.body.descMateriale);
                     tutto.courses.push(materiale);
                     tutto.coursePublications = tutto.courses.length;
+                    req.files.materiale.name = tutto.courseName+'_'+req.files.materiale.name;
+                    req.files.materiale.mv(__dirname+'/public/materiale/'+req.files.materiale.name, function(err) {
+                        if(err) return res.status(500).send(err);
+                    });
                 default:
                     break;
             }
@@ -811,6 +864,7 @@ app.post('/update/:elem', function(req, res) {
             msg=    '{ "courseName":"'+tutto.courseName+
                 '","_rev":"'+tutto._rev+
                 '","author":"'+tutto.author+
+                '","desc":"'+tutto.desc+
                 '","image":"'+tutto.image+
                 '","category":"'+tutto.category+
                 '","courseFollower": '+ tutto.courseFollower+
@@ -832,8 +886,8 @@ app.post('/update/:elem', function(req, res) {
                     console.log(error);
                 }
                 else {
-                    console.log(msg);
-                    console.log(body);
+                    //console.log(msg);
+                    //console.log(body);
                     console.log("update "+req.params.elem+" effettuato!");
                     if(req.params.elem == "setCorsi") res.redirect('/courses2/'+req.body.course);
                 }
@@ -869,6 +923,7 @@ app.post('/updateImg/:c', function(req, res) {
                 msg=    '{ "courseName":"'+tutto.courseName+
                 '","_rev":"'+tutto._rev+
                 '","author":"'+tutto.author+
+                '","desc":"'+req.body.desc+
                 '","image":"'+'loaded'+
                 '","category":"'+tutto.category+
                 '","courseFollower": '+ tutto.courseFollower+
@@ -877,6 +932,7 @@ app.post('/updateImg/:c', function(req, res) {
                 ',"secondEvidenza": '+array_to_string(tutto.secondEvidenza)+
                 ',"thirdEvidenza": '+array_to_string(tutto.thirdEvidenza)+
                 ',"courses": '+array_to_string(tutto.courses)+
+                ',"follower": '+array_to_string(tutto.follower)+
                 '  }';
 
                 request2server({

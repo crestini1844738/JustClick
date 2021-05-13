@@ -247,7 +247,7 @@
           <div class="courses bds text-center" > 
             <vl hidden><%=course.courses[index][0]%></vl>
             <index id="index" hidden><%= index %> </index>         
-            <h2> <%= course.courses[index][0] %>  <span class="badge rounded-pill bg-success">NEW!</span></h2>
+            <h2> <a href="../materiale/<%= course.courseName %>_<%= course.courses[index][0] %>"><%= course.courses[index][0] %></a>  <span class="badge rounded-pill bg-success">NEW!</span></h2>
             <img src="../img/default_school.png" class="img-fluid" alt="JustClick">
             <h5 class="card-text"><%= course.courses[index][1] %> </h5> 
             <input type="image" src="../img/delete.png" class="modify-courses" alt="Modifica">
