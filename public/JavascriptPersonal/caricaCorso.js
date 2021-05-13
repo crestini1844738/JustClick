@@ -4,6 +4,37 @@ function validaForm(){
       document.formprova.titolo.focus();
       return false;
     }
+    else
+    {
+      var controllo=true;
+      var titolo=document.formprova.titolo.value
+      var settings={
+      url: "/getcorsi",
+      async: false,
+      type: "POST",
+      dataType: 'JSON',
+      success: function(response){
+        var tuttiicorsi=response.tuttiICorsi;
+          for(j=0;j<tuttiicorsi.length;j++)
+          {
+             if(tuttiicorsi[j].courseName==titolo)
+             {
+                controllo=false;
+             }
+
+          }
+        }
+          
+      };
+      $.ajax(settings);
+      if(controllo==false)
+      {
+        alert("Titolo già in uso");
+        document.formprova.titolo.focus();
+        return false;
+      }
+
+    }
     if(document.formprova.opt.value=="nessuna"){
       alert("Scegli la categoria del tuo corso");
       document.formprova.opt.focus();
@@ -16,6 +47,12 @@ function validaForm(){
       document.formprova.materiale.focus();
       return false;
 
+    }
+    var foto = document.getElementById("image").files[0];
+    if(foto.size>50000){
+      alert("La dimensione dell'immagine profilo è troppo grande!");
+      document.formprova.image.focus();
+      return false;
     }
     return true;
   }

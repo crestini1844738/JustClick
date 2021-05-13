@@ -78,7 +78,7 @@ app.post('/homepage/popolari', function(req,res) {
         url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
-        body: '{ "selector": { "category": {"$gt": null} }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'         
+        body: '{ "selector": { "category": {"$gt": null} }, "sort": [{"courseFollower": "desc"}], "limit": 5, "skip": 0, "execution_stats": true }'         
         }, function(error, response, body){
             tutto = JSON.parse(body);
             
@@ -345,7 +345,7 @@ app.post('/profiloUtente', function(req,res) {
 });
 
 //GET CORSI PROFILO PERSONALE
-app.post('/corsiUtente', (req, res) => {
+app.post('/getcorsi', (req, res) => {
     if (req.session.loggedin) {
         var output = {};
         var corsi;
