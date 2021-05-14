@@ -75,15 +75,15 @@
                         <label for="Password">Password</label>
                         <input type="password" name="Password"id="Password" required/>
                         <input type="submit" value="Inviare">
-                        <!--<input type="button" id="sendLogin" value="Invia">-->
+                        <input type="button" id="sendLogin" value="Invia">
                         <pippo>Non hai un account? <a href="/register">Registrati</a></pippo>
                         <br>
                         <br>
-                        <% if (errormessage) { %>
+                        <!--<% if (errormessage) { %>
                           <p class="alert alert-danger mt-4"><%= errormessage%></p>
-                        <% } %>
+                        <% } %>-->
                        
-                        <!--<div  id=errorMessage></div>
+                        <div  id=errorMessage></div>
                     
                         <script type="text/javascript">
                           $('#sendLogin').click(function() {
@@ -120,7 +120,7 @@
                                   };
                                   $.ajax( settings );
                                   });
-                        </script>-->
+                        </script>
                     </div>
                 </form>
 
