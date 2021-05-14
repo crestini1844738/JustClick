@@ -117,7 +117,7 @@
 
 .courses{
   width: 75%;
-  height: 300px;
+  max-height: 500px;
   padding-bottom: 10px;
   padding-top: 10px;
   background-color: deepskyblue;
@@ -125,6 +125,8 @@
   margin-right: 12.5%;
   margin-top: 70px;
   margin-bottom: 70px;
+  text-decoration: none;
+  overflow: hidden;
 }
 
 .courses h2{
@@ -132,6 +134,7 @@
   font-family: Arial, Helvetica, sans-serif;
   color:black;
   font-weight: bold;
+  text-decoration: none;
 }
 
 .courses img{
@@ -146,5 +149,17 @@
 
 .coverimage div{
   color: black;
+}
+
+.anteprima{
+  max-height: 300px;
+}
+
+a{
+  text-decoration: none;
+}
+
+audio, video{
+  max-width: 100%;
 }
 
