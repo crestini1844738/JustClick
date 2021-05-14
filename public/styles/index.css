@@ -89,7 +89,8 @@
   /* Left column */
   .leftcolumn {   
     float: left;
-    width: 75%;
+    width: 100%;
+    margin: 0px;
   }
   
   /* Right column */
