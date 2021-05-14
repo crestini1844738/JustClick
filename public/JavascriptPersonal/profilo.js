@@ -67,7 +67,7 @@ function personalArea(utente)
             var category=tuttiicorsi[j].category;
             var description="Some text about the course..";
             corsiProfilo=corsiProfilo+"<div class='card' ><div class='row g-0'>"+
-            "<div class='col-md-3' id='imgcorso'><img src='../img/courseImgs/"+author+"_"+courseName+".png' ></div>"+
+            "<div class='col-md-3' id='imgcorso'><img src='../img/courseImgs/"+author+"_"+courseName+".png' id='profilocorso'></div>"+
             "<div class='col-md-9'><div class='card-body'><h1>"+courseName+"</h1>"+
             "<p class='categoria'>Categoria: "+category+", Follower: "+follower+"</p>"+
             "<hr><div class='row justify-content-evenly'><p>"+description+" </p>"+
