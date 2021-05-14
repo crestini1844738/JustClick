@@ -73,7 +73,7 @@
                 <% if (course.image == "not loaded") { %> 
                   <img src="../img/courseImgs/default_image.png" class="profilebds profileimage" alt="JustClick">
                 <% } else { %>
-                  <img src="../img/courseImgs/<%= course.author %>_<%= course.courseName %>.png " class="profilebds profileimage" alt="JustClick">
+                  <img src="../img/courseImgs/<%=course.author%>_<%=course.courseName%>.png " class="profilebds profileimage" alt="JustClick">
                 <% } %>       
                 <div class="profilename"><%= course.courseName %></div>
             </div>

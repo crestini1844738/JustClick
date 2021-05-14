@@ -246,7 +246,7 @@
         <% for( let index = 0; index < it; index++ ) { %>
           <div class="courses bds text-center" > 
             <vl hidden><%=course.courses[index][0]%></vl>
-            <index id="index" hidden><%= index %> </index>  
+            <index id="index" hidden><%=index%></index>  
             <a href="../materiale/<%= course.courseName %>_<%= course.courses[index][0] %>">     
               <h2> <%= course.courses[index][0] %> <span class="badge rounded-pill bg-success">NEW!</span></h2>
               <img src="#" id="bodyMateriale" name="bodyMateriale" class="img-fluid anteprima" alt="JustClick">
@@ -359,8 +359,8 @@
       //                  ',"course": "'+'<%- course.courseName %>'+'" }');
       e.target.parentElement.remove();
       var newIndexes = document.getElementsByTagName("index");
-      for(var i=-1; i<newIndexes.length-1; i++) {
-        newIndexes[i].innerHTML = i;
+      for(var i=0; i<newIndexes.length; i++) {
+        newIndexes[i].innerHTML = i-1;
       }
       
     }
