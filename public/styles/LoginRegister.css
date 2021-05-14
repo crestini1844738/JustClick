@@ -43,8 +43,17 @@
   font-weight: 300;
   font-size: 26px;
   text-transform: uppercase;
+} 
+
+#linea{
+  width: 150px;
+  height: 3px;
+  margin: auto;
+  color: #1762EE;
+  opacity: 100%;
+  margin-bottom: 10px;
 }
-.form-inner h3:after {
+/*.form-inner h3:after {
   content: "";
   position :absolute;
   left: 45%;
@@ -52,7 +61,7 @@
   height: 2px;
   width: 150px;
   background: #1762EE;
-}
+} */
 .form-inner h4 {
   font-size: xx-small;
 }
@@ -138,4 +147,8 @@
 .pippo{
   color: black;
   font-size: medium;
+}
+
+::placeholder{
+  color: lightgray;
 }
