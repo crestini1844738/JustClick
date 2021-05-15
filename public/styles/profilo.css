@@ -37,10 +37,20 @@ body{
 }
 
 #titolo{
+    margin-top: 20px;
+    color: #fff;
+    text-shadow: 0 1px 2px #999, 
+        0 2px 2px #888, 
+        0 3px 2px #777, 
+        0 4px 2px #666, 
+        0 5px 2px #555, 
+        0 6px 2px #444, 
+        0 7px 2px #333, 
+        0 8px 7px #001135;
+    font-family: 'Arial Black', Gadget, sans-serif;
     font-size: 30px;
     text-align: center;
-    color: white;
-    font-family: 'Arial Black';
+    text-transform: uppercase;
 }
 
 #imgcorso{
