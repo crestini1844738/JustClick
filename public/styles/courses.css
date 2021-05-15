@@ -170,7 +170,6 @@ audio, video{
     width: 250px;
     border-radius:125px;
     margin-left: 30%;
-    margin-right: 30%;
   }
   
   .profilebds{
@@ -186,6 +185,31 @@ audio, video{
   .center h1{
     font-size:20px;
   }
+  
+  .modify-image{
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    margin-left: 20%;
+    position: relative;
+    top: -30px;
+    margin-bottom: 0px;
+  }
+  
+  .modify-evidence, .modify-courses, .create-course{
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    margin-left: 80%;
+    position: relative;
+    top: -20px;
+    margin-bottom: -20px;
+  }
+  
+  .text-modify{
+    position: relative;
+    top: -40px;
+  }
 
 }
 
@@ -195,7 +219,22 @@ audio, video{
     height: 200px;
     width: 200px;
     border-radius:100px;
-    margin-left: 20%;
-    margin-right: 30%;
+    margin-left: 0%;
+    margin-right: 0%;
+  }
+
+  .text-modify{
+    position: relative;
+    top: -40px;
+  }
+
+  .modify-image{
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    margin-left: 40%;
+    position: relative;
+    top: -30px;
+    margin-bottom: 0px;
   }
 }
