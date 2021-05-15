@@ -54,3 +54,24 @@ body{
     border-radius: 150px;
     margin-bottom: 20px;
 }
+
+.categoria {
+    color: grey;
+    font-size: 22px;
+  }
+
+/*.card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 20%;
+    font-size: 18px;
+  }*/
+  
+  .card button:hover {
+    opacity: 0.7;
+  } 
