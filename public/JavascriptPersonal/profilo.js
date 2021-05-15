@@ -78,7 +78,7 @@ function personalArea(utente)
             "<div class='col-md-9'><div class='card-body'><h1>"+courseName+"</h1>"+
             "<p class='categoria'>Categoria: "+category+", Follower: "+follower+"</p>"+
             "<hr><div class='row justify-content-evenly'><p>"+description+" </p>"+
-            "<p><a href='/courses2/"+courseName+"'><button>Vai al corso</button></a></p>"+
+            "<p><a href='/courses2/"+courseName+"'><button class='btn btn-dark'>Vai al corso</button></a></p>"+
             "</div></div></div></div></div><br>";
           }
         $("#corpoProfilo").append(bodyProfilo+"<br><h5 id='titolo'>I miei corsi</h5><br>"+corsiProfilo);
