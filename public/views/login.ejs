@@ -17,7 +17,7 @@
 
     <div class="header">
         <img src="../logo/logo_small.png" alt="JustClick">
-        <p>Tutto il sapere a portata di click</p>
+        <p id="testologo">Tutto il sapere a portata di click</p>
     </div>
 
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-blue">
@@ -32,10 +32,10 @@
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle active fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                LOGIN
+                ACCEDI
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="/login">Accedi</a></li>
+                <li><a class="dropdown-item" href="/login">Login/Logout</a></li>
                 <li><a class="dropdown-item" href="/register">Registrati</a></li>
               </ul>
             </li>
@@ -69,7 +69,7 @@
             <div class="text-center">
                  <form  action="/login/auth" class="form-Login" method="POST" name="loginsend" id="loginsend">
                     <div class="form-inner" id="login">
-                        <h3>Login</h3>
+                        
                         
                         <!--<script type="text/javascript">
                            $(document).ready(loginLogout());
@@ -78,12 +78,17 @@
 
 
                         <div class="corpo-login" id="corpo-login">
+                        <h3>Login</h3>
+                        <% if (logout) { %>
+
+                          <p class="alert alert-success mt-4"><%= logout%></p>
+                        <% } %>
                         <label for="Username">Username</label>
                         <input type="text" name="Username" id="Username" required/>
                         <label for="Password">Password</label>
                         <input type="password" name="Password"id="Password" required/>
                         <input type="submit" value="Inviare">
-                        <!--<input type="button" id="sendLogin" value="Invia">-->
+                        
                         <pippo>Non hai un account? <a href="/register">Registrati</a></pippo>
                         <br>
                         <br>
@@ -95,53 +100,13 @@
                         <% } %>
                         <% if (success) { %>
                           <script type="text/javascript">
-                          $("#corpo-login").html("utente connesso <%= success%>");
+                            var utente = "Ciao  <%= success%>!";
+                            var personalPage='<pippo><a href="http://localhost:8889/personalArea">Vai alla tua area personale</a></pippo>';
+                            var logout="Per eseguire il LOGOUT <a href='http://localhost:8889/logout'>clicca qui</a>"
+                            html='<h3>Accesso effettuato</h3><br><p class="alert alert-success">' + utente +' '+personalPage+'<br>'+logout+ '</p>';
+                            $("#corpo-login").html(html);
                           </script>
                         <% } %>
-                        
-                          
-
-
-
-
-
-
-                        <!--<script type="text/javascript">
-                          $('#sendLogin').click(function() {
-                                var user = $('#Username').val();
-                                var pass = $('#Password').val();
-                                var data = {
-                                          Username: user,
-                                          Password: pass
-                                      };
-                              
-                                  var showResults = function( response ) {
-                                  if( response.errors ) {
-                                    $.each( response.errors, function( index, err ) {                                
-                                    $('#errorMessage').html('<p class="alert alert-danger">' + err.msg + '</p>');
-                                    
-                                    });
-                                  } 
-                                  else 
-                                  {
-                                    var personalPage='<pippo><a href="http://localhost:8889/personalArea">Vai alla tua area personale</a></pippo>';
-                                    var success = '<p class="alert alert-success">' + response.success +'<br>'+personalPage+ '</p>';
-                                    $('#login').html( success );
-                                  }
-                                  };
-
-                                  var settings = {
-                                      url: "/ajax/login",
-                                      dataType: "json",
-                                      type: "POST",
-                                      contentType: "application/json",
-                                      data: JSON.stringify(data),
-                                      processData: false,
-                                      success: showResults
-                                  };
-                                  $.ajax( settings );
-                                  });
-                        </script>-->
                     </div>
                 </form>
 

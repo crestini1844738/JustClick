@@ -56,35 +56,19 @@ app.get('/AboutUs', function(req,res) {
 
 
 //GET PAGINA LOGIN
-app.get('/login',function(req,res){
-    //get login se uso ajax
-    //res.sendFile(__dirname + '/public/views/login.html');  
-    //get login se uso ejs 
+app.get('/login',function(req,res){  
     if(req.session.loggedin)
     {
-        res.render(__dirname + '/public/views/login.ejs', { success:req.session.username ,errormessage:''});
+        res.render(__dirname + '/public/views/login.ejs', { success:req.session.username ,errormessage:'',logout:''});
     }
     else
     {
-        res.render(__dirname + '/public/views/login.ejs', { success:'',errormessage: '' });
+        res.render(__dirname + '/public/views/login.ejs', { success:'',errormessage: '',logout:'' });
     }
     
        
 });
-//GET LOGIN LOGOUT
-app.post('/login/logout',function(req,res){
-    var output = {};
-       if(req.session.loggedin)
-       {
-        output={user:req.session.username};
-        
-       }
-       else
-       {
-        output={user:"none"};
-       }
-       res.json(output);
-});
+
 //GET REGISTER
 app.get('/register',function(req,res){
     res.render(__dirname + '/public/views/registrazione.ejs',{ errormessage: '' });
@@ -122,7 +106,7 @@ app.post('/homepage/popolari', function(req,res) {
 
 
 //AUTENTICAZIONE LOGIN CON AJAX (NON FUNZIONA)
-app.post('/ajax/login', (req, res) => {
+/*app.post('/ajax/login', (req, res) => {
     var output = {};
     var errors = [];
     var index=-1;
@@ -179,12 +163,11 @@ app.post('/ajax/login', (req, res) => {
             }    
         }
     });
-});
+});*/
 
 
 
 //AUTENTICAZIONE LOGIN CON EJS
-//uso delle sessione per salvare l' utente autenticato
 app.post('/login/auth', function(req, res) {
 	var user= req.body.Username;
 	var pass = req.body.Password;
@@ -217,7 +200,7 @@ app.post('/login/auth', function(req, res) {
                 {
                     // Login errato
                     console.log('username not found')
-                    res.status(401).render(__dirname + '/public/views/login.ejs', { success:'',errormessage: 'Username not found' });
+                    res.status(401).render(__dirname + '/public/views/login.ejs', { success:'',errormessage: 'Username not found',logout:'' });
                 }
                 else
                 {
@@ -236,7 +219,7 @@ app.post('/login/auth', function(req, res) {
                     else
                     {
                         console.log('password non valida');
-                        res.status(401).render(__dirname + '/public/views/login.ejs', {  success:'',errormessage: 'Incorrect  password' });
+                        res.status(401).render(__dirname + '/public/views/login.ejs', {  success:'',errormessage: 'Incorrect  password',logout:''  });
                     }
                 }
             }
@@ -244,15 +227,13 @@ app.post('/login/auth', function(req, res) {
 });
 
 app.get('/logout',function(req, res){
-    if (req.session) {
-        req.session.destroy();
-    }
+
     if (req.session) {
         req.session.destroy(err => {
           if (err) {
             res.status(400).send('Unable to log out')
           } else {
-            res.render(__dirname + '/public/views/login.html', { errormessage: 'Logout successful' });
+            res.render(__dirname + '/public/views/login.ejs', { success:'',errormessage: '',logout:'Logout eseguito con successo' });
           }
         });
       } else {
