@@ -18,7 +18,7 @@
 <body>
 
     <div class="header">
-        <img src="../logo/logo_small.png" alt="JustClick">
+        <img src="../logo/logo_small.png" class="logo img-fluid" alt="JustClick">
         <p id="testologo">Tutto il sapere a portata di click</p>
     </div>
 
@@ -104,8 +104,8 @@
                         <% if (success) { %>
                           <script type="text/javascript">
                             var utente = "Ciao  <%= success%>!";
-                            var personalPage='<pippo><a href="http://localhost:8889/personalArea">Vai alla tua area personale</a></pippo>';
-                            var logout="Per eseguire il LOGOUT <a href='http://localhost:8889/logout'>clicca qui</a>"
+                            var personalPage='<pippo><a href="/personalArea">Vai alla tua area personale</a></pippo>';
+                            var logout="Per eseguire il LOGOUT <a href='/logout'>clicca qui</a>"
                             html='<h3>Accesso effettuato</h3><br><p class="alert alert-success">' + utente +' '+personalPage+'<br>'+logout+ '</p>';
                             $("#corpo-login").html(html);
                           </script>
