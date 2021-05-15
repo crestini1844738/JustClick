@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <script type="text/javascript" lang="javascript" src="js/bootstrap.bundle.min.js"></script> 
         <script type="text/javascript" lang="javascript" src="JavascriptPersonal/form_validazione.js"></script>
+        <script type="text/javascript" lang="javascript" src="../JavascriptPersonal/loginLogout.js"></script>
         <link rel=stylesheet href="../styles/index.css" type="text/css">
         <link rel=stylesheet href="../styles/LoginRegister.css" type="text/css">
         <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
@@ -70,22 +71,42 @@
                     <div class="form-inner" id="login">
                         <h3>Login</h3>
                         
+                        <!--<script type="text/javascript">
+                           $(document).ready(loginLogout());
+                        </script>-->
+
+
+
+                        <div class="corpo-login" id="corpo-login">
                         <label for="Username">Username</label>
                         <input type="text" name="Username" id="Username" required/>
                         <label for="Password">Password</label>
                         <input type="password" name="Password"id="Password" required/>
                         <input type="submit" value="Inviare">
-                        <input type="button" id="sendLogin" value="Invia">
+                        <!--<input type="button" id="sendLogin" value="Invia">-->
                         <pippo>Non hai un account? <a href="/register">Registrati</a></pippo>
                         <br>
                         <br>
-                        <!--<% if (errormessage) { %>
-                          <p class="alert alert-danger mt-4"><%= errormessage%></p>
-                        <% } %>-->
-                       
                         <div  id=errorMessage></div>
-                    
-                        <script type="text/javascript">
+                        </div>
+                        <% if (errormessage) { %>
+
+                          <p class="alert alert-danger mt-4"><%= errormessage%></p>
+                        <% } %>
+                        <% if (success) { %>
+                          <script type="text/javascript">
+                          $("#corpo-login").html("utente connesso <%= success%>");
+                          </script>
+                        <% } %>
+                        
+                          
+
+
+
+
+
+
+                        <!--<script type="text/javascript">
                           $('#sendLogin').click(function() {
                                 var user = $('#Username').val();
                                 var pass = $('#Password').val();
@@ -120,7 +141,7 @@
                                   };
                                   $.ajax( settings );
                                   });
-                        </script>
+                        </script>-->
                     </div>
                 </form>
 

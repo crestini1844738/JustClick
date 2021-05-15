@@ -58,12 +58,33 @@ app.get('/AboutUs', function(req,res) {
 //GET PAGINA LOGIN
 app.get('/login',function(req,res){
     //get login se uso ajax
-    res.sendFile(__dirname + '/public/views/login.html');   
-
-    //get login se uso ejs
-    //res.render(__dirname + '/public/views/login.ejs', { errormessage: '' });   
+    //res.sendFile(__dirname + '/public/views/login.html');  
+    //get login se uso ejs 
+    if(req.session.loggedin)
+    {
+        res.render(__dirname + '/public/views/login.ejs', { success:req.session.username ,errormessage:''});
+    }
+    else
+    {
+        res.render(__dirname + '/public/views/login.ejs', { success:'',errormessage: '' });
+    }
+    
+       
 });
-
+//GET LOGIN LOGOUT
+app.post('/login/logout',function(req,res){
+    var output = {};
+       if(req.session.loggedin)
+       {
+        output={user:req.session.username};
+        
+       }
+       else
+       {
+        output={user:"none"};
+       }
+       res.json(output);
+});
 //GET REGISTER
 app.get('/register',function(req,res){
     res.render(__dirname + '/public/views/registrazione.ejs',{ errormessage: '' });
@@ -196,7 +217,7 @@ app.post('/login/auth', function(req, res) {
                 {
                     // Login errato
                     console.log('username not found')
-                    res.status(401).render(__dirname + '/public/views/login.ejs', { errormessage: 'Username not found' });
+                    res.status(401).render(__dirname + '/public/views/login.ejs', { success:'',errormessage: 'Username not found' });
                 }
                 else
                 {
@@ -215,7 +236,7 @@ app.post('/login/auth', function(req, res) {
                     else
                     {
                         console.log('password non valida');
-                        res.status(401).render(__dirname + '/public/views/login.ejs', { errormessage: 'Incorrect  password' });
+                        res.status(401).render(__dirname + '/public/views/login.ejs', {  success:'',errormessage: 'Incorrect  password' });
                     }
                 }
             }
@@ -231,7 +252,7 @@ app.get('/logout',function(req, res){
           if (err) {
             res.status(400).send('Unable to log out')
           } else {
-            res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Logout successful' });
+            res.render(__dirname + '/public/views/login.html', { errormessage: 'Logout successful' });
           }
         });
       } else {
