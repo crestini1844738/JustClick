@@ -210,14 +210,14 @@ footer{
   margin: 0px auto;
   color: white;
   font-size: 20px;
-  font-family: 'Papyrus', fantasy;
+  font-family:fantasy;
   letter-spacing: 5px;
   top: 50%;
   margin-top: 10px;
   /*position: absolute;*/
   /*margin-top: -40px;*/
   
-  text-shadow: -1px -1px 0px #0096c7,
-    1px 1px 0px #0096c7,
-    2px 2px 0px rgb(49, 15, 241);
+  text-shadow: -1px -1px 2px #0096c7,
+    1px 1px 2px #0096c7,
+    2px 2px 2px rgb(49, 15, 241);
 }

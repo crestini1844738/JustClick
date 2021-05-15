@@ -49,10 +49,10 @@ body{
 
 }
 #profilocorso{
-    height: 300px;
-    width: 300px;
+    margin-top: 20px;
+    height: 200px;
+    width: 200px;
     border-radius: 150px;
-    margin-bottom: 20px;
 }
 
 .categoria {
