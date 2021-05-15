@@ -71,3 +71,7 @@
     background-size: 100% 250px;
     padding: 0px;
 }
+
+.col {
+    min-width: 300px;
+}
