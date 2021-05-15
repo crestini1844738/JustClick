@@ -115,7 +115,6 @@
   
   /* Add a card effect for articles */
   .card {
-    background-color: white;
     padding: 20px;
     margin-top: 20px;
   }
@@ -221,8 +220,18 @@ footer{
     2px 2px 2px rgb(49, 15, 241);
 }
 
+#sfondo{
+  background-image: url("../img/popolaricopertina.PNG");
+}
+
 @media (max-width: 544px){
   #testologo{
     font-size: 15px;
   }
+}
+
+.card-body{
+  background-color: #a0c4ff;
+  margin-right: 10%;
+  opacity: 90%;
 }

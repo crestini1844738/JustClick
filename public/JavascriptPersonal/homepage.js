@@ -53,7 +53,7 @@ function generaPopolari()
         var description=response.corsi[i].desc;
         
         //var descr = response[i].decription;
-        corso =corso+ "<div class='card' ><div class='row g-0'>"+
+        corso =corso+ "<div class='card' id='sfondo'><div class='row g-0'>"+
         "<div class='col-md-3' id='imgcorso'><img src='../img/courseImgs/"+author+"_"+courseName+".png' id='profilocorso' ></div>"+
         "<div class='col-md-9'><div class='card-body'><h1>"+courseName+"</h1>"+
         "<p class='categoria'>Categoria: "+category+", Follower: "+follower+"</p>"+
