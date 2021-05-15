@@ -14,8 +14,8 @@
 <body>
 
     <div class="header">
-        <img src="../logo/logo_small.png" alt="JustClick">
-        <p>Tutto il sapere a portata di click</p>
+        <img src="../logo/logo_small.png" class="logo img-fluid" alt="JustClick">
+        <p id="testologo">Tutto il sapere a portata di click</p>
     </div>
 
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-blue" id="1">
@@ -246,13 +246,72 @@
         <% for( let index = 0; index < it; index++ ) { %>
           <div class="courses bds text-center" > 
             <vl hidden><%=course.courses[index][0]%></vl>
-            <index id="index" hidden><%= index %> </index>         
-            <h2> <a href="../materiale/<%= course.courseName %>_<%= course.courses[index][0] %>"><%= course.courses[index][0] %></a>  <span class="badge rounded-pill bg-success">NEW!</span></h2>
-            <img src="../img/default_school.png" class="img-fluid" alt="JustClick">
+            <index id="index" hidden><%=index%></index>  
+            <a href="../materiale/<%= course.courseName %>_<%= course.courses[index][0] %>">     
+              <h2> <%= course.courses[index][0] %> <span class="badge rounded-pill bg-success">NEW!</span></h2>
+              <img src="#" id="bodyMateriale" name="bodyMateriale" class="img-fluid anteprima" alt="JustClick">
+            </a>
             <h5 class="card-text"><%= course.courses[index][1] %> </h5> 
             <input type="image" src="../img/delete.png" class="modify-courses" alt="Modifica">
           </div>
         <% } %>
+
+        <script>
+          var bodyMateriale = document.getElementsByName("bodyMateriale");
+          var corsi = <%- JSON.stringify(course.courses) %>;
+          for(var i=0; i<bodyMateriale.length; i++) {
+            //alert(corsi[i][2]);
+            if(corsi[i][2]=='image/jpeg'||corsi[i][2]=='image/jpg'||corsi[i][2]=='image/png'||corsi[i][2]=='image/gif'||corsi[i][2]=='image/svg+xml') {
+              bodyMateriale[i].getAttributeNode("src").value = "../materiale/"+'<%=course.courseName%>'+'_'+corsi[i][0];
+            }
+            else if(corsi[i][2]=='application/pdf'||corsi[i][2]=='text/plain') {
+              bodyMateriale[i].getAttributeNode("src").value = "../img/default_books.jpeg";
+            }
+            else if(corsi[i][2]=='audio/mpeg'||corsi[i][2]=='audio/ogg'||corsi[i][2]=='application/octet-stream') {
+              var node = document.createElement("audio");
+              var nome = document.createAttribute("name");
+              var source = document.createElement("source");
+              var type = document.createAttribute("type");
+              var src = document.createAttribute("src");
+              var controls = document.createAttribute("controls");
+
+              src.value = "../materiale/"+'<%=course.courseName%>'+'_'+corsi[i][0];
+              type.value = corsi[i][2];
+              nome.value="bodyMateriale";
+
+              source.setAttributeNode(src);
+              source.setAttributeNode(type);
+              node.setAttributeNode(controls);
+              node.setAttributeNode(nome);
+              node.appendChild(source);
+              bodyMateriale[i].parentElement.replaceChild(node,bodyMateriale[i]);
+            }
+            else if(corsi[i][2]=='video/mp4'||corsi[i][2]=='video/ogg') {
+              var node = document.createElement("video");
+              var nome = document.createAttribute("name");
+              var source = document.createElement("source");
+              var type = document.createAttribute("type");
+              var src = document.createAttribute("src");
+              var controls = document.createAttribute("controls");
+
+              src.value = "../materiale/"+'<%=course.courseName%>'+'_'+corsi[i][0];
+              type.value = corsi[i][2];
+              nome.value="bodyMateriale";
+              
+              source.setAttributeNode(src);
+              source.setAttributeNode(type);
+              node.setAttributeNode(controls);
+              node.setAttributeNode(nome);
+              node.appendChild(source);
+              bodyMateriale[i].parentElement.replaceChild(node,bodyMateriale[i]);
+            }
+            else {
+              bodyMateriale[i].getAttributeNode("src").value = "../img/default_school.png";
+            }
+              
+          }
+        </script>
+
 
         <!-- cambia pagina per altri corsi-->
         <nav aria-label="Search other courses">
@@ -300,8 +359,8 @@
       //                  ',"course": "'+'<%- course.courseName %>'+'" }');
       e.target.parentElement.remove();
       var newIndexes = document.getElementsByTagName("index");
-      for(var i=-1; i<newIndexes.length-1; i++) {
-        newIndexes[i].innerHTML = i;
+      for(var i=0; i<newIndexes.length; i++) {
+        newIndexes[i].innerHTML = i-1;
       }
       
     }

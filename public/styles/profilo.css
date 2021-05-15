@@ -42,3 +42,36 @@ body{
     color: white;
     font-family: 'Arial Black';
 }
+
+#imgcorso{
+    display: block;
+    text-align: center;
+
+}
+#profilocorso{
+    margin-top: 20px;
+    height: 200px;
+    width: 200px;
+    border-radius: 150px;
+}
+
+.categoria {
+    color: grey;
+    font-size: 22px;
+  }
+
+/*.card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 20%;
+    font-size: 18px;
+  }*/
+  
+  .card button:hover {
+    opacity: 0.7;
+  } 

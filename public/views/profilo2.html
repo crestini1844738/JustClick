@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Progetto RDC LTW</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script type="text/javascript" lang="javascript" src="../js/bootstrap.min.js"></script> 
+    <link rel=stylesheet href="../styles/index.css" type="text/css">
+    <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
+    <!-- <link rel=stylesheet href="../styles/homepage.css" type="text/css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/> 
+    <link rel=stylesheet href="../styles/profilo.css" type="text/css">
+    <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
+</head>
+<body>
+
+    <div class="header">
+        <img src="../logo/logo_small.png" alt="JustClick">
+        <p>Tutto il sapere a portata di click</p>
+    </div>
+
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-blue">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link fw-bold" aria-current="page" href="/">HOME</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  LOGIN
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/login">Accedi</a></li>
+                  <li><a class="dropdown-item" href="/register">Registrati</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold" href="/courses">COURSES</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold" href="/AboutUs">ABOUT US</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle active fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  PROFILO
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Il mio account</a></li>
+                  <li><a class="dropdown-item" href="/manageAccount">Carica corso</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="d-flex" action="/search">
+              <input class="form-control me-2" type="search" id="search" name="search" placeholder="Search" aria-label="Search" required>
+              <button class="btn  btn-outline-light" type="submit">Search</button>
+            </form>
+            
+          </div>
+        </div>
+      </nav>
+
+
+    <!-- parte del body da modificare ognuno di noi -->
+   <div class="card" >
+        <div class="row g-0">
+            <div class="col-md-3" id="imgcorso">
+                <img src="../img/sfondo1.png" id="profilocorso">
+
+            </div>
+            <div class="col-md-9">
+                <div class="card-body">
+                    <h1>Corso nome</h1>
+                    <p class="categoria">Categoria: -----, Follower:-----</p>
+                    <hr>
+                    <div class="row justify-content-evenly">
+                        <p>Descrizione</p>
+                        <p><a href="#"><button>Vail al corso</button></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div> 
+    <br>
+
+    <div class="card" >
+        <div class="row g-0">
+            <div class="col-md-3" id="imgcorso">
+                <img src="../img/sfondo1.png" id="profilocorso">
+
+            </div>
+            <div class="col-md-9">
+                <div class="card-body">
+                    <h1>Corso nome</h1>
+                    <p class="categoria">Categoria: -----, Follower:-----</p>
+                    <hr>
+                    <div class="row justify-content-evenly">
+                        <p>Descrizione</p>
+                        <p><a href="#"><button>Vail al corso</button></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <!-- <div class="card mb-3">
+        <img src="../img/back.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div> -->
+    
+    <!-- fine parte del body da modificare-->
+    <br>
+    <br>
+    <div id="footer"></div>
+    <script>
+      $(function(){
+      $("#footer").load("../views/footer.html");
+      });
+    </script>
+
+</body>
+</html>

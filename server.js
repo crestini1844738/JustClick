@@ -269,7 +269,7 @@ app.get('/search', function(req,res) {
         url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
-        body: '{"selector": { "courseName": { "$regex": "('+req.query.search+')"} }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
+        body: '{"selector": { "courseName": { "$regex": "(?i)('+req.query.search+')"} }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
         }, function(error, response, body){
             tutto = JSON.parse(body);
             //console.log(tutto);
@@ -707,7 +707,7 @@ app.post('/carica', function(req,res) {
             }
             if(req.files.materiale) {
                 pubblicazioni++;
-                materiale = '["' +req.files.materiale.name+ '","'+req.body.descMateriale+'"]';
+                materiale = '["' +req.files.materiale.name+ '+","'+req.body.descMateriale+'","'+req.files.materiale.mimetype+'"]';
                 req.files.materiale.name = req.body.titolo+'_'+req.files.materiale.name;
                 req.files.materiale.mv(__dirname+'/public/materiale/'+req.files.materiale.name, function(err) {
                     if(err) return res.status(500).send(err);
@@ -872,6 +872,7 @@ app.post('/update/:elem', function(req, res) {
                     var materiale = [];
                     materiale.push(req.files.materiale.name);
                     materiale.push(req.body.descMateriale);
+                    materiale.push(req.files.materiale.mimetype);
                     tutto.courses.push(materiale);
                     tutto.coursePublications = tutto.courses.length;
                     req.files.materiale.name = tutto.courseName+'_'+req.files.materiale.name;
