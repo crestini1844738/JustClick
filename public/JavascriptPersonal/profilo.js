@@ -81,7 +81,7 @@ function personalArea(utente)
             "<p><a href='/courses2/"+courseName+"'><button class='btn btn-dark'>Vai al corso</button></a></p>"+
             "</div></div></div></div></div><br>";
           }
-        $("#corpoProfilo").append(bodyProfilo+"<br><h5 id='titolo'>I miei corsi</h5><br>"+corsiProfilo);
+        $("#corpoProfilo").append(bodyProfilo+"<br><h5 id='titolo'>I miei corsi</h5>"+corsiProfilo);
         }  
       };
       $.ajax( settingscorsi );
