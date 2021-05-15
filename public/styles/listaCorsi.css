@@ -37,12 +37,55 @@
 }
 
 .ListImage{
-    margin-top: 50px;
-    height: 300px;
-    width: 300px;
+    margin-top: 40px;
+    height:300px;
+    width:300px;
     border-radius: 150px;
     margin-left: 50px;
     margin-right: 50px;
+}
+
+.bkg {
+    margin-top: 50px;
+}
+
+@media screen and (max-width: 1000px) {
+    .ListImage {
+        height: 100px;
+        width: 100px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 15px;
+        border-radius: 75px;
+    }
+
+    .ListCard{
+        margin-top: 20px;
+        margin-bottom: 20px;
+        height: 200px;
+        width: 95%;
+        box-shadow: 5px 5px 5px black;
+        padding: 0%;
+        margin-left: 2.5%;
+    }
+    
+    .ListCard a{
+        font-size:25px;
+    }
+
+    .ListCard h3{
+        font-size:12px;
+    }
+    
+    .ListCard p{
+        font-size: 12px;
+    }
+
+    .bkg{
+      margin-top: 8px;
+      margin-left: 0%;
+    }
+    
 }
 
 .Listbds{
@@ -50,48 +93,43 @@
     border-width: 3px;
 }
 
+
+
 .bkg-Musica{
-    margin-top: 50px;
     background-color: rgb(129, 24, 24);
     margin-right: 10%;
 }
 
 .bkg-Moda{
-    margin-top: 50px;
     background-color: purple;
     margin-right: 10%;
     opacity: 90%;
 }
 
 .bkg-Informatica{
-    margin-top: 50px;
     background-color: rgb(65, 65, 211);
     margin-right: 10%;
     opacity: 90%;
 }
 .bkg-Notizie{
-    margin-top: 50px;
     background-color: peachpuff;
     margin-right: 10%;
     opacity: 90%;
 }
 
 .bkg-Sport{
-    margin-top: 50px;
     background-color: grey;
     margin-right: 10%;
     opacity: 90%;
 }
 
 .bkg-Videogiochi{
-    margin-top: 50px;
     background-color: orange;
     margin-right: 10%;
     opacity: 90%;
 }
 
 .bkg-Scuola{
-    margin-top: 50px;
     background-color: greenyellow;
     margin-right: 10%;
     opacity: 90%;

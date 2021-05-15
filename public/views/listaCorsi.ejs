@@ -16,7 +16,7 @@
 <body>
 
     <div class="header">
-        <img src="../logo/logo_small.png" alt="JustClick">
+        <img src="../logo/logo_small.png" class="logo img-fluid" alt="JustClick">
         <p id="testologo">Tutto il sapere a portata di click</p>
     </div>
 
@@ -65,7 +65,6 @@
 
 
     <!-- parte del body da modificare ognuno di noi -->
-    <div class="row">
       <div class="center">
       <% for( let i = 0; i < corsi.length; i++ ) { %>
         <% var course = corsi[i] %> 
@@ -78,7 +77,7 @@
                   <img src="../img/courseImgs/<%= course.author %>_<%= course.courseName %>.png " class="ListImage Listbds" alt="JustClick">
                 <% } %> 
             </div>
-            <div class="p-2 flex-grow-1 w-100 align-self-center bkg-<%=course.category%> ">
+            <div class="p-2 flex-grow-1 w-100 align-self-center bkg bkg-<%=course.category%> ">
               <a href="/courses2/<%= course.courseName %>"><%= course.courseName %> </a>
               <h3>Created by <%= course.author %> </h3>  
               <h3>Followers: <%= course.courseFollower %> </h3>
@@ -92,7 +91,6 @@
         </div>
       <% } %>
       </div>
-    </div>
 
     
     <!-- fine parte del body da modificare-->
