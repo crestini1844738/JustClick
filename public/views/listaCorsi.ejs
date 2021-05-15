@@ -12,6 +12,8 @@
     <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
   </head>
 <body>
 
@@ -65,6 +67,7 @@
 
 
     <!-- parte del body da modificare ognuno di noi -->
+    <div class="row g-0">
       <div class="center">
       <% for( let i = 0; i < corsi.length; i++ ) { %>
         <% var course = corsi[i] %> 
@@ -77,7 +80,7 @@
                   <img src="../img/courseImgs/<%= course.author %>_<%= course.courseName %>.png " class="ListImage Listbds" alt="JustClick">
                 <% } %> 
             </div>
-            <div class="p-2 flex-grow-1 w-100 align-self-center bkg bkg-<%=course.category%> ">
+            <div class="p-2 flex-grow-1 w-100 align-self-center bkg bkg-<%=course.category%>">
               <a href="/courses2/<%= course.courseName %>"><%= course.courseName %> </a>
               <h3>Created by <%= course.author %> </h3>  
               <h3>Followers: <%= course.courseFollower %> </h3>
@@ -91,6 +94,7 @@
         </div>
       <% } %>
       </div>
+    </div>
 
     
     <!-- fine parte del body da modificare-->
