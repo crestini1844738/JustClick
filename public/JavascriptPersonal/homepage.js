@@ -50,7 +50,8 @@ function generaPopolari()
         var author = response.corsi[i].author;
         var follower = response.corsi[i].courseFollower;
         var category=response.corsi[i].category;
-        var description="Some text about the course..";
+        var description=response.corsi[i].desc;
+        
         //var descr = response[i].decription;
         corso =corso+ "<div class='card' ><div class='row g-0'>"+
         "<div class='col-md-3' id='imgcorso'><img src='../img/courseImgs/"+author+"_"+courseName+".png' id='profilocorso' ></div>"+
