@@ -3,7 +3,8 @@
     margin-bottom: 40px;
     height: 400px;
     width: 85%;
-    margin-left: 5%;
+    margin-left: 105%;
+    opacity: 0%;
     margin-right: 5%;
     box-shadow: 10px 10px 10px black;
     background-repeat: no-repeat;
@@ -66,7 +67,7 @@
         width: 95%;
         box-shadow: 5px 5px 5px black;
         padding: 0%;
-        margin-left: 2.5%;
+        margin-left: 102.5%;
     }
     
     .ListCard a{
@@ -105,8 +106,8 @@
         width: 95%;
         box-shadow: 5px 5px 5px black;
         padding: 0%;
-        margin-left: 2.5%;
         overflow: hidden;
+        margin-left: 102.5%;
     }
 
     .ListCard a{

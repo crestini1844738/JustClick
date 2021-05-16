@@ -14,6 +14,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com"> 
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
     <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
+
+    <script>
+      $(document).ready(function() {
+        $(".bds").mouseover(function() {
+          $(this).animate({height: "+=30px", width: "+=30px"});
+        });
+        $(".bds").mouseleave(function() {
+          $(this).animate({height: "-=30px", width: "-=30px"});
+        });
+        
+      });
+    </script>
 </head>
 <body>
 
@@ -108,8 +120,8 @@
           </a>  
         </div>
         <div class="col categoria text-center" > 
-          <a href="/courses3?q=Popolari">
-            <img src="../img/categoryImgs/Popolari.jpeg" class="img-fluid bds popolari" alt="JustClick">
+          <a href="/courses3?q=Preferiti">
+            <img src="../img/categoryImgs/Preferiti.jpeg" class="img-fluid bds popolari" alt="JustClick">
           </a>  
         </div>
       </div>

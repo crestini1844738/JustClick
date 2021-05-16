@@ -341,7 +341,7 @@ app.get('/courses3', function(req,res) {
     //'{ "index": { "fields": ["courseFollower"] } , "name" : "Follower-index", "type":"json" }'
     var username = [];
     var courses = [];
-    if(req.query.q != "Popolari") {
+    if(req.query.q != "Preferiti") {
         request2server({
             //mettere l'url del proprio database
             url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
@@ -363,24 +363,27 @@ app.get('/courses3', function(req,res) {
     }
 
     else {
-        request2server({
-            //mettere l'url del proprio database
-            url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
-            method: 'POST',
-            headers: {'content-type': 'application/json'},
-            body: '{ "selector": { "category": {"$gt": null} }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
-            }, function(error, response, body){
-                tutto = JSON.parse(body);
-                //console.log(tutto);
-                for(var i=0; i<tutto.docs.length; i++) {   
-                    courses[i] = tutto.docs[i];
-                    //console.log("caricato il corso "+courses[i].courseName);
+        if(req.session.username) {
+            request2server({
+                //mettere l'url del proprio database
+                url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+                method: 'POST',
+                headers: {'content-type': 'application/json'},
+                body: '{ "selector": { "follower": { "$elemMatch": { "$eq": "'+req.session.username+'" } } }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
+                }, function(error, response, body){
+                    tutto = JSON.parse(body);
+                    console.log(tutto);
+                    for(var i=0; i<tutto.docs.length; i++) {   
+                        courses[i] = tutto.docs[i];
+                        //console.log("caricato il corso "+courses[i].courseName);
+                    }
+                    res.render(__dirname + '/public/views/listaCorsi.ejs', {
+                        corsi: courses
+                    });
                 }
-                res.render(__dirname + '/public/views/listaCorsi.ejs', {
-                    corsi: courses
-                });
-            }
-        );
+            );
+        }
+        else res.redirect('/login');
     }
     
 });
