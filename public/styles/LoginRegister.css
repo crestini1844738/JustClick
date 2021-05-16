@@ -165,3 +165,9 @@
 ::placeholder{
   color: lightgray;
 }
+
+@media (max-width: 544px){
+  .alert-success{
+    font-size: 13px;
+  }
+}
