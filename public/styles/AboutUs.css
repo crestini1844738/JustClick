@@ -76,3 +76,7 @@
     filter: brightness(0.7);
 
 }
+
+body{
+    background-color: rgb(179, 231, 235);
+}
