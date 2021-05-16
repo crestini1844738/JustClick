@@ -1,4 +1,11 @@
-.card{
+.container{
+    background-color: rgb(179, 231, 235);
+    padding: 0px;
+    margin: 0px
+  }
+
+  
+  .card{
     color:rgb(0, 89, 255);
     border: 5px solid blue;
     box-shadow: 10px 10px 5px blue;

@@ -73,7 +73,7 @@ function personalArea(utente)
             /*var description;
             if(tuttiicorsi[j].desc === undefined) description="";
             else description=tuttiicorsi[j].desc;*/
-            corsiProfilo=corsiProfilo+"<div class='ListCard card "+category+"' ><div class='row g-0'>"+
+            corsiProfilo=corsiProfilo+"<div class='card "+category+"' id='larghezza' ><div class='row g-0'>"+
             "<div class='col-md-3' id='imgcorso'>"+img+
             "<div class='col-md-9'><div class='card-body bkg bkg-"+category+"'><h1>"+courseName+"</h1>"+
             "<p class='categoria'>Categoria: "+category+", Follower: "+follower+"</p>"+

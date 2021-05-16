@@ -1,14 +1,16 @@
 .card{
     box-shadow: 10px 10px 5px;
+    width: 100%;
+}
+
+#larghezza{
+    width: 90%;
+    margin: auto;
 }
 
 h3{
     color: white;
     text-align: center;
-}
-
-.card{
-    width: 100%;
 }
 
 .card-title{
@@ -33,11 +35,12 @@ img{
 }
 
 body{
-    background-color: #48cae4;
+    background-color: rgb(179, 231, 235);
 }
 
 #titolo{
     margin-top: 20px;
+    margin-bottom: 20px;
     color: #fff;
     text-shadow: 0 1px 2px #999, 
         0 2px 2px #888, 
@@ -85,3 +88,73 @@ body{
   .card button:hover {
     opacity: 0.7;
   } 
+
+
+.bkg-Musica{
+    background-color: rgb(129, 24, 24);
+    margin-right: 10%;
+    opacity: 90%;
+}
+
+.bkg-Moda{
+    background-color: purple;
+    margin-right: 10%;
+    opacity: 90%;
+}
+
+.bkg-Informatica{
+    background-color: rgb(65, 65, 211);
+    margin-right: 10%;
+    opacity: 90%;
+}
+.bkg-Notizie{
+    background-color: peachpuff;
+    margin-right: 10%;
+    opacity: 90%;
+}
+
+.bkg-Sport{
+    background-color: grey;
+    margin-right: 10%;
+    opacity: 90%;
+}
+
+.bkg-Videogiochi{
+    background-color: orange;
+    margin-right: 10%;
+    opacity: 90%;
+}
+
+.bkg-Scuola{
+    background-color: greenyellow;
+    margin-right: 10%;
+    opacity: 90%;
+}
+
+.Informatica {
+    background-image: url("../img/categoryImgs/Informatica_cover.jpeg");
+  }
+  
+  .Musica {
+    background-image: url("../img/categoryImgs/Musica_cover.jpeg");
+  }
+  
+  .Notizie {
+    background-image: url("../img/categoryImgs/Notizie_cover.jpeg");
+  }
+  
+  .Sport {
+    background-image: url("../img/categoryImgs/Sport_cover.jpeg");
+  }
+  
+  .Videogiochi {
+    background-image: url("../img/categoryImgs/Videogiochi_cover.jpeg");
+  }
+  
+  .Scuola {
+    background-image: url("../img/categoryImgs/Scuola_cover.jpeg");
+  }
+  
+  .Moda {
+    background-image: url("../img/categoryImgs/Moda_cover.jpeg");
+  }
