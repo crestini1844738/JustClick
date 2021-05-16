@@ -270,7 +270,29 @@
               bodyMateriale[i].getAttributeNode("src").value = "../materiale/"+'<%=course.courseName%>'+'_'+corsi[i][0];
             }
             else if(corsi[i][2]=='application/pdf'||corsi[i][2]=='text/plain') {
-              bodyMateriale[i].getAttributeNode("src").value = "../img/default_books.jpeg";
+              //bodyMateriale[i].getAttributeNode("src").value = "../img/default_books.jpeg";
+              var node = document.createElement("embed");
+
+              var nome = document.createAttribute("name");
+              var type = document.createAttribute("type");
+              var src = document.createAttribute("src");
+              var width = document.createAttribute("width");
+              var height = document.createAttribute("height");
+
+              src.value = "../materiale/"+'<%=course.courseName%>'+'_'+corsi[i][0];
+              type.value = corsi[i][2];
+              nome.value="bodyMateriale";
+              width.value = "80%";
+              height.value = "450px";
+
+
+              node.setAttributeNode(nome);
+              node.setAttributeNode(type);
+              node.setAttributeNode(src);
+              node.setAttributeNode(width);
+              node.setAttributeNode(height);
+
+              bodyMateriale[i].parentElement.replaceChild(node,bodyMateriale[i]);
             }
             else if(corsi[i][2]=='audio/mpeg'||corsi[i][2]=='audio/ogg'||corsi[i][2]=='application/octet-stream') {
               var node = document.createElement("audio");
@@ -293,6 +315,8 @@
             }
             else if(corsi[i][2]=='video/mp4'||corsi[i][2]=='video/ogg') {
               var node = document.createElement("video");
+              var width = document.createAttribute("width");
+              var height = document.createAttribute("height");
               var nome = document.createAttribute("name");
               var source = document.createElement("source");
               var type = document.createAttribute("type");
@@ -302,11 +326,15 @@
               src.value = "../materiale/"+'<%=course.courseName%>'+'_'+corsi[i][0];
               type.value = corsi[i][2];
               nome.value="bodyMateriale";
+              width.value = "80%";
+              height.value = "auto";
               
               source.setAttributeNode(src);
               source.setAttributeNode(type);
               node.setAttributeNode(controls);
               node.setAttributeNode(nome);
+              node.setAttributeNode(width);
+              node.setAttributeNode(height);
               node.appendChild(source);
               bodyMateriale[i].parentElement.replaceChild(node,bodyMateriale[i]);
             }

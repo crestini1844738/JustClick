@@ -103,15 +103,15 @@
 }
 
 .sized-card-1{
-  width: 40%;
+  width: 30%;
   padding: 0px;
-  margin-left: 30.5%;
+  margin-left: 35%;
 }
 
 .sized-card-2{
-  width: 80%;
+  width: 60%;
   padding: 0px;
-  margin-left: 10%;
+  margin-left: 20%;
   margin-right: 0%;
 }
 
@@ -142,7 +142,7 @@
 
 .courses{
   width: 75%;
-  max-height: 500px;
+  max-height: 600px;
   padding-bottom: 10px;
   padding-top: 10px;
   background-color: deepskyblue;
@@ -234,6 +234,18 @@ audio, video{
   .text-modify{
     position: relative;
     top: -40px;
+  }
+
+  .sized-card-1{
+    width: 40%;
+    margin-left: 30.5%;
+  }
+
+  .sized-card-2{
+    width: 80%;
+    padding: 0px;
+    margin-left: 10%;
+    margin-right: 0%;
   }
 
 }
