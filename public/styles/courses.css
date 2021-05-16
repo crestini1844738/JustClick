@@ -102,10 +102,35 @@
   max-width: 100%;
 }
 
-.sized-card{
-  max-width: 30rem;
+.sized-card-1{
+  width: 40%;
+  padding: 0px;
+  margin-left: 30.5%;
+}
+
+.sized-card-2{
+  width: 80%;
+  padding: 0px;
+  margin-left: 10%;
+  margin-right: 0%;
+}
+
+.sized-card-3{
+  width: 90%;
   padding: 0px;
 }
+
+.adattiva{
+  width: 100%;
+  height: 100%;
+  min-width: 170px;
+}
+
+.card-header{
+  font-size: 18px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
 
 .bds{
   border-style:ridge;
@@ -236,5 +261,35 @@ audio, video{
     position: relative;
     top: -30px;
     margin-bottom: 0px;
+  }
+
+  .col {
+    margin-bottom: 20px;
+  }
+
+  .sized-card-1{
+    width: 80%;
+    margin-left: 10%;
+  }
+
+  .sized-card-2{
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  
+  .sized-card-3{
+    margin-left: 5%;
+  }
+
+  .card-body{
+    font-size: 0%;
+  }
+
+  .col p{
+    visibility: hidden;
+    font-size: 0%;
+    padding: 0%;
+    margin: 0%;
   }
 }

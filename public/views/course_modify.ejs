@@ -134,12 +134,14 @@
 
         <!-- materiale in evidenza -->
         <div class="row content-row">
+          <% var totEv = 0; if(course.firstEvidenza.length!=0) totEv++; if(course.secondEvidenza.length!=0) totEv++; if(course.thirdEvidenza.length!=0) totEv++; if(totEv<3) totEv++; %> 
+
           <% if (!(course.firstEvidenza.length != 0 && course.secondEvidenza.length != 0 && course.thirdEvidenza.length != 0)) { %>
             <div class="col">
               <ev id="ev" name="ev" hidden>0</ev>
-              <div class="card h-100 border-primary mb-3 sized-card">
-                  <div class="card-header text-dark bg-primary mb-3">Titolo</div>
-                  <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+              <div class="card h-100 border-primary mb-3 sized-card-<%=totEv%>">
+                  <div class="card-header text-dark bg-primary mb-3">Aggiungi</div>
+                  <img src="../img/add.png" class="card-img-top" alt="JustClick">
                   <input type="image" src="../img/modify.png" class="modify-evidence" id="firstBtn" alt="Modifica">
                   <div class="card-body text-primary">
                     <h5 class="card-title">Materiale in evidenza</h5>
@@ -152,30 +154,53 @@
           <% if (course.firstEvidenza.length != 0) { %>
             <div class="col">
               <ev id="ev" name="ev" hidden>1</ev>
-              <div class="card h-100 border-primary mb-3 sized-card">
-                  <div class="card-header text-dark bg-primary mb-3">Titolo</div>
-                  <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
-                  <input type="image" src="../img/delete.png" class="modify-evidence" id="firstBtn" alt="Modifica">
-                  <div class="card-body text-primary">
-                    <h5 class="card-title"><%= course.firstEvidenza %> </h5>
-                    <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
+              <div class="card h-100 border-primary mb-3 sized-card-<%=totEv%>">
+                  <div class="card-header text-dark bg-primary mb-3"><%=course.firstEvidenza[0]%></div>
+                  <a href="../materiale/<%=course.courseName%>_<%=course.firstEvidenza[0]%>">
+                    <% if (course.firstEvidenza[2]=='image/jpeg' || course.firstEvidenza[2]=='image/jpg' || course.firstEvidenza[2]=='image/png' || course.firstEvidenza[2]=='image/gif' || course.thirdEvidenza[2]=='image/svg+xml') { %>
+                      <img src="../materiale/<%=course.courseName%>_<%=course.firstEvidenza[0]%>" class="card-img-top adattiva" alt="JustClick">
+                    <% } else if(course.firstEvidenza[2]=='application/pdf' || course.firstEvidenza[2]=='text/plain') { %>
+                      <img src="../img/default_books.jpeg" class="card-img-top adattiva" alt="JustClick">
+                    <% } else if(course.firstEvidenza[2]=='audio/mpeg' || course.firstEvidenza[2]=='audio/ogg' || course.firstEvidenza[2]=='application/octet-stream') { %>
+                      <img src="../img/icona-audio.png" class="card-img-top adattiva" alt="JustClick">
+                    <% } else if(course.firstEvidenza[2]=='video/mp4' || course.firstEvidenza[2]=='video/ogg') { %>
+                      <img src="../img/icona-video.png" class="card-img-top adattiva" alt="JustClick">
+                    <% } else { %>
+                      <img src="../img/default_courses.jpeg" class="card-img-top adattiva" alt="JustClick">
+                    <% } %>
+                  </a>
+                  <input type="image" src="../img/delete.png" class="modify-evidence" alt="Modifica">
+                  <div class="card-body text-primary">  
+                    <h5 class="card-title"></h5>
+                  <p class="card-text"><%=course.firstEvidenza[1]%></p>
                   </div>
               </div>               
             </div>
           <% } %>
             
 
-            
           <% if (course.secondEvidenza.length != 0) { %>
             <div class="col">
               <ev id="ev" name="ev" hidden>2</ev>
-              <div class="card h-100 border-primary mb-3 sized-card">
-                  <div class="card-header text-dark bg-primary mb-3">create.jpg</div>
-                  <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+              <div class="card h-100 border-primary mb-3 sized-card-<%=totEv%>">
+                  <div class="card-header text-dark bg-primary mb-3"><%=course.secondEvidenza[0]%></div>
+                  <a href="../materiale/<%=course.courseName%>_<%=course.secondEvidenza[0]%>">
+                    <% if (course.secondEvidenza[2]=='image/jpeg' || course.secondEvidenza[2]=='image/jpg' || course.secondEvidenza[2]=='image/png' || course.secondEvidenza[2]=='image/gif' || course.secondEvidenza[2]=='image/svg+xml') { %>
+                      <img src="../materiale/<%=course.courseName%>_<%=course.secondEvidenza[0]%>" class="card-img-top adattiva" alt="JustClick">
+                    <% } else if(course.secondEvidenza[2]=='application/pdf' || course.secondEvidenza[2]=='text/plain') { %>
+                      <img src="../img/default_books.jpeg" class="card-img-top adattiva" alt="JustClick">
+                    <% } else if(course.secondEvidenza[2]=='audio/mpeg' || course.secondEvidenza[2]=='audio/ogg' || course.secondEvidenza[2]=='application/octet-stream') { %>
+                      <img src="../img/icona-audio.png" class="card-img-top adattiva" alt="JustClick">
+                    <% } else if(course.secondEvidenza[2]=='video/mp4' || course.secondEvidenza[2]=='video/ogg') { %>
+                      <img src="../img/icona-video.png" class="card-img-top adattiva" alt="JustClick">
+                    <% } else { %>
+                      <img src="../img/default_courses.jpeg" class="card-img-top adattiva" alt="JustClick">
+                    <% } %>
+                  </a>
                   <input type="image" src="../img/delete.png" class="modify-evidence" alt="Modifica">
                   <div class="card-body text-primary">
-                    <h5 class="card-title"><%= course.secondEvidenza %></h5>
-                    <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
+                    <h5 class="card-title"></h5>
+                    <p class="card-text"><%=course.secondEvidenza[1]%></p>
                   </div>
               </div>
             </div>
@@ -184,13 +209,25 @@
           <% if (course.thirdEvidenza.length != 0) { %>
             <div class="col">
               <ev id="ev" name="ev" hidden>3</ev>
-              <div class="card h-100 border-primary mb-3 sized-card">
-                  <div class="card-header text-dark bg-primary mb-3">Titolo</div>
-                  <img src="../img/default_courses.jpeg" class="card-img-top" alt="JustClick">
+              <div class="card h-100 border-primary mb-3 sized-card-<%=totEv%>">
+                  <div class="card-header text-dark bg-primary mb-3"><%=course.thirdEvidenza[0]%></div>
+                  <a href="../materiale/<%=course.courseName%>_<%=course.thirdEvidenza[0]%>">
+                    <% if (course.thirdEvidenza[2]=='image/jpeg' || course.thirdEvidenza[2]=='image/jpg' || course.thirdEvidenza[2]=='image/png' || course.thirdEvidenza[2]=='image/gif' || course.thirdEvidenza[2]=='image/svg+xml') { %>
+                      <img src="../materiale/<%=course.courseName%>_<%=course.thirdEvidenza[0]%>" class="card-img-top adattiva" alt="JustClick">
+                    <% } else if(course.thirdEvidenza[2]=='application/pdf' || course.thirdEvidenza[2]=='text/plain') { %>
+                      <img src="../img/default_books.jpeg" class="card-img-top adattiva" alt="JustClick">
+                    <% } else if(course.thirdEvidenza[2]=='audio/mpeg' || course.thirdEvidenza[2]=='audio/ogg' || course.thirdEvidenza[2]=='application/octet-stream') { %>
+                      <img src="../img/icona-audio.png" class="card-img-top adattiva" alt="JustClick">
+                    <% } else if(course.thirdEvidenza[2]=='video/mp4' || course.thirdEvidenza[2]=='video/ogg') { %>
+                      <img src="../img/icona-video.png" class="card-img-top adattiva" alt="JustClick">
+                    <% } else { %>
+                      <img src="../img/default_courses.jpeg" class="card-img-top adattiva" alt="JustClick">
+                    <% } %>
+                  </a>
                   <input type="image" src="../img/delete.png" class="modify-evidence" alt="Modifica">
                   <div class="card-body text-primary">
-                    <h5 class="card-title"><%= course.thirdEvidenza %></h5>
-                    <p class="card-text">Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!</p>
+                    <h5 class="card-title"></h5>
+                    <p class="card-text"><%=course.thirdEvidenza[1]%></p>
                   </div>
               </div>
             </div>
@@ -395,6 +432,11 @@
           var nuovaCard = e.target.parentElement;
           nuovaCard.getElementsByClassName("modify-evidence")[0].getAttributeNode("src").value = "../img/modify.png";
           nuovaCard.getElementsByClassName("modify-evidence")[0].onclick = create_evidence;
+          nuovaCard.getElementsByClassName("adattiva")[0].getAttributeNode("src").value = "../img/add.png";
+          nuovaCard.getElementsByClassName("card-header")[0].innerHTML = "Aggiungi";
+          var cardbody = nuovaCard.getElementsByClassName("card-body")[0];
+          cardbody.getElementsByTagName("p")[0].innerHTML = "Aggiungi qui i tuoi eventi più interessanti o il materiale più importante per i tuoi follower!";
+          cardbody.getElementsByTagName("h5")[0].innerHTML = "Materiale in evidenza";
         }
         else e.target.parentElement.parentElement.remove();
       }
