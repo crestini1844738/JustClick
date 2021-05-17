@@ -135,6 +135,111 @@ app.post('/login/auth', function(req, res) {
     });
 });
 
+//REGISTRAZIONE CON EJS
+app.post('/register/auth', function(req, res) {
+	var user= req.body.Username;
+	var email = req.body.Email;
+    var msg=    '{ "Username":"'+req.body.Username+
+                '","Name":"'+req.body.Name+
+                '","Surname":"'+req.body.Surname+
+                '" ,"Date":"'+req.body.Date+
+                '","Email":"'+req.body.Email+
+                '","Password":"'+req.body.Password+
+                '","Courses": { }'+
+                '  }';
+    
+	request2server({
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: '{"selector": { }, "fields": ["Username","Email"], "skip": 0, "execution_stats": true }'
+        }, function(error, response, body){
+            if(error){
+                console.log(error);
+            }
+            else 
+            {
+                var errReg=0;
+                var json=JSON.parse(body);
+                for(i=0;i<json.docs.length && errReg!=1 && errReg!=2;i++)
+                {
+
+                    if(json.docs[i].Username==user) errReg=1;
+                    if(json.docs[i].Email==email) errReg=2;
+                }
+                if(errReg==1 )
+                {
+                    output={   err: 'ERR', msg: 'Username gia in uso'};
+                    res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: output ,login:''});
+                }
+                if(errReg==2)
+                {
+                    output={   err: 'ERR', msg: 'Email gia in uso'};
+                    res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: output,login:'' });
+                }
+                //se email e username non sono di alcun utente posso procedere con la registrazione
+                if(errReg==0)
+                {
+                    request2server({
+                        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+user, 
+                        method: 'PUT',
+                        headers: {'content-type': 'application/json'},
+                        body: msg
+                    }, function(error, response, body){
+                        if(error) {
+                            console.log(error);
+                        }
+                        else 
+                        {
+                            console.log("New user: ",user);
+                            output={   err: 'OK', msg: 'Registrazione avvenuta con successo'};
+                            res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: output ,login:''});
+                        }
+                    });
+                }
+                
+            }
+    });
+});
+
+
+
+
+//in teoria non serve più, devo controllare se effettivamente non serve
+//POST REGISTER
+app.post("/registerInsert", function(req,res){
+    
+    var msg=    '{ "Username":"'+req.body.Username+
+                '","Name":"'+req.body.Name+
+                '","Surname":"'+req.body.Surname+
+                '" ,"Date":"'+req.body.Date+
+                '","Email":"'+req.body.Email+
+                '","Password":"'+req.body.Password+
+                '","Courses": { }'+
+                '  }';
+
+
+    console.log(req.body);
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.Username, 
+        method: 'PUT',
+        headers: {'content-type': 'application/json'},
+        body: msg
+        //body: JSON.stringify(body1)
+    }, function(error, response, body){
+        if(error) {
+            console.log(error);
+        }
+        else 
+        {
+            console.log("qui");
+            res.sendFile(__dirname + '/public/views/index.html');
+            console.log(response.statusCode, body);
+        }
+    });
+
+});
 app.get('/logout',function(req, res){
 
     if (req.session) {
@@ -356,109 +461,7 @@ app.get('/courses3', function(req,res) {
     
 });
 
-//POST REGISTRAZIONE E CONTROLLO CON EJS
-app.post('/register/auth', function(req, res) {
-	var user= req.body.Username;
-	var email = req.body.Email;
-    var msg=    '{ "Username":"'+req.body.Username+
-                '","Name":"'+req.body.Name+
-                '","Surname":"'+req.body.Surname+
-                '" ,"Date":"'+req.body.Date+
-                '","Email":"'+req.body.Email+
-                '","Password":"'+req.body.Password+
-                '","Courses": { }'+
-                '  }';
-    
-	request2server({
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
-        method: 'POST',
-        headers: {'content-type': 'application/json'},
-        body: '{"selector": { }, "fields": ["Username","Email"], "skip": 0, "execution_stats": true }'
-        }, function(error, response, body){
-            if(error){
-                console.log(error);
-            }
-            else 
-            {
-                var errReg=0;
-                var json=JSON.parse(body);
-                for(i=0;i<json.docs.length && errReg!=1 && errReg!=2;i++)
-                {
 
-                    if(json.docs[i].Username==user) errReg=1;
-                    if(json.docs[i].Email==email) errReg=2;
-                }
-                if(errReg==1 )
-                {
-                    output={   err: 'ERR', msg: 'Username gia in uso'};
-                    res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: output ,login:''});
-                }
-                if(errReg==2)
-                {
-                    output={   err: 'ERR', msg: 'Email gia in uso'};
-                    res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: output });
-                }
-                //se email e username non sono di alcun utente posso procedere con la registrazione
-                if(errReg==0)
-                {
-                    request2server({
-                        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+user, 
-                        method: 'PUT',
-                        headers: {'content-type': 'application/json'},
-                        body: msg
-                    }, function(error, response, body){
-                        if(error) {
-                            console.log(error);
-                        }
-                        else 
-                        {
-                            console.log("New user: ",user);
-                            output={   err: 'OK', msg: 'Registrazione avvenuta con successo'};
-                            res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: output ,login:''});
-                        }
-                    });
-                }
-                
-            }
-    });
-});
-
-
-
-
-//POST REGISTER
-app.post("/registerInsert", function(req,res){
-    
-    var msg=    '{ "Username":"'+req.body.Username+
-                '","Name":"'+req.body.Name+
-                '","Surname":"'+req.body.Surname+
-                '" ,"Date":"'+req.body.Date+
-                '","Email":"'+req.body.Email+
-                '","Password":"'+req.body.Password+
-                '","Courses": { }'+
-                '  }';
-
-
-    console.log(req.body);
-    request2server({
-        //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.Username, 
-        method: 'PUT',
-        headers: {'content-type': 'application/json'},
-        body: msg
-        //body: JSON.stringify(body1)
-    }, function(error, response, body){
-        if(error) {
-            console.log(error);
-        }
-        else 
-        {
-            res.sendFile(__dirname + '/public/views/index.html');
-            console.log(response.statusCode, body);
-        }
-    });
-
-});
 
 //POST PER UPLOAD DI FILE
 const fileupload = require('express-fileupload');
