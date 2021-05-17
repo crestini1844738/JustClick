@@ -80,26 +80,26 @@
 
 
                         <div class="corpo-login" id="corpo-login">
-                        <h3>Login</h3>
-                        <hr id="linea">
-                        <% if (logout) { %>
+                          <h3>Login</h3>
+                          <hr id="linea">
+                          <% if (logout) { %>
 
-                          <p class="alert alert-success mt-4"><%= logout%></p>
-                        <% } %>
-                        <label for="Username">Username</label>
-                        <input type="text" name="Username" id="Username" required/>
-                        <label for="Password">Password</label>
-                        <input type="password" name="Password"id="Password" required/>
-                        <input type="submit" value="Inviare">
-                        
-                        <pippo>Non hai un account? <a href="/register">Registrati</a></pippo>
-                        <br>
-                        <br>
-                        <div  id=errorMessage></div>
+                            <p class="alert alert-success mt-4"><%= logout%></p>
+                          <% } %>
+                          <label for="Username">Username</label>
+                          <input type="text" name="Username" id="Username" required/>
+                          <label for="Password">Password</label>
+                          <input type="password" name="Password"id="Password" required/>
+                          <input type="submit" value="Inviare">
+                          
+                          <pippo>Non hai un account? <a href="/register">Registrati</a></pippo>
+                          <br>
+                          <br>
+                          <div  id=errorMessage></div>
                         </div>
+                        
                         <% if (errormessage) { %>
-
-                          <p class="alert alert-danger mt-4"><%= errormessage%></p>
+                            <p class="alert alert-danger mt-4"><%= errormessage%></p>
                         <% } %>
                         <% if (success) { %>
                           <script type="text/javascript">

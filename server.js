@@ -71,7 +71,14 @@ app.get('/login',function(req,res){
 
 //GET REGISTER
 app.get('/register',function(req,res){
-    res.render(__dirname + '/public/views/registrazione.ejs',{ errormessage: '' });
+    if(req.session.loggedin)
+    {
+        res.render(__dirname + '/public/views/registrazione.ejs',{ errormessage: '',login:req.session.username });
+    }
+    else
+    {
+        res.render(__dirname + '/public/views/registrazione.ejs',{ errormessage: '',login:'' });
+    }
 });
 
 //GET POPOLARI HOMEPAGE
@@ -536,7 +543,7 @@ app.post('/register/auth', function(req, res) {
                 {
                     console.log(errReg,' username già in uso');
                     output={   err: 'ERR', msg: 'Username gia in uso'};
-                    res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: output });
+                    res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: output ,login:''});
                 }
                 if(errReg==2)
                 {
@@ -560,7 +567,7 @@ app.post('/register/auth', function(req, res) {
                         {
                             console.log("New user: ",user);
                             output={   err: 'OK', msg: 'Registrazione avvenuta con successo'};
-                            res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: output });
+                            res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: output ,login:''});
                         }
                     });
                 }
