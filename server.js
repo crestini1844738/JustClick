@@ -29,19 +29,12 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.set('json spaces', 2);
 app.use(express.static('public'));
 app.use(express.json());
 app.set('view engine', 'ejs');
-
-
-
-
-
-
 
 //GET PAGINA INIZIALE
 app.get('/',function(req,res){
@@ -57,28 +50,15 @@ app.get('/AboutUs', function(req,res) {
 
 //GET PAGINA LOGIN
 app.get('/login',function(req,res){  
-    if(req.session.loggedin)
-    {
-        res.render(__dirname + '/public/views/login.ejs', { success:req.session.username ,errormessage:'',logout:''});
-    }
-    else
-    {
-        res.render(__dirname + '/public/views/login.ejs', { success:'',errormessage: '',logout:'' });
-    }
-    
-       
+    if(req.session.loggedin) res.render(__dirname + '/public/views/login.ejs', { success:req.session.username ,errormessage:'',logout:''});
+    else                     res.render(__dirname + '/public/views/login.ejs', { success:'',errormessage: '',logout:'' });
 });
 
 //GET REGISTER
 app.get('/register',function(req,res){
-    if(req.session.loggedin)
-    {
-        res.render(__dirname + '/public/views/registrazione.ejs',{ errormessage: '',login:req.session.username });
-    }
-    else
-    {
-        res.render(__dirname + '/public/views/registrazione.ejs',{ errormessage: '',login:'' });
-    }
+    if(req.session.loggedin) res.render(__dirname + '/public/views/registrazione.ejs',{ errormessage: '',login:req.session.username });
+    else                     res.render(__dirname + '/public/views/registrazione.ejs',{ errormessage: '',login:'' });
+    
 });
 
 //GET POPOLARI HOMEPAGE
@@ -93,15 +73,12 @@ app.post('/homepage/popolari', function(req,res) {
         body: '{ "selector": { "category": {"$gt": null} }, "sort": [{"courseFollower": "desc"}], "limit": 5, "skip": 0, "execution_stats": true }'         
         }, function(error, response, body){
             tutto = JSON.parse(body);
-            
             for(var i=0; i<tutto.docs.length; i++) {   
                 courses[i] = tutto.docs[i];
                 console.log("caricato il corso "+courses[i].courseName);
             }
-            
             output={corsi:courses};
             res.json(output);
-            
         }
     )
 });
@@ -125,10 +102,7 @@ app.post('/login/auth', function(req, res) {
             }
             else 
             {
-
-                console.log('effettuando il login...');
                 var json=JSON.parse(body);
-                //console.log(json.docs[0].Password);
                 for(i=0;i<json.docs.length;i++)
                 {
                     if(json.docs[i].Username==user)
@@ -139,27 +113,21 @@ app.post('/login/auth', function(req, res) {
                 }
                 if(index==-1)
                 {
-                    // Login errato
-                    console.log('username not found')
                     res.status(401).render(__dirname + '/public/views/login.ejs', { success:'',errormessage: 'Username not found',logout:'' });
                 }
                 else
                 {
                     if(json.docs[index].Username==user && json.docs[index].Password==pass)
                     {
-                        //login ok 
-                        //console.log(response.statusCode);
                         console.log('Accesso effettuato da '+user.toString()+'!');
                         req.session.loggedin = true;
                         req.session.username= json.docs[index].Username;
-
                         req.session.cookie.expires = new Date(Date.now() + hour)
                         req.session.cookie.maxAge = hour
                         res.redirect('/personalArea');
                     }
                     else
                     {
-                        console.log('password non valida');
                         res.status(401).render(__dirname + '/public/views/login.ejs', {  success:'',errormessage: 'Incorrect  password',logout:''  });
                     }
                 }
@@ -171,20 +139,17 @@ app.get('/logout',function(req, res){
 
     if (req.session) {
         req.session.destroy(err => {
-          if (err) {
-            res.status(400).send('Unable to log out')
-          } else {
-            res.render(__dirname + '/public/views/login.ejs', { success:'',errormessage: '',logout:'Logout eseguito con successo' });
-          }
+          if (err) res.status(400).send('Unable to log out')
+          else     res.render(__dirname + '/public/views/login.ejs', { success:'',errormessage: '',logout:'Logout eseguito con successo' });
         });
-      } else {
+      } 
+    else {
         res.end()
-      }
+    }
 });
 
 //GET SEARCH
 app.get('/search', function(req,res) {
-    var username = [];
     var courses = [];
     request2server({
         //mettere l'url del proprio database
@@ -197,7 +162,6 @@ app.get('/search', function(req,res) {
             //console.log(tutto);
             for(var i=0; i<tutto.docs.length; i++) {   
                 courses[i] = tutto.docs[i];
-                console.log("caricato il corso "+courses[i].courseName);
             }
             res.render(__dirname + '/public/views/listaCorsi.ejs', {
                 corsi: courses
@@ -209,7 +173,6 @@ app.get('/search', function(req,res) {
 //area personale di ogni utente
 //accesso solo se si è loggati. Uso delle sessioni per vedere se si è loggati oppue no 
 app.get('/personalArea', function(req, res) {
-    //se si è loggati restituisci l' area personale utente altrimenti loggati
 	if (req.session.loggedin) {
 		console.log('Welcome back, ' + req.session.username + '!');
         res.sendFile(__dirname+'/public/views/profilo.html');
@@ -234,9 +197,7 @@ app.post('/profiloUtente', function(req,res) {
                 ris = JSON.parse(body);
                 profilo=ris.docs[0];
                 output={utente:profilo};
-                //console.log(profilo);
                 res.json(output);
-                
             }
         )
 	} else {
@@ -260,11 +221,9 @@ app.post('/getcorsi', (req, res) => {
             body: '{ "selector": { "author": "'+req.session.username+'"}, "sort": [{"courseFollower": "desc"}], "skip": 0, "execution_stats": true }'       
             }, function(error, response, body){
                 ris = JSON.parse(body);
-                //console.log(ris.docs);
                 corsi=ris.docs;
                 output={tuttiICorsi:corsi};
                 res.json(output);
-                
             }
         )
 	} else {
@@ -397,115 +356,7 @@ app.get('/courses3', function(req,res) {
     
 });
 
-
-//POST REGISTER AJAX
-app.post('/ajax/register', (req, res) => {
-    var output = {};
-    var errors = [];
-    var username=req.body.Username;
-    var erroreUsername=0;
-    var erroreEmail=0;
-
-
-    request2server({
-        //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+username, 
-        method: 'GET',
-        headers: {'content-type': 'application/json'},
-        }, function(error, response, body){
-        if(error) {
-            console.log(error);
-        }
-        else 
-        {
-            
-            if(!response.statusCode==404){
-                erroreUsername=1;
-                errors.push({
-                    msg: 'Username già in uso.'
-                });
-            }
-        }
-    });
-
-
-
-
-
-
-
-
-
-    //fa la richiesta al database soltanto se entrambi i campi sono compilati
-    if(validator.isEmpty(req.body.Username) || validator.isEmpty(req.body.Password) ) {
-        errors.push({
-            msg: 'Username e/o password non validi.'
-        });
-    }
-    else
-    {
-        username = req.body.Username;
-        password = req.body.Password;
-        
-        request2server({
-            //mettere l'url del proprio database
-            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+username, 
-            method: 'GET',
-            headers: {'content-type': 'application/json'},
-            }, function(error, response, body){
-            if(error) {
-                console.log(error);
-            }
-            else 
-            {
-                
-                //se lo user non è nel db manda error 404
-                if(response.statusCode==404) {
-                    erroreLogin=404;
-                    errors.push({
-                        msg: 'Username e/o password non validi.'
-                    });
-                }
-                else
-                {
-                    json = JSON.parse(body);
-                    //se la password non è corretta restituisce 1 altrimenti 2
-                    if(json.Password==password)
-                    {   
-                        erroreLogin=2;
-                        //login ok 
-                    }
-                    else
-                    {   
-                        erroreLogin=1;
-                        errors.push({
-                            msg: 'Username e/o password non validi.'
-                        });
-                    }
-                }    
-            }
-        });
-    }
-    if(errors.length > 0 || erroreLogin==404  || erroreLogin==1) {
-        output.errors = errors;
-        
-    } else {
-        if(erroreLogin==2){
-            //erroreLogin è 2 ovvero utente trovato e password corretta
-            output.success = 'Bentornato '+username.toString()+'!'
-            req.session.loggedin = true;
-            req.session.username=username;
-            console.log('Accesso effettuato da '+username.toString()+'!');
-        }
-        
-    }
-    res.json(output);
-});
-
-
-
 //POST REGISTRAZIONE E CONTROLLO CON EJS
-//non si possono registrare utenti con stesso username o email
 app.post('/register/auth', function(req, res) {
 	var user= req.body.Username;
 	var email = req.body.Email;
@@ -529,8 +380,6 @@ app.post('/register/auth', function(req, res) {
             }
             else 
             {
-
-                console.log('controllo registrazione...');
                 var errReg=0;
                 var json=JSON.parse(body);
                 for(i=0;i<json.docs.length && errReg!=1 && errReg!=2;i++)
@@ -541,13 +390,11 @@ app.post('/register/auth', function(req, res) {
                 }
                 if(errReg==1 )
                 {
-                    console.log(errReg,' username già in uso');
                     output={   err: 'ERR', msg: 'Username gia in uso'};
                     res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: output ,login:''});
                 }
                 if(errReg==2)
                 {
-                    console.log(errReg, 'Email già in uso')
                     output={   err: 'ERR', msg: 'Email gia in uso'};
                     res.render(__dirname + '/public/views/registrazione.ejs', { errormessage: output });
                 }
@@ -574,8 +421,6 @@ app.post('/register/auth', function(req, res) {
                 
             }
     });
-    
-    
 });
 
 
