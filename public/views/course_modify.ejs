@@ -65,7 +65,7 @@
 
 
     <!-- parte del body da modificare ognuno di noi -->
-    
+    <div class="row g-0">
     <div class="center">
 
         <!-- immagine profilo e copertina -->
@@ -236,8 +236,9 @@
         </div>
  
         <!-- elenco dei corsi-->
+        <%# if (course.iter == 0) { %>
         <div class="courses bds text-center" > 
-          <index id="index" hidden>-1</index>         
+          <!--<index id="index" hidden>-1</index>    -->     
           <h2> Nuovo materiale  <span class="badge rounded-pill bg-success">NEW!</span></h2>
           <img src="../img/default_school.png" class="img-fluid" alt="JustClick">
           <h5 class="card-text">Aggiungi qui il tuo materiale!</h5> 
@@ -275,14 +276,15 @@
             }
           }
         </script>
+        <%# } %>
 
         <% let it %> 
-        <% if (course.courses.length < 10) { %>
+        <% if (course.courses.length < course.iter+10) { %>
           <% it= course.courses.length %> 
         <% } else { %>
-         <% it= 10 %> 
+         <% it= course.iter+10 %> 
         <% } %>
-        <% for( let index = 0; index < it; index++ ) { %>
+        <% for( let index = course.iter; index < it; index++ ) { %>
           <div class="courses bds text-center" > 
             <vl hidden><%=course.courses[index][0]%></vl>
             <index id="index" hidden><%=index%></index>  
@@ -298,10 +300,12 @@
         <script>
           var bodyMateriale = document.getElementsByName("bodyMateriale");
           var corsi = <%- JSON.stringify(course.courses) %>;
-          for(var i=0; i<bodyMateriale.length; i++) {
+          var courseIter = <%-course.iter%>;
+          for(var j=0; j<bodyMateriale.length; j++) {
             //alert(corsi[i][2]);
+            var i = j+courseIter;
             if(corsi[i][2]=='image/jpeg'||corsi[i][2]=='image/jpg'||corsi[i][2]=='image/png'||corsi[i][2]=='image/gif'||corsi[i][2]=='image/svg+xml') {
-              bodyMateriale[i].getAttributeNode("src").value = "../materiale/"+'<%=course.courseName%>'+'_'+corsi[i][0];
+              bodyMateriale[j].getAttributeNode("src").value = "../materiale/"+'<%=course.courseName%>'+'_'+corsi[i][0];
             }
             else if(corsi[i][2]=='application/pdf'||corsi[i][2]=='text/plain') {
               //bodyMateriale[i].getAttributeNode("src").value = "../img/default_books.jpeg";
@@ -326,7 +330,7 @@
               node.setAttributeNode(width);
               node.setAttributeNode(height);
 
-              bodyMateriale[i].parentElement.replaceChild(node,bodyMateriale[i]);
+              bodyMateriale[j].parentElement.replaceChild(node,bodyMateriale[j]);
             }
             else if(corsi[i][2]=='audio/mpeg'||corsi[i][2]=='audio/ogg'||corsi[i][2]=='application/octet-stream') {
               var node = document.createElement("audio");
@@ -345,7 +349,7 @@
               node.setAttributeNode(controls);
               node.setAttributeNode(nome);
               node.appendChild(source);
-              bodyMateriale[i].parentElement.replaceChild(node,bodyMateriale[i]);
+              bodyMateriale[j].parentElement.replaceChild(node,bodyMateriale[j]);
             }
             else if(corsi[i][2]=='video/mp4'||corsi[i][2]=='video/ogg') {
               var node = document.createElement("video");
@@ -370,10 +374,10 @@
               node.setAttributeNode(width);
               node.setAttributeNode(height);
               node.appendChild(source);
-              bodyMateriale[i].parentElement.replaceChild(node,bodyMateriale[i]);
+              bodyMateriale[j].parentElement.replaceChild(node,bodyMateriale[j]);
             }
             else {
-              bodyMateriale[i].getAttributeNode("src").value = "../img/default_school.png";
+              bodyMateriale[j].getAttributeNode("src").value = "../img/default_school.png";
             }
               
           }
@@ -381,18 +385,32 @@
 
 
         <!-- cambia pagina per altri corsi-->
-        <nav aria-label="Search other courses">
-          <ul class="pagination center switchcourses">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <!-- decommenta per disabilitare --
-            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li> -->
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
-      </nav>
+        <% if (course.courses.length > 10) { %>
+          <nav aria-label="Search other courses">
+            <ul class="pagination center switchcourses">
+              <% if (course.iter > 0) { %>
+                <li class="page-item"><a class="page-link" href="/courses2/<%=course.courseName%>?iter=<%=course.iter-10%>">Previous</a></li>
+              <% } else { %>
+                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+              <% } %>
+              <!-- decommenta per disabilitare --
+              <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li> -->
+              <li class="page-item"><a class="page-link" href="/courses2/<%=course.courseName%>?iter=0">1</a></li>
+              <li class="page-item"><a class="page-link" href="/courses2/<%=course.courseName%>?iter=10">2</a></li>
+              <% if (course.courses.length > 20) { %>
+              <li class="page-item"><a class="page-link" href="/courses2/<%=course.courseName%>?iter=20">3</a></li>
+              <% } %>
+              <% if (course.courses.length > course.iter + 10) { %>
+                <li class="page-item"><a class="page-link" href="/courses2/<%=course.courseName%>?iter=<%=course.iter+10%>">Next</a></li>
+              <% } else { %>
+                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+              <% } %>
+              
+            </ul>
+          </nav>
+        <% } %>
   
+  </div>
   </div>
 
   <script>
@@ -426,8 +444,11 @@
       //                  ',"course": "'+'<%- course.courseName %>'+'" }');
       e.target.parentElement.remove();
       var newIndexes = document.getElementsByTagName("index");
+      var courseIter = <%-course.iter%>;
       for(var i=0; i<newIndexes.length; i++) {
-        newIndexes[i].innerHTML = i-1;
+        //alert(newIndexes[i].innerHTML);
+        newIndexes[i].innerHTML = i+courseIter;
+        //alert(newIndexes[i].innerHTML);
       }
       
     }

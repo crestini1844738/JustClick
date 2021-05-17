@@ -314,7 +314,9 @@ app.get('/courses2/:c', function(req,res) {
                 {
                     console.log('caricando il corso '+CourseLoaded);
                     let corso= JSON.parse(body);
-                    //console.log(corso);
+                    if(req.query.iter) corso.iter = parseInt(req.query.iter);
+                    else corso.iter = 0;
+                    console.log(corso);
                     //console.log(req.session);
                     if(req.session.username) {
                         if(req.session.username == corso.author) {
@@ -372,7 +374,7 @@ app.get('/courses3', function(req,res) {
                 body: '{ "selector": { "follower": { "$elemMatch": { "$eq": "'+req.session.username+'" } } }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
                 }, function(error, response, body){
                     tutto = JSON.parse(body);
-                    console.log(tutto);
+                    //console.log(tutto);
                     for(var i=0; i<tutto.docs.length; i++) {   
                         courses[i] = tutto.docs[i];
                         //console.log("caricato il corso "+courses[i].courseName);
@@ -849,7 +851,7 @@ app.post('/updateImg/:c', function(req, res) {
         else 
         {
             //console.log(req.files);
-            console.log(body);
+            //console.log(body);
             var tutto = JSON.parse(body);
 
             req.files.newImage.name = tutto.author+'_'+tutto.courseName+'.png';
