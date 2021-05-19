@@ -36,6 +36,55 @@ app.use(express.static('public'));
 app.use(express.json());
 app.set('view engine', 'ejs');
 
+//API
+app.get('/api/getPopolari', function(req,res) {
+    var output = {};
+    var courses=[];
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: '{ "selector": { "category": {"$gt": null} }, "sort": [{"courseFollower": "desc"}], "limit": 5, "skip": 0, "execution_stats": true }'         
+        }, function(error, response, body){
+
+            if(response.statusCode == 404) {
+                res.status(404).send("No popular courses found");
+            }
+            else {
+                tutto = JSON.parse(body);
+                for(var i=0; i<tutto.docs.length; i++) {   
+                    courses[i] = tutto.docs[i];
+                    //console.log("caricato il corso "+courses[i].courseName);
+                }
+                output={corsi:courses};
+                res.status(201).json(output);
+            }
+            
+        }
+    )
+});
+
+app.get('/api/search',function(req,res) {
+    console.log(req.query.search);
+    var courses = [];
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: '{"selector": { "courseName": { "$regex": "(?i)('+req.query.search+')"} }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
+        }, function(error, response, body){
+            tutto = JSON.parse(body);
+            console.log(tutto);
+            for(var i=0; i<tutto.docs.length; i++) {   
+                courses[i] = tutto.docs[i];
+            }
+            res.json(courses);
+        }
+    );
+});
+
 //GET PAGINA INIZIALE
 app.get('/',function(req,res){
     res.sendFile(__dirname + '/public/views/index.html');
@@ -63,27 +112,16 @@ app.get('/register',function(req,res){
 
 //GET POPOLARI HOMEPAGE
 app.post('/homepage/popolari', function(req,res) {
-    var output = {};
-    var courses=[];
     request2server({
-        //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
-        method: 'POST',
-        headers: {'content-type': 'application/json'},
-        body: '{ "selector": { "category": {"$gt": null} }, "sort": [{"courseFollower": "desc"}], "limit": 5, "skip": 0, "execution_stats": true }'         
-        }, function(error, response, body){
-            tutto = JSON.parse(body);
-            for(var i=0; i<tutto.docs.length; i++) {   
-                courses[i] = tutto.docs[i];
-                console.log("caricato il corso "+courses[i].courseName);
-            }
-            output={corsi:courses};
-            res.json(output);
-        }
-    )
+        url: 'http://localhost:8889/api/getPopolari',
+        method:'GET',
+        headers: {'content-type': 'application/json'}
+    }, function(error,response,body) {
+        //console.log(body);
+        var tutto = JSON.parse(body);
+        res.json(tutto);
+    })
 });
-
-
 
 //AUTENTICAZIONE LOGIN CON EJS
 app.post('/login/auth', function(req, res) {
@@ -255,24 +293,17 @@ app.get('/logout',function(req, res){
 
 //GET SEARCH
 app.get('/search', function(req,res) {
-    var courses = [];
     request2server({
         //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
-        method: 'POST',
-        headers: {'content-type': 'application/json'},
-        body: '{"selector": { "courseName": { "$regex": "(?i)('+req.query.search+')"} }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
-        }, function(error, response, body){
-            tutto = JSON.parse(body);
-            //console.log(tutto);
-            for(var i=0; i<tutto.docs.length; i++) {   
-                courses[i] = tutto.docs[i];
-            }
-            res.render(__dirname + '/public/views/listaCorsi.ejs', {
-                corsi: courses
-            });
-        }
-    );
+        url: 'http://localhost:8889/api/search?search='+req.query.search, 
+        method: 'GET',
+        headers: {'content-type': 'application/json'}
+    }, function(error,response,body) {
+        var courses = JSON.parse(body);
+        res.render(__dirname + '/public/views/listaCorsi.ejs', {
+            corsi: courses
+        });
+    })
 });
 
 //area personale di ogni utente
