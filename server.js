@@ -233,7 +233,6 @@ app.post("/registerInsert", function(req,res){
         }
         else 
         {
-            console.log("qui");
             res.sendFile(__dirname + '/public/views/index.html');
             console.log(response.statusCode, body);
         }
