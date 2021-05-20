@@ -20,6 +20,8 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var validator = require('validator');
 var path = require('path');
+const fileupload = require('express-fileupload');
+const { response } = require('express');
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -36,6 +38,7 @@ app.set('json spaces', 2);
 app.use(express.static('public'));
 app.use(express.json());
 app.set('view engine', 'ejs');
+app.use(fileupload());
 
 /*************************** INIZIO API ***************************/
 app.get('/api/getPopolari', function(req,res) {
@@ -123,18 +126,17 @@ app.post('/api/corsiUtente', function(req, res){
 
 /*************************************** FINE API ***************************************/ 
 
-/*************************** OPERAZIONI GESTIONE CLIENT-SERVER***************************/
+
+/*************************** OPERAZIONI GESTIONE CLIENT-SERVER **************************/
 //GET PAGINA INIZIALE
 app.get('/',function(req,res){
     res.sendFile(__dirname + '/public/views/index.html');
 });
 
-
 //GET PAGINA ABOUT US
 app.get('/AboutUs', function(req,res) {
     res.sendFile(__dirname+'/public/views/AboutUs.html');
 });
-
 
 //GET PAGINA LOGIN
 app.get('/login',function(req,res){  
@@ -279,6 +281,7 @@ app.post('/register/auth', function(req, res) {
     });
 });
 
+//LOGOUT
 app.get('/logout',function(req, res){
 
     if (req.session) {
@@ -307,7 +310,7 @@ app.get('/search', function(req,res) {
     })
 });
 
-//area personale di ogni utente
+//REDIRECT AREA PERSONALE UTENTE
 app.get('/personalArea', function(req, res) {
 	if (req.session.loggedin) {
 		console.log('Welcome back, ' + req.session.username + '!');
@@ -364,17 +367,14 @@ app.get('/caricaInfo', function(req,res) {
     res.sendFile(__dirname+'/public/views/caricaInfo.html');
 });
 
-//pagina corsi
+//GET PAGINA CORSI
 app.get('/courses', function(req,res) {
     res.sendFile(__dirname+'/public/views/corsi.html');
 });
 
-
-
 //GET CORSI
 app.get('/courses2/:c', function(req,res) {
     var CourseLoaded = req.params.c;
-
     var nomeCorso;
     var user, category;
     var follower, pubblicazioni;
@@ -479,12 +479,7 @@ app.get('/courses3', function(req,res) {
     
 });
 
-
-
 //POST PER UPLOAD DI FILE
-const fileupload = require('express-fileupload');
-const { response } = require('express');
-app.use(fileupload());
 app.post('/carica', function(req,res) {
         //console.log(req.files);
         var user = req.session.username;
@@ -604,6 +599,7 @@ app.post('/carica', function(req,res) {
 
 //per rendere array una stringa con codifica json
 function array_to_string(array) {
+    //JSON.stringify(yourArray);
     if(!array) return "[]";
     var string = "[";
     for(var i=0; i<array.length; i++) {
@@ -774,6 +770,6 @@ app.post('/updateImg/:c', function(req, res) {
 });
 
 
-
+/*************************** SERVER IN ASCOLTO***************************/
 app.listen(PortaServer);
 console.log('Server running at port '+PortaServer);
