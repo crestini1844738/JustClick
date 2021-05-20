@@ -1,17 +1,17 @@
+/****************** installazione moduli node ******************/
 // npm install body-parser --save
 // npm install cookie-parser --save
 // npm install express-session
 // npm install ejs
 // npm install validator --save
 
-//varibiali generali
+/****************** VARIABILI GENERALI DEL SERVER ******************/
 var DataBase="progetto";
-var UsernameCouchDB="admin";
-var PasswordCouchDB="admin";
+var AccessCouchDB="admin:admin"; //AccessCouchDB=username:password
 var PortaCouchDB=5984;
 var PortaServer=8889;
 
-
+/*************************** MODULI NODE ***************************/
 var express = require('express');
 var request2server = require('request');
 var app = express();
@@ -19,24 +19,17 @@ var bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var validator = require('validator');
-
-//variabili login
-var erroreLogin=0;
-var json;
-var hour = 60*60*1000;
+var path = require('path');
 
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-var path = require('path');
-
-//per le sesioni exrpess
 app.use(session({
 	secret: 'secret',
 	resave: true,
 	saveUninitialized: true
 }));
-
+var hour = 60*60*1000;
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.set('json spaces', 2);
@@ -44,13 +37,13 @@ app.use(express.static('public'));
 app.use(express.json());
 app.set('view engine', 'ejs');
 
-//API
+/*************************** INIZIO API ***************************/
 app.get('/api/getPopolari', function(req,res) {
     var output = {};
     var courses=[];
     request2server({
         //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: '{ "selector": { "category": {"$gt": null} }, "sort": [{"courseFollower": "desc"}], "limit": 5, "skip": 0, "execution_stats": true }'         
@@ -63,7 +56,6 @@ app.get('/api/getPopolari', function(req,res) {
                 tutto = JSON.parse(body);
                 for(var i=0; i<tutto.docs.length; i++) {   
                     courses[i] = tutto.docs[i];
-                    //console.log("caricato il corso "+courses[i].courseName);
                 }
                 output={corsi:courses};
                 res.status(201).json(output);
@@ -78,7 +70,7 @@ app.post('/api/search',function(req,res) {
     var courses = [];
     request2server({
         //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: '{"selector": { "courseName": { "$regex": "(?i)('+req.query.search+')"} }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
@@ -98,7 +90,7 @@ app.post('/api/profiloUtente',function(req,res){
     var profilo;
     request2server({
         //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: '{"selector": { "Username": "'+req.query.username+'" }, "limit": 10, "skip": 0, "execution_stats": true }'       
@@ -116,7 +108,7 @@ app.post('/api/corsiUtente', function(req, res){
         var corsi;
         request2server({
             //mettere l'url del proprio database
-            url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+            url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: '{ "selector": { "author": "'+req.query.username+'"}, "sort": [{"courseFollower": "desc"}], "skip": 0, "execution_stats": true }'       
@@ -129,7 +121,9 @@ app.post('/api/corsiUtente', function(req, res){
         )
 });
 
+/*************************************** FINE API ***************************************/ 
 
+/*************************** OPERAZIONI GESTIONE CLIENT-SERVER***************************/
 //GET PAGINA INIZIALE
 app.get('/',function(req,res){
     res.sendFile(__dirname + '/public/views/index.html');
@@ -158,7 +152,7 @@ app.get('/register',function(req,res){
 //GET POPOLARI HOMEPAGE
 app.get('/getPopolari', function(req,res) {
     request2server({
-        url: 'http://localhost:8889/api/getPopolari',
+        url: 'http://localhost:'+PortaServer+'/api/getPopolari',
         method:'GET',
         headers: {'content-type': 'application/json'}
     }, function(error,response,body) {
@@ -174,7 +168,7 @@ app.post('/login/auth', function(req, res) {
     var index=-1;
 	request2server({
         //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: '{"selector": { }, "fields": ["Username","Password"], "skip": 0, "execution_stats": true }'
@@ -232,7 +226,7 @@ app.post('/register/auth', function(req, res) {
                 '  }';
     
 	request2server({
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: '{"selector": { }, "fields": ["Username","Email"], "skip": 0, "execution_stats": true }'
@@ -264,7 +258,7 @@ app.post('/register/auth', function(req, res) {
                 if(errReg==0)
                 {
                     request2server({
-                        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+user, 
+                        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/progetto/'+user, 
                         method: 'PUT',
                         headers: {'content-type': 'application/json'},
                         body: msg
@@ -389,7 +383,7 @@ app.get('/courses2/:c', function(req,res) {
 
     request2server({
         //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+CourseLoaded, 
+        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+CourseLoaded, 
         method: 'GET',
         headers: {'content-type': 'application/json'},
         }, function(error, response, body){
@@ -434,14 +428,14 @@ app.get('/courses2/:c', function(req,res) {
 
 //get categorie corsi
 app.get('/courses3', function(req,res) {
-    // 'http://admin:admin@127.0.0.1:5984/progetto/_index'
+    // 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_index'
     //'{ "index": { "fields": ["courseFollower"] } , "name" : "Follower-index", "type":"json" }'
     var username = [];
     var courses = [];
     if(req.query.q != "Preferiti") {
         request2server({
             //mettere l'url del proprio database
-            url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+            url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: '{ "selector": { "category": "'+req.query.q+'" }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
@@ -463,7 +457,7 @@ app.get('/courses3', function(req,res) {
         if(req.session.username) {
             request2server({
                 //mettere l'url del proprio database
-                url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+                url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
                 method: 'POST',
                 headers: {'content-type': 'application/json'},
                 body: '{ "selector": { "follower": { "$elemMatch": { "$eq": "'+req.session.username+'" } } }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
@@ -549,7 +543,7 @@ app.post('/carica', function(req,res) {
                 '  }';
 
         request2server({
-            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.titolo, 
+            url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+req.body.titolo, 
             method: 'PUT',
             headers: {'content-type': 'application/json'},
             body: msg
@@ -565,7 +559,7 @@ app.post('/carica', function(req,res) {
         });
 /*
         request2server({
-            url: 'http://admin:admin@127.0.0.1:5984/progetto/'+user, 
+            url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+user, 
             method: 'GET',
             headers: {'content-type': 'application/json'},
             body: msg
@@ -589,7 +583,7 @@ app.post('/carica', function(req,res) {
 
 
                 request2server({
-                    url: 'http://admin:admin@127.0.0.1:5984/progetto/'+user, 
+                    url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+user, 
                     method: 'PUT',
                     headers: {'content-type': 'application/json'},
                     body: msg
@@ -629,7 +623,7 @@ app.post('/update/:elem', function(req, res) {
     var msg;
     //console.log(req.body);
     request2server({
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.course, 
+        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+req.body.course, 
         method: 'GET',
         headers: {'content-type': 'application/json'},
         body: msg
@@ -698,7 +692,7 @@ app.post('/update/:elem', function(req, res) {
                 '  }';
 
             request2server({
-                url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.course, 
+                url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+req.body.course, 
                 method: 'PUT',
                 headers: {'content-type': 'application/json'},
                 body: msg
@@ -720,7 +714,7 @@ app.post('/update/:elem', function(req, res) {
 //cambiare immagine del corso
 app.post('/updateImg/:c', function(req, res) {
     request2server({
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.params.c, 
+        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+req.params.c, 
         method: 'GET',
         headers: {'content-type': 'application/json'}
     }, function(error, response, body){
@@ -757,7 +751,7 @@ app.post('/updateImg/:c', function(req, res) {
                 '  }';
 
                 request2server({
-                    url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.params.c, 
+                    url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+req.params.c, 
                     method: 'PUT',
                     headers: {'content-type': 'application/json'},
                     body: msg
