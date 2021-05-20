@@ -6,7 +6,7 @@
 // npm install validator --save
 
 /****************** VARIABILI GENERALI DEL SERVER ******************/
-var DataBase="progetto";
+var DataBase="progetto"; //nome database couchDB
 var AccessCouchDB="admin:admin"; //AccessCouchDB=username:password
 var PortaCouchDB=5984;
 var PortaServer=8889;
