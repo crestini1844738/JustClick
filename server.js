@@ -85,6 +85,8 @@ app.get('/api/search',function(req,res) {
     );
 });
 
+
+
 //GET PAGINA INIZIALE
 app.get('/',function(req,res){
     res.sendFile(__dirname + '/public/views/index.html');
@@ -277,6 +279,7 @@ app.post("/registerInsert", function(req,res){
     });
 
 });
+
 app.get('/logout',function(req, res){
 
     if (req.session) {

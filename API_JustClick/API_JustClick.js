@@ -43,6 +43,4 @@ IT'S ALL RESTFUL FOLKS!!!
  *     }
  * 
  *  @apiVersion 0.1.0
- * 
- * 
  */
