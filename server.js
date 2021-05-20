@@ -4,6 +4,14 @@
 // npm install ejs
 // npm install validator --save
 
+//varibiali generali
+var DataBase="progetto";
+var UsernameCouchDB="admin";
+var PasswordCouchDB="admin";
+var PortaCouchDB=5984;
+var PortaServer=8889;
+
+
 var express = require('express');
 var request2server = require('request');
 var app = express();
@@ -65,7 +73,7 @@ app.get('/api/getPopolari', function(req,res) {
     )
 });
 
-app.get('/api/search',function(req,res) {
+app.post('/api/search',function(req,res) {
     console.log(req.query.search);
     var courses = [];
     request2server({
@@ -85,6 +93,41 @@ app.get('/api/search',function(req,res) {
     );
 });
 
+app.post('/api/profiloUtente',function(req,res){
+    var output = {};
+    var profilo;
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: '{"selector": { "Username": "'+req.query.username+'" }, "limit": 10, "skip": 0, "execution_stats": true }'       
+        }, function(error, response, body){
+            ris = JSON.parse(body);
+            profilo=ris.docs[0];
+            output={utente:profilo};
+            res.json(output);
+        }
+    )
+});
+
+app.post('/api/corsiUtente', function(req, res){
+    var output = {};
+        var corsi;
+        request2server({
+            //mettere l'url del proprio database
+            url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: '{ "selector": { "author": "'+req.query.username+'"}, "sort": [{"courseFollower": "desc"}], "skip": 0, "execution_stats": true }'       
+            }, function(error, response, body){
+                ris = JSON.parse(body);
+                corsi=ris.docs;
+                output={tuttiICorsi:corsi};
+                res.json(output);
+            }
+        )
+});
 
 
 //GET PAGINA INIZIALE
@@ -113,19 +156,18 @@ app.get('/register',function(req,res){
 });
 
 //GET POPOLARI HOMEPAGE
-app.post('/homepage/popolari', function(req,res) {
+app.get('/getPopolari', function(req,res) {
     request2server({
         url: 'http://localhost:8889/api/getPopolari',
         method:'GET',
         headers: {'content-type': 'application/json'}
     }, function(error,response,body) {
-        //console.log(body);
         var tutto = JSON.parse(body);
         res.json(tutto);
     })
 });
 
-//AUTENTICAZIONE LOGIN CON EJS
+//POST AUTENTICAZIONE LOGIN CON EJS
 app.post('/login/auth', function(req, res) {
 	var user= req.body.Username;
 	var pass = req.body.Password;
@@ -162,6 +204,7 @@ app.post('/login/auth', function(req, res) {
                         console.log('Accesso effettuato da '+user.toString()+'!');
                         req.session.loggedin = true;
                         req.session.username= json.docs[index].Username;
+                        req.session.password=json.docs[index].Password;
                         req.session.cookie.expires = new Date(Date.now() + hour)
                         req.session.cookie.maxAge = hour
                         res.redirect('/personalArea');
@@ -175,7 +218,7 @@ app.post('/login/auth', function(req, res) {
     });
 });
 
-//REGISTRAZIONE CON EJS
+//POST REGISTRAZIONE CON EJS
 app.post('/register/auth', function(req, res) {
 	var user= req.body.Username;
 	var email = req.body.Email;
@@ -242,44 +285,6 @@ app.post('/register/auth', function(req, res) {
     });
 });
 
-
-
-
-//in teoria non serve più, devo controllare se effettivamente non serve
-//POST REGISTER
-app.post("/registerInsert", function(req,res){
-    
-    var msg=    '{ "Username":"'+req.body.Username+
-                '","Name":"'+req.body.Name+
-                '","Surname":"'+req.body.Surname+
-                '" ,"Date":"'+req.body.Date+
-                '","Email":"'+req.body.Email+
-                '","Password":"'+req.body.Password+
-                '","Courses": { }'+
-                '  }';
-
-
-    console.log(req.body);
-    request2server({
-        //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:5984/progetto/'+req.body.Username, 
-        method: 'PUT',
-        headers: {'content-type': 'application/json'},
-        body: msg
-        //body: JSON.stringify(body1)
-    }, function(error, response, body){
-        if(error) {
-            console.log(error);
-        }
-        else 
-        {
-            res.sendFile(__dirname + '/public/views/index.html');
-            console.log(response.statusCode, body);
-        }
-    });
-
-});
-
 app.get('/logout',function(req, res){
 
     if (req.session) {
@@ -309,7 +314,6 @@ app.get('/search', function(req,res) {
 });
 
 //area personale di ogni utente
-//accesso solo se si è loggati. Uso delle sessioni per vedere se si è loggati oppue no 
 app.get('/personalArea', function(req, res) {
 	if (req.session.loggedin) {
 		console.log('Welcome back, ' + req.session.username + '!');
@@ -319,52 +323,39 @@ app.get('/personalArea', function(req, res) {
 	}
 });
 
-//GET PROFILO PERSONALE
+//POST PROFILO UTENTE
 app.post('/profiloUtente', function(req,res) {
     if (req.session.loggedin) {
         var username=req.session.username;
-        var output = {};
-        var profilo;
+        var password=req.session.password;
         request2server({
             //mettere l'url del proprio database
-            url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+            url: 'http://localhost:8889/api/profiloUtente?username='+username,//+'&password='+password,
             method: 'POST',
-            headers: {'content-type': 'application/json'},
-            body: '{"selector": { "Username": "'+username+'" }, "limit": 10, "skip": 0, "execution_stats": true }'       
-            }, function(error, response, body){
-                ris = JSON.parse(body);
-                profilo=ris.docs[0];
-                output={utente:profilo};
-                res.json(output);
-            }
-        )
+            headers: {'content-type': 'application/json'}
+        }, function(error,response,body) {
+            var profilo=JSON.parse(body);
+            res.json(profilo);
+        })
 	} else {
 		res.redirect('/login');
 	}
-
-
-   
 });
 
-//GET CORSI PROFILO PERSONALE
-app.post('/getcorsi', (req, res) => {
+//POST CORSI PROFILO PERSONALE
+app.post('/corsiUtente', function(req, res){
     if (req.session.loggedin) {
-        var output = {};
-        var corsi;
+        var username=req.session.username;
         request2server({
             //mettere l'url del proprio database
-            url: 'http://admin:admin@127.0.0.1:5984/progetto/_find', 
+            url: 'http://localhost:8889/api/corsiUtente?username='+username,
             method: 'POST',
-            headers: {'content-type': 'application/json'},
-            body: '{ "selector": { "author": "'+req.session.username+'"}, "sort": [{"courseFollower": "desc"}], "skip": 0, "execution_stats": true }'       
-            }, function(error, response, body){
-                ris = JSON.parse(body);
-                corsi=ris.docs;
-                output={tuttiICorsi:corsi};
-                res.json(output);
-            }
-        )
-	} else {
+            headers: {'content-type': 'application/json'}
+        }, function(error,response,body) {
+            var corsiutente=JSON.parse(body);
+            res.json(corsiutente);
+        })
+    } else {
 		res.redirect('/login');
 	}
 });
@@ -789,6 +780,6 @@ app.post('/updateImg/:c', function(req, res) {
 });
 
 
-var port = 8889;
-app.listen(port);
-console.log('Server running at port '+port);
+
+app.listen(PortaServer);
+console.log('Server running at port '+PortaServer);

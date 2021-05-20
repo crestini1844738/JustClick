@@ -52,7 +52,7 @@ function personalArea(utente)
       var corsiProfilo="";
 
       var settingscorsi={
-        url: "/getcorsi",
+        url: "/corsiUtente",
         type: "POST",
         dataType: 'JSON',
         success: function(response2){

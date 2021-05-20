@@ -39,8 +39,8 @@ function generaPopolari()
 {
   corsi=new Array();
   var settings = {
-  url: "/homepage/popolari",
-  type: "POST",
+  url: "/getPopolari",
+  type: "GET",
   dataType: 'JSON',
   success: function(response){
     var len = response.corsi.length;
