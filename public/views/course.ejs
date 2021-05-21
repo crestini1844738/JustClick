@@ -264,10 +264,12 @@
         <script>
           var bodyMateriale = document.getElementsByName("bodyMateriale");
           var corsi = <%- JSON.stringify(course.courses) %>;
-          for(var i=0; i<bodyMateriale.length; i++) {
+          var courseIter = <%-course.iter%>;
+          for(var j=0; j<bodyMateriale.length; j++) {
             //alert(corsi[i][2]);
+            var i = j+courseIter;
             if(corsi[i][2]=='image/jpeg'||corsi[i][2]=='image/jpg'||corsi[i][2]=='image/png'||corsi[i][2]=='image/gif'||corsi[i][2]=='image/svg+xml') {
-              bodyMateriale[i].getAttributeNode("src").value = "../materiale/"+'<%=course.courseName%>'+'_'+corsi[i][0];
+              bodyMateriale[j].getAttributeNode("src").value = "../materiale/"+'<%=course.courseName%>'+'_'+corsi[i][0];
             }
             else if(corsi[i][2]=='application/pdf'||corsi[i][2]=='text/plain') {
               //bodyMateriale[i].getAttributeNode("src").value = "../img/default_books.jpeg";
@@ -283,7 +285,7 @@
               type.value = corsi[i][2];
               nome.value="bodyMateriale";
               width.value = "80%";
-              height.value = "450px";
+              height.value = "400px";
 
 
               node.setAttributeNode(nome);
@@ -292,7 +294,7 @@
               node.setAttributeNode(width);
               node.setAttributeNode(height);
 
-              bodyMateriale[i].parentElement.replaceChild(node,bodyMateriale[i]);
+              bodyMateriale[j].parentElement.replaceChild(node,bodyMateriale[j]);
             }
             else if(corsi[i][2]=='audio/mpeg'||corsi[i][2]=='audio/ogg'||corsi[i][2]=='application/octet-stream') {
               var node = document.createElement("audio");
@@ -311,13 +313,13 @@
               node.setAttributeNode(controls);
               node.setAttributeNode(nome);
               node.appendChild(source);
-              bodyMateriale[i].parentElement.replaceChild(node,bodyMateriale[i]);
+              bodyMateriale[j].parentElement.replaceChild(node,bodyMateriale[j]);
             }
             else if(corsi[i][2]=='video/mp4'||corsi[i][2]=='video/ogg') {
               var node = document.createElement("video");
+              var nome = document.createAttribute("name");
               var width = document.createAttribute("width");
               var height = document.createAttribute("height");
-              var nome = document.createAttribute("name");
               var source = document.createElement("source");
               var type = document.createAttribute("type");
               var src = document.createAttribute("src");
@@ -336,10 +338,10 @@
               node.setAttributeNode(width);
               node.setAttributeNode(height);
               node.appendChild(source);
-              bodyMateriale[i].parentElement.replaceChild(node,bodyMateriale[i]);
+              bodyMateriale[j].parentElement.replaceChild(node,bodyMateriale[j]);
             }
             else {
-              bodyMateriale[i].getAttributeNode("src").value = "../img/default_school.png";
+              bodyMateriale[j].getAttributeNode("src").value = "../img/default_school.png";
             }
               
           }

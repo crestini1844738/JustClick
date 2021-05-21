@@ -75,6 +75,16 @@
     <!-- parte del body da modificare ognuno di noi -->
     <div class="row g-0">
       <div class="center">
+      <% if (!corsi.length) { %>
+        <div class="ListCard Listbds none">
+          <div class="d-flex">
+            <div class="p-2 flex-grow-1 w-100 align-self-center bkg text-center none">
+                <p>Nessun corso corrisponde ai criteri di ricerca. Riprova!</p>
+                <h3>:(</h3>
+            </div>
+          </div>       
+        </div>
+      <% } %>
       <% for( let i = 0; i < corsi.length; i++ ) { %>
         <% var course = corsi[i] %> 
         <div class="ListCard Listbds <%= course.category %> ">

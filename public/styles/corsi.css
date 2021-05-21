@@ -14,6 +14,10 @@
     background-size: 100% 250px;
 }
 
+.none{
+    background-color: gray;
+}
+
 .informatica{
     border-color: blue;
     box-shadow: 10px 10px 5px blue;
