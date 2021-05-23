@@ -146,8 +146,8 @@ app.get('/api/getPopolari', function(req,res) {
     )
 });
 
-app.post('/api/search',function(req,res) {
-    console.log(req.query.search);
+app.get('/api/search',function(req,res) {
+    //console.log(req.query.search);
     var courses = [];
     request2server({
         //mettere l'url del proprio database
@@ -157,11 +157,14 @@ app.post('/api/search',function(req,res) {
         body: '{"selector": { "courseName": { "$regex": "(?i)('+req.query.search+')"} }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
         }, function(error, response, body){
             tutto = JSON.parse(body);
-            console.log(tutto);
-            for(var i=0; i<tutto.docs.length; i++) {   
-                courses[i] = tutto.docs[i];
-            }
-            res.json(courses);
+            //console.log(tutto);
+            if(tutto.docs.length == 0) res.status(404).send('No Courses Found\n');
+            else {
+                for(var i=0; i<tutto.docs.length; i++) {   
+                    courses[i] = tutto.docs[i];
+                }
+                res.status(201).send(JSON.stringify(courses)+'\n');
+            }       
         }
     );
 });
@@ -202,6 +205,86 @@ app.post('/api/corsiUtente', function(req, res){
         )
 });
 
+app.get('/api/getCorso/:courseName', function(req,res) {
+    var CourseLoaded = req.params.courseName;
+
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+CourseLoaded, 
+        method: 'GET',
+        headers: {'content-type': 'application/json'},
+        }, function(error, response, body){
+            if(error) {
+                console.log(error);
+            }
+            else 
+            {
+                //se lo user non è nel db manda error 404
+                if(response.statusCode==404) res.status(404).send('Course Not Found\n');
+                else res.status(201).send(body);
+            } 
+    });    
+});
+
+app.get('/api/getMateriale/:courseName', function(req,res) {
+    var CourseLoaded = req.params.courseName;
+
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+CourseLoaded, 
+        method: 'GET',
+        headers: {'content-type': 'application/json'},
+        }, function(error, response, body){
+            if(error) {
+                console.log(error);
+            }
+            else 
+            {
+                if(response.statusCode==404) res.status(400).send('Bad request: course '+CourseLoaded+' does not exist\n');
+                else {
+                    tutto = JSON.parse(body);
+                    if(tutto.courses.length == 0) res.status(404).send('Material Not Found\n');
+                    else res.status(201).send(JSON.stringify(tutto.courses)+'\n');
+                }
+            } 
+    });    
+});
+
+app.get('/api/getByCategory', function(req,res){
+    var courses = [];
+    request2server({
+        //mettere l'url del proprio database
+        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: '{ "selector": { "category": "'+req.query.q+'" }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
+        }, function(error, response, body){
+            tutto = JSON.parse(body);
+            if(tutto.docs.length == 0) res.status(404).send('No Courses Found\n');
+            else {
+                for(var i=0; i<tutto.docs.length; i++) {   
+                    courses[i] = tutto.docs[i];
+                }
+                res.status(201).send(JSON.stringify(courses)+'\n');
+            }   
+        }
+    );
+});
+
+//da fare con oauth
+app.get('/api/auth/getPreferiti', function(req,res){
+    //implement me
+});
+
+app.post('/api/auth/update/:elem', function(req, res) {
+    //implement me
+});
+
+app.post('/api/auth/updateImg/:c', function(req, res) {
+ //implement me
+});
+
+
 /*************************************** FINE API ***************************************/ 
 
 
@@ -227,6 +310,12 @@ app.get('/register',function(req,res){
     if(req.session.loggedin) res.render(__dirname + '/public/views/registrazione.ejs',{ errormessage: '',login:req.session.username });
     else                     res.render(__dirname + '/public/views/registrazione.ejs',{ errormessage: '',login:'' });
     
+});
+
+//GET APIDOC
+//app.use(express.static('API_JustClick'));
+app.get('/docs/api',function(req,res){
+    res.sendFile(__dirname + '/API_JustClick/apidoc/index.html');
 });
 
 //GET POPOLARI HOMEPAGE
@@ -381,7 +470,8 @@ app.get('/search', function(req,res) {
         method: 'GET',
         headers: {'content-type': 'application/json'}
     }, function(error,response,body) {
-        var courses = JSON.parse(body);
+        if(response.statusCode == 404) courses = {};
+        else var courses = JSON.parse(body);
         res.render(__dirname + '/public/views/listaCorsi.ejs', {
             corsi: courses
         });
@@ -453,15 +543,9 @@ app.get('/courses', function(req,res) {
 //GET CORSI
 app.get('/courses2/:c', function(req,res) {
     var CourseLoaded = req.params.c;
-    var nomeCorso;
-    var user, category;
-    var follower, pubblicazioni;
-    var first, second, third = [];
-    var materiali = [];
 
     request2server({
-        //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+CourseLoaded, 
+        url: 'http://localhost:8889/api/getCorso/'+CourseLoaded,
         method: 'GET',
         headers: {'content-type': 'application/json'},
         }, function(error, response, body){
@@ -471,34 +555,64 @@ app.get('/courses2/:c', function(req,res) {
             else 
             {
                 //se lo user non è nel db manda error 404
-                if(response.statusCode==404) {
-                    
-                    // Login errato
-                    console.log(response.statusMessage);
-                    //res.render(__dirname + '/public/views/login.ejs', { errormessage: 'Username not found' });
-                }
+                if(response.statusCode==404) console.log(response.statusMessage);
                 else
                 {
                     console.log('caricando il corso '+CourseLoaded);
                     let corso= JSON.parse(body);
                     if(req.query.iter) corso.iter = parseInt(req.query.iter);
                     else corso.iter = 0;
-                    console.log(corso);
+                    //console.log(corso);
                     //console.log(req.session);
-                    if(req.session.username) {
-                        if(req.session.username == corso.author) {
-                            res.render(__dirname + '/public/views/course_modify.ejs', {    course: corso   });
+                    if(!corso.eventi) { //if(!corso.eventi.city)
+                        if(req.session.username) {
+                            if(req.session.username == corso.author) {
+                                res.render(__dirname + '/public/views/course_modify.ejs', {    course: corso   });
+                            }
+                            else {
+                                corso.viewer = req.session.username;
+                                res.render(__dirname + '/public/views/course.ejs', {    course: corso });
+                            }
                         }
                         else {
-                            corso.viewer = req.session.username;
-                            res.render(__dirname + '/public/views/course.ejs', {    course: corso });
-                        }
+                            corso.viewer = "unknown";
+                            res.render(__dirname + '/public/views/course.ejs', {    course: corso  });
+                        } 
                     }
-                    else {
-                        corso.viewer = "unknown";
-                        res.render(__dirname + '/public/views/course.ejs', {    course: corso  });
-                    } 
-                    
+                    else{
+                        request2server({
+                            //q=city oppure zip=codicepostale
+                            url: 'http://api.openweathermap.org/data/2.5/weather?q='+corso.eventi.city+',it&units=metric&lang=it&appid=c4bf467b6dce8c99bacb02c615c679cb',
+                            method: 'GET',
+                            headers: {'content-type': 'application/json'},
+                            }, function(error, response, body){
+                                if(error) console.log(error);
+                                else {
+                                    if(response.statusCode != 404) {
+                                        var meteo = JSON.parse(body);
+                                        //console.log(body);
+                                        corso.meteoDesc = meteo.weather[0].description;
+                                        corso.meteoTemp = meteo.main.temp;
+                                        corso.meteoImg = meteo.weather[0].icon;
+                                    }
+    
+                                    if(req.session.username) {
+                                        if(req.session.username == corso.author) {
+                                            res.render(__dirname + '/public/views/course_modify.ejs', {    course: corso   });
+                                        }
+                                        else {
+                                            corso.viewer = req.session.username;
+                                            res.render(__dirname + '/public/views/course.ejs', {    course: corso });
+                                        }
+                                    }
+                                    else {
+                                        corso.viewer = "unknown";
+                                        res.render(__dirname + '/public/views/course.ejs', {    course: corso  });
+                                    }                           
+                                }
+                        }); 
+                    }
+                               
                 }
             } 
     });    
@@ -506,24 +620,16 @@ app.get('/courses2/:c', function(req,res) {
 
 //get categorie corsi
 app.get('/courses3', function(req,res) {
-    // 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_index'
-    //'{ "index": { "fields": ["courseFollower"] } , "name" : "Follower-index", "type":"json" }'
-    var username = [];
     var courses = [];
     if(req.query.q != "Preferiti") {
         request2server({
             //mettere l'url del proprio database
-            url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
-            method: 'POST',
-            headers: {'content-type': 'application/json'},
-            body: '{ "selector": { "category": "'+req.query.q+'" }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
+            url: 'http://localhost:8889/api/getByCategory?q='+req.query.q, 
+            method: 'GET',
+            headers: {'content-type': 'application/json'},    
             }, function(error, response, body){
-                tutto = JSON.parse(body);
+                courses = JSON.parse(body);
                 //console.log(tutto);
-                for(var i=0; i<tutto.docs.length; i++) {   
-                    courses[i] = tutto.docs[i];
-                    //console.log("caricato il corso "+courses[i].courseName);
-                }
                 res.render(__dirname + '/public/views/listaCorsi.ejs', {
                     corsi: courses
                 });
@@ -630,48 +736,6 @@ app.post('/carica', function(req,res) {
                 console.log("corso "+req.body.titolo+" creato!");
             }
         });
-/*
-        request2server({
-            url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+user, 
-            method: 'GET',
-            headers: {'content-type': 'application/json'},
-            body: msg
-        }, function(error, response, body){
-            if(error) {
-                console.log(error);
-            }
-            else {
-                var tutto = JSON.parse(body);
-                tutto.Courses.push(req.body.titolo);
-                //console.log(body);
-                msg=    '{ "_rev":"'+tutto._rev+
-                '","Username":"'+user+
-                '","Name":"'+tutto.Name+
-                '","Surname":"'+tutto.Surname+
-                '","Date":"'+tutto.Date+
-                '" ,"Email":"'+tutto.Email+
-                '","Password":"'+tutto.Password+
-                '","Courses": '+array_to_string(tutto.Courses)+
-                '  }';
-
-
-                request2server({
-                    url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+user, 
-                    method: 'PUT',
-                    headers: {'content-type': 'application/json'},
-                    body: msg
-                }, function(error, response, body){
-                    if(error) {
-                        console.log(error);
-                    }
-                    else 
-                    {
-                        console.log(body);
-                        console.log("utente aggiornato!");
-                    }
-                });
-            }
-        });*/
         res.redirect('/personalArea');
 });
 
@@ -695,7 +759,7 @@ function array_to_string(array) {
 //NOTA: OBBLIGATORIO FARE LA GET PERCHÈ IL REV CAMBIA SEMPRE
 app.post('/update/:elem', function(req, res) {
     var msg;
-    //console.log(req.body);
+    console.log(req.body);
     request2server({
         url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+req.body.course, 
         method: 'GET',
@@ -845,6 +909,88 @@ app.post('/updateImg/:c', function(req, res) {
         }
     });
     //res.redirect('/courses2/'+req.params.c);
+});
+
+//oauth validation
+var client_id = "501414949851-b6ot7tcivuh362auuomhtjelk8ia3eoe.apps.googleusercontent.com";
+var client_secret = "ovlcp8lB_JrT0biKF1bFEIgp";
+var apikey = "AIzaSyDm3kA0H6nEx18Xux8n-pWMtUVKupJNiIU";
+app.get('/auth/calendar', function(req,res) {
+    var code = req.query.code;
+    var redirect_uri = "http://localhost:8889/auth/calendar";
+    var url = 'https://www.googleapis.com/oauth2/v3/token';
+	var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+	var body ="code="+code+"&client_id="+client_id+"&client_secret="+client_secret+"&redirect_uri="+redirect_uri+"&grant_type=authorization_code";
+    request2server({
+        //mettere l'url del proprio database
+        url: url, 
+        method: 'POST',
+        headers: headers,
+        body: body
+    }, function(error,response,body) {
+        var myobj = JSON.parse(body);
+        //console.log(body);
+        var token = myobj.access_token;
+        var calendarID = "primary";
+        var url2 = "https://www.googleapis.com/calendar/v3/calendars/"+calendarID+"/events?sendUpdates=all&key="+apikey;
+	    var headers2 = {'Authorization': 'Bearer '+token,'Accept': 'application/json','Content-Type':'application/json'};
+        //CAMBIARE
+        //******* */
+        var evento = '{ "start": { "dateTime": "2021-05-23T18:00:00" , "timeZone": "Europe/Rome" }, "end": { "dateTime": "2021-05-23T19:00:00" , "timeZone": "Europe/Rome"}, "colorId": "7", "description": "Descrizione...", "location": "Cecchina", "summary": "JustClick Event", "reminders": {"useDefault" : false, "overrides": [ { "method": "email", "minutes": 5} , {"method": "popup", "minutes": 5} ] } }';
+        //******* */
+        request2server({
+            //mettere l'url del proprio database
+            url: url2, 
+            method: 'POST',
+            headers: headers2,
+            body: evento
+        }, function(error,response,body) {
+            //console.log(body);
+            res.redirect('/');
+        })
+
+    })
+});
+
+var fs = require('fs');
+const {google} = require ('googleapis');
+app.get('/auth/drive', function(req,res) {
+    var code = req.query.code;
+    var redirect_uri = "http://localhost:8889/auth/drive";
+    const oAuth2Client = new google.auth.OAuth2(
+        client_id,
+        client_secret,
+        redirect_uri
+    )
+    oAuth2Client.getToken(code, function(err, tokens){
+        oAuth2Client.setCredentials(tokens);
+        const drive = google.drive({
+            version: 'v3',
+            auth: oAuth2Client
+        })
+        var fileMetadata = {
+            //cambiare
+            'name': 'photo.jpg'
+          };
+          var media = {
+            //cambiare
+            mimeType: 'image/jpeg',
+            body: fs.createReadStream('./public/img/add.png')
+          };
+          drive.files.create({
+            resource: fileMetadata,
+            media: media,
+            fields: 'id'
+          }, function (err, file) {
+            if (err) {
+              // Handle error
+              console.error(err);
+            } else {
+                //cambiare
+              res.redirect('/');
+            }
+        })
+    })
 });
 
 
