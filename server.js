@@ -4,6 +4,7 @@
 // npm install express-session
 // npm install ejs
 // npm install validator --save
+// npm install google-auth-library --save
 
 /****************** VARIABILI GENERALI DEL SERVER ******************/
 var DataBase="progetto"; //nome database couchDB
@@ -22,7 +23,6 @@ var validator = require('validator');
 var path = require('path');
 const fileupload = require('express-fileupload');
 const { response } = require('express');
-
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -39,6 +39,84 @@ app.use(express.static('public'));
 app.use(express.json());
 app.set('view engine', 'ejs');
 app.use(fileupload());
+
+
+/***********************************************************************/
+
+
+
+
+const {OAuth2Client} = require('google-auth-library');
+app.post('/auth/loginGoogle', function(req,res) {
+    var token=req.body.token;
+    var CLIENT_ID='579387928595-2gdmsv73ukvsu48u6i7m6jb3b6vnosdm.apps.googleusercontent.com';
+    
+    const client = new OAuth2Client(CLIENT_ID);
+    async function verify() {
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: CLIENT_ID,
+        });
+        const payload = ticket.getPayload();
+        //se utente già presente login,altrimenti registra e login
+        //username=nome+Cognome+IDgoogle
+        var username=payload['given_name']+payload['family_name']+payload['sub'];
+        var email=payload['email'];
+        request2server({
+            url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find',  
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: '{ "selector": { "Username": "'+username+'" }, "skip": 0, "execution_stats": true }',
+        }, function(error,response,body) {
+            if(error) {
+                console.log(error);
+            }
+            else
+            {
+                tutto = JSON.parse(body);
+                if(tutto.docs.length==0)
+                {
+                    //registro utente 
+                    var msg=    '{ "Username":"'+username+
+                                '","Name":"'+payload['given_name']+
+                                '","Surname":"'+payload['family_name']+
+                                '" ,"Date":"N/A'+
+                                '","Email":"'+payload['email']+
+                                '","Password":"Access with Google'+
+                                '","Courses": { }'+
+                                '  }';
+                    request2server({
+                        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+username, 
+                        method: 'PUT',
+                        headers: {'content-type': 'application/json'},
+                        body: msg
+                    }, function(error, response, body){
+                        if(error) {
+                            console.log(error);
+                        }
+                        else 
+                        {
+                            console.log("New user: ",username);
+                        }
+                    });
+                }
+            }
+        });
+
+        //loggare
+        req.session.loggedin = true;
+        req.session.username= username;
+        req.session.cookie.expires = new Date(Date.now() + hour)
+        req.session.cookie.maxAge = hour
+        res.sendFile(__dirname+'/public/views/profilo.html');
+
+      }
+      verify().catch(console.error);
+        
+      
+      
+});
+
 
 /*************************** INIZIO API ***************************/
 app.get('/api/getPopolari', function(req,res) {
