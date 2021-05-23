@@ -486,20 +486,55 @@ app.get('/courses2/:c', function(req,res) {
                     else corso.iter = 0;
                     //console.log(corso);
                     //console.log(req.session);
-                    if(req.session.username) {
-                        if(req.session.username == corso.author) {
-                            res.render(__dirname + '/public/views/course_modify.ejs', {    course: corso   });
+                    if(!corso.eventi) { //if(!corso.eventi.city)
+                        if(req.session.username) {
+                            if(req.session.username == corso.author) {
+                                res.render(__dirname + '/public/views/course_modify.ejs', {    course: corso   });
+                            }
+                            else {
+                                corso.viewer = req.session.username;
+                                res.render(__dirname + '/public/views/course.ejs', {    course: corso });
+                            }
                         }
                         else {
-                            corso.viewer = req.session.username;
-                            res.render(__dirname + '/public/views/course.ejs', {    course: corso });
-                        }
+                            corso.viewer = "unknown";
+                            res.render(__dirname + '/public/views/course.ejs', {    course: corso  });
+                        } 
                     }
-                    else {
-                        corso.viewer = "unknown";
-                        res.render(__dirname + '/public/views/course.ejs', {    course: corso  });
-                    } 
-                    
+                    else{
+                        request2server({
+                            //q=city oppure zip=codicepostale
+                            url: 'http://api.openweathermap.org/data/2.5/weather?q='+corso.eventi.city+',it&units=metric&lang=it&appid=c4bf467b6dce8c99bacb02c615c679cb',
+                            method: 'GET',
+                            headers: {'content-type': 'application/json'},
+                            }, function(error, response, body){
+                                if(error) console.log(error);
+                                else {
+                                    if(response.statusCode != 404) {
+                                        var meteo = JSON.parse(body);
+                                        //console.log(body);
+                                        corso.meteoDesc = meteo.weather[0].description;
+                                        corso.meteoTemp = meteo.main.temp;
+                                        corso.meteoImg = meteo.weather[0].icon;
+                                    }
+    
+                                    if(req.session.username) {
+                                        if(req.session.username == corso.author) {
+                                            res.render(__dirname + '/public/views/course_modify.ejs', {    course: corso   });
+                                        }
+                                        else {
+                                            corso.viewer = req.session.username;
+                                            res.render(__dirname + '/public/views/course.ejs', {    course: corso });
+                                        }
+                                    }
+                                    else {
+                                        corso.viewer = "unknown";
+                                        res.render(__dirname + '/public/views/course.ejs', {    course: corso  });
+                                    }                           
+                                }
+                        }); 
+                    }
+                               
                 }
             } 
     });    
@@ -646,7 +681,7 @@ function array_to_string(array) {
 //NOTA: OBBLIGATORIO FARE LA GET PERCHÈ IL REV CAMBIA SEMPRE
 app.post('/update/:elem', function(req, res) {
     var msg;
-    //console.log(req.body);
+    console.log(req.body);
     request2server({
         url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+req.body.course, 
         method: 'GET',
@@ -796,6 +831,44 @@ app.post('/updateImg/:c', function(req, res) {
         }
     });
     //res.redirect('/courses2/'+req.params.c);
+});
+
+//oauth validation
+app.get('/auth', function(req,res) {
+    var code = req.query.code;
+    var client_id = "501414949851-b6ot7tcivuh362auuomhtjelk8ia3eoe.apps.googleusercontent.com";
+    var client_secret = "ovlcp8lB_JrT0biKF1bFEIgp";
+    var redirect_uri = "http://localhost:8889/auth";
+    var url = 'https://www.googleapis.com/oauth2/v3/token';
+	var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+	var body ="code="+code+"&client_id="+client_id+"&client_secret="+client_secret+"&redirect_uri="+redirect_uri+"&grant_type=authorization_code";
+    request2server({
+        //mettere l'url del proprio database
+        url: url, 
+        method: 'POST',
+        headers: headers,
+        body: body
+    }, function(error,response,body) {
+        var myobj = JSON.parse(body);
+        //console.log(body);
+        var token = myobj.access_token;
+        var calendarID = "primary";
+        var url2 = "https://www.googleapis.com/calendar/v3/calendars/"+calendarID+"/events?sendUpdates=all&key=AIzaSyDm3kA0H6nEx18Xux8n-pWMtUVKupJNiIU";
+	    var headers2 = {'Authorization': 'Bearer '+token,'Accept': 'application/json','Content-Type':'application/json'};
+        var evento = '{ "start": { "dateTime": "2021-05-23T18:00:00" , "timeZone": "Europe/Rome" }, "end": { "dateTime": "2021-05-23T19:00:00" , "timeZone": "Europe/Rome"}, "colorId": "7", "description": "Descrizione...", "location": "Cecchina", "summary": "JustClick Event", "reminders": {"useDefault" : false, "overrides": [ { "method": "email", "minutes": 5} , {"method": "popup", "minutes": 5} ] } }';
+        
+        request2server({
+            //mettere l'url del proprio database
+            url: url2, 
+            method: 'POST',
+            headers: headers2,
+            body: evento
+        }, function(error,response,body) {
+            //console.log(body);
+            res.redirect('/');
+        })
+
+    })
 });
 
 

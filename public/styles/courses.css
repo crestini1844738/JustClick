@@ -131,6 +131,20 @@
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
+.eventi{
+  min-width: 75%;
+  width: 75%;
+  max-height: 600px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background-color:rgb(112, 27, 231);
+  margin-left: 12.5%;
+  margin-right: 12.5%;
+  margin-top: 70px;
+  margin-bottom: 70px;
+  text-decoration: none;
+  overflow: hidden;
+}
 
 .bds{
   border-style:ridge;
@@ -154,7 +168,7 @@
   overflow: hidden;
 }
 
-.courses h2{
+.courses h2, .eventi h2{
   font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
   color:black;
@@ -162,7 +176,7 @@
   text-decoration: none;
 }
 
-.courses img{
+.courses img, .eventi img{
   margin-top: 20px;
   margin-bottom: 20px;
 }
