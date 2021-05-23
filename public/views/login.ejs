@@ -16,7 +16,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         <meta name="google-signin-client_id" content="579387928595-2gdmsv73ukvsu48u6i7m6jb3b6vnosdm.apps.googleusercontent.com">
-  </head>
+        <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+      </head>
 <body>
 
     <div class="header">
@@ -80,7 +81,7 @@
                         </script>-->
 
 
-
+                        <%if(!success) {%>
                         <div class="corpo-login" id="corpo-login">
                           <h3>Login</h3>
                           <hr id="linea">
@@ -92,13 +93,8 @@
                           <label for="Password">Password</label>
                           <input type="password" name="Password"id="Password" required/>
                           <input type="submit" value="Inviare">
-                          <div id="my-signin2"  ></div>
+                          <div id="my-signin2"></div>
 
-                          
-
-                          
-                          <!--da levare ma non funziona il logout-->
-                          <a href="/logout" onclick="signOut()">Sign out</a>
                           
                           
                           <pippo>Non hai un account? <a href="/register">Registrati</a></pippo>
@@ -112,19 +108,28 @@
                         <% if (errormessage) { %>
                             <p class="alert alert-danger mt-4"><%= errormessage%></p>
                         <% } %>
+                        <% } %>
                         <% if (success) { %>
                           <script type="text/javascript">
-                            var utente = "Ciao  <%= success%>!";
+                            /*var utente = "Ciao  <%= success%>!";
                             var personalPage='<pippo><a href="/personalArea">Vai alla tua area personale</a></pippo>';
-                            var logout="Per eseguire il LOGOUT <a href='/logout' onclick='signOut();'>clicca qui</a>"
+                            var logout="Per eseguire il LOGOUT <a href='/logout' onclick='signOut()'>clicca qui</a>"
                             html='<h3>Accesso effettuato</h3><br><p class="alert alert-success">' + utente +' '+personalPage+'<br>'+logout+ '</p>';
-                            $("#corpo-login").html(html);
+                            $("#corpo-login").html(html);*/
+
                           </script>
+                          <h3>Accesso effettuato</h3><br><p class="alert alert-success">Ciao  <%= success%>!
+                          <pippo><a href="/personalArea">Vai alla tua area personale</a></pippo>
+                          <br>
+                          
+                          Per eseguire il LOGOUT <a href='/logout' onclick='signOut()'>clicca qui</a></p>
+                          <div id="my-signin2"  hidden></div>
+                          
                         <% } %>
                     </div>
 
 
-                    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+                    
                     <script type="text/javascript">
                       function onSuccess(googleUser) {
                         var id_token = googleUser.getAuthResponse().id_token;
@@ -135,6 +140,7 @@
                           console.log('Signed in as: ' + xhr.responseText);
                         };
                         xhr.send(JSON.stringify({token:id_token}));
+                        
                       }
                       function onFailure(error) {
                         console.log(error);
@@ -150,10 +156,7 @@
                           'onfailure': onFailure
                         });
                       }
-                    </script>
-                    <script>
                       function signOut() {
-                        alert("logout");
                         var auth2 = gapi.auth2.getAuthInstance();
                         auth2.signOut().then(function () {
                           alert('User signed out.');

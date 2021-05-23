@@ -100,15 +100,16 @@ app.post('/auth/loginGoogle', function(req,res) {
                         }
                     });
                 }
+                //loggare
+                req.session.loggedin = true;
+                req.session.username= username;
+                req.session.cookie.expires = new Date(Date.now() + hour);
+                req.session.cookie.maxAge = hour;
+                res.redirect("/personalArea");
             }
         });
 
-        //loggare
-        req.session.loggedin = true;
-        req.session.username= username;
-        req.session.cookie.expires = new Date(Date.now() + hour)
-        req.session.cookie.maxAge = hour
-        res.sendFile(__dirname+'/public/views/profilo.html');
+        
 
       }
       verify().catch(console.error);
@@ -450,7 +451,7 @@ app.post('/register/auth', function(req, res) {
 
 //LOGOUT
 app.get('/logout',function(req, res){
-
+    console.log("nel logout");
     if (req.session) {
         req.session.destroy(err => {
           if (err) res.status(400).send('Unable to log out')
