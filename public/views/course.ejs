@@ -243,7 +243,7 @@
 
         </div>
  
-        <!-- elenco dei corsi-->
+        <!-- evento -->
         <% if (course.eventi) { %> <%# if(course.eventy.city) %>
           <div class="eventi bds text-center">
             <h2> Nuovo evento! <span class="badge rounded-pill bg-success">NEW!</span></h2> 
@@ -252,7 +252,7 @@
                 <h5> Località: <%=course.eventi.city%> </h5>
                 <h5> Temperatura: <%=course.meteoTemp%>&#176 , <%=course.meteoDesc%> <span> <img src="http://openweathermap.org/img/wn/<%=course.meteoImg%>@2x.png" alt="JustClick"> </span> </h5>  
                 <h5> Descrizione...</h5>
-                <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/calendar&response_type=code&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:8889/auth&client_id=501414949851-b6ot7tcivuh362auuomhtjelk8ia3eoe.apps.googleusercontent.com">
+                <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/calendar&response_type=code&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:8889/auth/calendar&client_id=501414949851-b6ot7tcivuh362auuomhtjelk8ia3eoe.apps.googleusercontent.com">
                   <input type="button" name="CalendarBtn" class="btn btn-danger" value="Aggiungi al calendario">
                 </a>
               </div>
@@ -264,6 +264,7 @@
           </div>
         <% } %>
         
+        <!-- elenco dei materiali-->
         <% let it %> 
         <% if (course.courses.length < course.iter+10) { %>
           <% it= course.courses.length %> 
@@ -278,6 +279,9 @@
             </a>
             <h5 class="card-text"><%= course.courses[index][1] %> </h5>
             </div>
+            <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/drive&response_type=code&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:8889/auth/drive&client_id=501414949851-b6ot7tcivuh362auuomhtjelk8ia3eoe.apps.googleusercontent.com">
+              <input type="button" name="CalendarBtn" class="btn btn-success" value="Salva sul tuo drive">
+            </a>
             <a id="viewMateriale" href="#"></a>
         <% } %>
 

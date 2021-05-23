@@ -834,11 +834,12 @@ app.post('/updateImg/:c', function(req, res) {
 });
 
 //oauth validation
-app.get('/auth', function(req,res) {
+var client_id = "501414949851-b6ot7tcivuh362auuomhtjelk8ia3eoe.apps.googleusercontent.com";
+var client_secret = "ovlcp8lB_JrT0biKF1bFEIgp";
+var apikey = "AIzaSyDm3kA0H6nEx18Xux8n-pWMtUVKupJNiIU";
+app.get('/auth/calendar', function(req,res) {
     var code = req.query.code;
-    var client_id = "501414949851-b6ot7tcivuh362auuomhtjelk8ia3eoe.apps.googleusercontent.com";
-    var client_secret = "ovlcp8lB_JrT0biKF1bFEIgp";
-    var redirect_uri = "http://localhost:8889/auth";
+    var redirect_uri = "http://localhost:8889/auth/calendar";
     var url = 'https://www.googleapis.com/oauth2/v3/token';
 	var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
 	var body ="code="+code+"&client_id="+client_id+"&client_secret="+client_secret+"&redirect_uri="+redirect_uri+"&grant_type=authorization_code";
@@ -853,10 +854,12 @@ app.get('/auth', function(req,res) {
         //console.log(body);
         var token = myobj.access_token;
         var calendarID = "primary";
-        var url2 = "https://www.googleapis.com/calendar/v3/calendars/"+calendarID+"/events?sendUpdates=all&key=AIzaSyDm3kA0H6nEx18Xux8n-pWMtUVKupJNiIU";
+        var url2 = "https://www.googleapis.com/calendar/v3/calendars/"+calendarID+"/events?sendUpdates=all&key="+apikey;
 	    var headers2 = {'Authorization': 'Bearer '+token,'Accept': 'application/json','Content-Type':'application/json'};
+        //CAMBIARE
+        //******* */
         var evento = '{ "start": { "dateTime": "2021-05-23T18:00:00" , "timeZone": "Europe/Rome" }, "end": { "dateTime": "2021-05-23T19:00:00" , "timeZone": "Europe/Rome"}, "colorId": "7", "description": "Descrizione...", "location": "Cecchina", "summary": "JustClick Event", "reminders": {"useDefault" : false, "overrides": [ { "method": "email", "minutes": 5} , {"method": "popup", "minutes": 5} ] } }';
-        
+        //******* */
         request2server({
             //mettere l'url del proprio database
             url: url2, 
@@ -868,6 +871,47 @@ app.get('/auth', function(req,res) {
             res.redirect('/');
         })
 
+    })
+});
+
+var fs = require('fs');
+const {google} = require ('googleapis');
+app.get('/auth/drive', function(req,res) {
+    var code = req.query.code;
+    var redirect_uri = "http://localhost:8889/auth/drive";
+    const oAuth2Client = new google.auth.OAuth2(
+        client_id,
+        client_secret,
+        redirect_uri
+    )
+    oAuth2Client.getToken(code, function(err, tokens){
+        oAuth2Client.setCredentials(tokens);
+        const drive = google.drive({
+            version: 'v3',
+            auth: oAuth2Client
+        })
+        var fileMetadata = {
+            //cambiare
+            'name': 'photo.jpg'
+          };
+          var media = {
+            //cambiare
+            mimeType: 'image/jpeg',
+            body: fs.createReadStream('./public/img/add.png')
+          };
+          drive.files.create({
+            resource: fileMetadata,
+            media: media,
+            fields: 'id'
+          }, function (err, file) {
+            if (err) {
+              // Handle error
+              console.error(err);
+            } else {
+                //cambiare
+              res.redirect('/');
+            }
+        })
     })
 });
 
