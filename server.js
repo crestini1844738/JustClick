@@ -451,7 +451,6 @@ app.post('/register/auth', function(req, res) {
 
 //LOGOUT
 app.get('/logout',function(req, res){
-    console.log("nel logout");
     if (req.session) {
         req.session.destroy(err => {
           if (err) res.status(400).send('Unable to log out')
