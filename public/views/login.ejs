@@ -89,9 +89,9 @@
                             <p class="alert alert-success mt-4"><%= logout%></p>
                           <% } %>
                           <label for="Username">Username</label>
-                          <input type="text" name="Username" id="Username" required/>
+                          <input type="text" name="Username" id="Username" oninvalid="this.setCustomValidity('Campo vuoto')" oninput="setCustomValidity('')" required/>
                           <label for="Password">Password</label>
-                          <input type="password" name="Password"id="Password" required/>
+                          <input type="password" name="Password"id="Password" oninvalid="this.setCustomValidity('Campo vuoto')" oninput="setCustomValidity('')" required/>
                           <input type="submit" value="Inviare">
                           <div id="my-signin2"></div>
 
