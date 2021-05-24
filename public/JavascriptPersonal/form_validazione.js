@@ -6,21 +6,21 @@ function formValidationRegister()
     var date = document.registration.Date;
     var email = document.registration.Email;
     var password = document.registration.Password;
+    var passwordR= document.registration.PasswordR;
     
     if(username_validation(username,6,15))
     {
-        if(allLetter_name_or_surname(name))
+        if(allLetter_name_or_surname(name,surname))
         {
-            if(allLetter_name_or_surname(surname))
-            {
-                if(password_validation(password,8,null))//la password deve avere almeno 8 caratteri
-                { 
-                    if(email_validation(email))
-                    {
-                        return true;
-                    } 
-                }
+            if(password_validation(password,passwordR))
+            { 
+                if(email_validation(email))
+                {
+                    return true;
+
+                } 
             }
+            
         }
     }
     return false;
@@ -34,8 +34,10 @@ function username_validation(uid,mx,my)
 var uid_len = uid.value.length;
 if (uid_len == 0 || uid_len >= my || uid_len < mx)
 {
-alert("Username deve avere dai "+mx+" ai "+my+"caratteri");
-uid.focus();
+    document.getElementById("Username").focus();
+$('#verifica').html("<p class='alert alert-danger mt-4'><strong>Alert!</strong>Lunghezza username "+mx+" - "+my+" </p>");
+//alert("Username deve avere dai "+mx+" ai "+my+"caratteri");
+//uid.focus();
 return false;
 }
 return true;
@@ -43,13 +45,22 @@ return true;
 
 
 //validazione password
-function password_validation(passid,mx,my)
+function password_validation(passid,passidR)
 {
     var exp=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
     if(!passid.value.match(exp))
     {
-        alert("La password deve avere almeno otto caratteri,una lettera maiuscola, una lettera minuscola e un numero.");
-        passid.focus();
+        document.getElementById("Password").focus();
+        $('#verifica').html("<p class='alert alert-danger mt-4'><strong>Alert!</strong>Formato password non accettato</p>");
+        //alert("La password deve avere almeno otto caratteri,una lettera maiuscola, una lettera minuscola e un numero.");
+        //passid.focus();
+        return false;
+    }
+    if(passid.value!=passidR.value)
+    {
+        document.getElementById("PasswordR").focus();
+        $('#verifica').html("<p class='alert alert-danger mt-4'><strong>Alert!</strong>Le password non corrispondono</p>");
+        
         return false;
     }
     return true;
@@ -57,19 +68,26 @@ function password_validation(passid,mx,my)
 
 
 //validazione nome e cognome
-function allLetter_name_or_surname(uname)
+function allLetter_name_or_surname(name,surname)
 { 
     var letters = /^[A-Za-z]+$/;
-    if(uname.value.match(letters))
-    {
-        return true;
-    }
-    else
-    {
-        alert('Nome e cognome devono essere di soli caratteri');
-        uname.focus();
+    if(!name.value.match(letters))
+    {   
+        document.getElementById("Name").focus();
+        $('#verifica').html("<p class='alert alert-danger mt-4'><strong>Alert!</strong> nome di soli caratteri</p>");
+        //alert('Nome e cognome devono essere di soli caratteri');
+        //name.focus();
         return false;
     }
+    if(!surname.value.match(letters))
+    {   
+        document.getElementById("Surname").focus();
+        $('#verifica').html("<p class='alert alert-danger mt-4'><strong>Alert!</strong> cognome di soli caratteri</p>");
+        //alert('Nome e cognome devono essere di soli caratteri');
+        //name.focus();
+        return false;
+    }
+    return true;
 }
 
 
