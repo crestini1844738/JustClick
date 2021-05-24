@@ -371,7 +371,7 @@ app.post('/login/auth', function(req, res) {
                         req.session.password=json.docs[index].Password;
                         req.session.cookie.expires = new Date(Date.now() + hour)
                         req.session.cookie.maxAge = hour
-                        res.redirect('/personalArea');
+                        //res.redirect('/personalArea');
                     }
                     else
                     {

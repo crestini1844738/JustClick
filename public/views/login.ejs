@@ -102,6 +102,20 @@
                           <br>
                           <div  id=errorMessage></div>
                         </div>
+
+                        <script>
+                          function onSuccess(googleUser) {
+                            var id_token = googleUser.getAuthResponse().id_token;
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', 'http://localhost:8889/auth/loginGoogle');
+                            xhr.setRequestHeader('Content-Type', 'application/json');
+                            xhr.onload = function() {
+                              console.log('Signed in as: ' + xhr.responseText);
+                            };
+                            xhr.send(JSON.stringify({token:id_token}));
+                            window.location.href = '/personalArea';
+                          }
+                        </script>
                         
                         
 
@@ -124,24 +138,24 @@
                           
                           Per eseguire il LOGOUT <a href='/logout' onclick='signOut()'>clicca qui</a></p>
                           <div id="my-signin2"  hidden></div>
-                          
+                          <script>
+                            function onSuccess(googleUser) {
+                              var id_token = googleUser.getAuthResponse().id_token;
+                              var xhr = new XMLHttpRequest();
+                              xhr.open('POST', 'http://localhost:8889/auth/loginGoogle');
+                              xhr.setRequestHeader('Content-Type', 'application/json');
+                              xhr.onload = function() {
+                                console.log('Signed in as: ' + xhr.responseText);
+                              };
+                            }
+                          </script>
                         <% } %>
                     </div>
 
 
                     
                     <script type="text/javascript">
-                      function onSuccess(googleUser) {
-                        var id_token = googleUser.getAuthResponse().id_token;
-                        var xhr = new XMLHttpRequest();
-                        xhr.open('POST', 'http://localhost:8889/auth/loginGoogle');
-                        xhr.setRequestHeader('Content-Type', 'application/json');
-                        xhr.onload = function() {
-                          console.log('Signed in as: ' + xhr.responseText);
-                        };
-                        xhr.send(JSON.stringify({token:id_token}));
-                        
-                      }
+                      
                       function onFailure(error) {
                         console.log(error);
                       }
@@ -154,6 +168,7 @@
                           'theme': 'dark',
                           'onsuccess': onSuccess,
                           'onfailure': onFailure
+                          //'redirecturi': '/personalArea'
                         });
                       }
                       function signOut() {
