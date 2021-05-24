@@ -371,7 +371,7 @@ app.post('/login/auth', function(req, res) {
                         req.session.password=json.docs[index].Password;
                         req.session.cookie.expires = new Date(Date.now() + hour)
                         req.session.cookie.maxAge = hour
-                        //res.redirect('/personalArea');
+                        res.redirect('/personalArea');
                     }
                     else
                     {
@@ -955,7 +955,11 @@ app.get('/auth/calendar', function(req,res) {
 var fs = require('fs');
 const {google} = require ('googleapis');
 app.get('/auth/drive', function(req,res) {
+    
+    //console.log(req.query.state);
+    var dati = JSON.parse(req.query.state);
     var code = req.query.code;
+    var titolo = dati.course+'_'+dati.name;
     var redirect_uri = "http://localhost:8889/auth/drive";
     const oAuth2Client = new google.auth.OAuth2(
         client_id,
@@ -970,12 +974,12 @@ app.get('/auth/drive', function(req,res) {
         })
         var fileMetadata = {
             //cambiare
-            'name': 'photo.jpg'
+            'name': titolo
           };
           var media = {
             //cambiare
-            mimeType: 'image/jpeg',
-            body: fs.createReadStream('./public/img/add.png')
+            mimeType: dati.mimetype,
+            body: fs.createReadStream('./public/materiale/'+titolo)
           };
           drive.files.create({
             resource: fileMetadata,
@@ -987,7 +991,7 @@ app.get('/auth/drive', function(req,res) {
               console.error(err);
             } else {
                 //cambiare
-              res.redirect('/');
+              res.redirect('/courses2/'+dati.course);
             }
         })
     })

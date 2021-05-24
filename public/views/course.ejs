@@ -82,7 +82,7 @@
         </div>
     
         <!-- informazioni varie -->
-        <div class="container">
+        <div class="row g-0">
             <div class="row">
                 <div class="col text-center">
                     <h1 id = "followerText"> Follower: <%= course.courseFollower %> </h1> 
@@ -257,7 +257,7 @@
                 </a>
               </div>
               <div class="col">
-                <iframe width="90%" height="450" style="border:0; margin:5%;" loading="lazy" allowfullscreen 
+                <iframe width="90%" height="450" style="border:0; margin:5%; min-width: 300px;" loading="lazy" allowfullscreen 
                 src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDm3kA0H6nEx18Xux8n-pWMtUVKupJNiIU&q=<%=course.eventi.address%>,<%=course.eventi.city%>,IT"></iframe>
               </div> <!--&maptype=satellite-->
             </div>
@@ -278,10 +278,12 @@
               <img src="#" id="bodyMateriale" name="bodyMateriale" class="img-fluid anteprima" alt="JustClick">
             </a>
             <h5 class="card-text"><%= course.courses[index][1] %> </h5>
-            </div>
-            <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/drive&response_type=code&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:8889/auth/drive&client_id=501414949851-b6ot7tcivuh362auuomhtjelk8ia3eoe.apps.googleusercontent.com">
+            <% var data ='{"name":"'+course.courses[index][0]+'", "mimetype": "'+course.courses[index][2]+'", "course":"'+course.courseName+'"}'%>
+            <a href='https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/drive&response_type=code&include_granted_scopes=true&state=<%-data%>&redirect_uri=http://localhost:8889/auth/drive&client_id=501414949851-b6ot7tcivuh362auuomhtjelk8ia3eoe.apps.googleusercontent.com'>
               <input type="button" name="CalendarBtn" class="btn btn-success" value="Salva sul tuo drive">
             </a>
+            </div>
+            
             <a id="viewMateriale" href="#"></a>
         <% } %>
 
