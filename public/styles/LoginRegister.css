@@ -52,6 +52,14 @@
   bottom: 0;
   background: linear-gradient(to right bottom,rgba(43, 44, 78, .5),rgba(104, 22, 96, .5));
 }
+.form-Login input[type=text]:focus {
+  border: 2px solid #c40f0f;
+  
+}
+.form-Login input[type=password]:focus {
+  border: 2px solid #c40f0f;
+  
+}
 .form-inner {position: relative;}
 .form-inner h3 {
   position: relative;

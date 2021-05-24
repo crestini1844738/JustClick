@@ -36,8 +36,6 @@ if (uid_len == 0 || uid_len >= my || uid_len < mx)
 {
     document.getElementById("Username").focus();
 $('#verifica').html("<p class='alert alert-danger mt-4'><strong>Alert!</strong>Lunghezza username "+mx+" - "+my+" </p>");
-//alert("Username deve avere dai "+mx+" ai "+my+"caratteri");
-//uid.focus();
 return false;
 }
 return true;
@@ -52,8 +50,6 @@ function password_validation(passid,passidR)
     {
         document.getElementById("Password").focus();
         $('#verifica').html("<p class='alert alert-danger mt-4'><strong>Alert!</strong>Formato password non accettato</p>");
-        //alert("La password deve avere almeno otto caratteri,una lettera maiuscola, una lettera minuscola e un numero.");
-        //passid.focus();
         return false;
     }
     if(passid.value!=passidR.value)
@@ -75,16 +71,12 @@ function allLetter_name_or_surname(name,surname)
     {   
         document.getElementById("Name").focus();
         $('#verifica').html("<p class='alert alert-danger mt-4'><strong>Alert!</strong> nome di soli caratteri</p>");
-        //alert('Nome e cognome devono essere di soli caratteri');
-        //name.focus();
         return false;
     }
     if(!surname.value.match(letters))
     {   
         document.getElementById("Surname").focus();
         $('#verifica').html("<p class='alert alert-danger mt-4'><strong>Alert!</strong> cognome di soli caratteri</p>");
-        //alert('Nome e cognome devono essere di soli caratteri');
-        //name.focus();
         return false;
     }
     return true;
