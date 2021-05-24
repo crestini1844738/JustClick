@@ -6,15 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <script type="text/javascript" lang="javascript" src="../js/bootstrap.min.js"></script> 
     <link rel=stylesheet href="../styles/index.css" type="text/css">
+    <link rel=stylesheet href="../styles/caricaCorso.css" type="text/css"> 
     <link rel=stylesheet href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/> 
-    <link rel=stylesheet href="../styles/profilo.css" type="text/css">
     <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
-    <script type="text/javascript" lang="javascript" src="../JavascriptPersonal/profilo.js"></script> 
     <link rel="preconnect" href="https://fonts.gstatic.com"> 
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
-    <!-- <link rel=stylesheet href="../styles/listaCorsi.css" type="text/css">
-    <link rel=stylesheet href="../styles/courses.css" type="text/css"> -->
+    <script type="text/javascript" src="../JavascriptPersonal/caricaCorso.js"></script>
+    <script type="text/javascript" src="../JavascriptPersonal/caricaEvento.js"></script>
 </head>
 <body>
 
@@ -53,9 +52,9 @@
                   PROFILO
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Il mio account</a></li>
+                  <li><a class="dropdown-item" href="/personalArea">Il mio account</a></li>
                   <li><a class="dropdown-item" href="/manageAccount">Carica corso</a></li>
-                  <li><a class="dropdown-item" href="/caricaEvento">Carica evento</a></li>
+                  <li><a class="dropdown-item" href="#">Carica evento</a></li>
                 </ul>
               </li>
             </ul>
@@ -63,25 +62,72 @@
               <input class="form-control me-2" type="search" id="search" name="search" placeholder="Search" aria-label="Search" required>
               <button class="btn  btn-outline-light" type="submit">Search</button>
             </form>
-            
           </div>
         </div>
       </nav>
 
 
     <!-- parte del body da modificare ognuno di noi -->
-    
-    <div class="corpoProfilo" id="corpoProfilo">
+  <div class="row g-0">
+  <div class="center">
+  <div class="card" id="zonaDinamica">
+  <h1 id="prova">Carica un nuovo evento</h1>
+  <div class="progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:0%;" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
 
+<form action="#" name="formprova" method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+  <label for="validationTextarea" class="form-label">Nome evento</label>
+    <input class="form-control" name="titolo" type="text" id="validationTextarea" placeholder="Inserisci il nome dell'evento"/>
+    </div>
+    <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Descrizione</label>
+    <textarea class="form-control" name="desc" id="exampleFormControlTextarea1" placeholder="Inserisci la descrizione dell'evento" rows="3" size="150" maxlength="150"></textarea>
+    </div>
+    <div class="mb-3">
+    <div class="corpoScelta" id="corpoScelta" name="corpoScelta">  
     </div>
     <script type="text/javascript">
-      $(document).ready(personalArea());
+      $(document).ready(tendinaCaricaEventi());
     </script>
-  
+    </div>
+    <div class="mb-3">
+        <label for="datetime_local" >Inserisci giorno e orario di <b>inizio</b> evento</label><br>
+          <input type="date"  id="date" />
+          <input type="time" id="time"/>
+    </div>
+    <div class="mb-3">
+        <label for="datetime_local" >Inserisci giorno e orario di <b>fine</b> evento</label><br>
+        <input type="date"  id="date" />
+        <input type="time" id="time"/>
+    </div>
+    <div class="mb-3">
+        <label for="validationTextarea" class="form-label">Luogo evento</label>
+          <input class="form-control" name="titolo" type="text" id="validationTextarea" placeholder="Inserisci il luogo dell'evento"/>
+    </div>
+    
+
+  <div class="mb-3">
+      <input class="btn btn-primary" type="submit" id="invio" value="Carica evento">
+      <input class="btn btn-primary" type="reset" id="reset" value="Cancella tutto">
+  </div>
+
+</form>
+</div>
+</div>
+</div>
+    
+                  
+
+                            
+
+       
+      
+
     
     <!-- fine parte del body da modificare-->
-    <br>
-    <br>
+
     <div id="footer"></div>
     <script>
       $(function(){
@@ -91,3 +137,4 @@
 
 </body>
 </html>
+

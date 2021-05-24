@@ -1,3 +1,7 @@
+
+
+
+
 *{box-sizing: border-box;}
 .form-Register {
   position: relative;
@@ -15,6 +19,22 @@
   bottom: 0;
   background: linear-gradient(to right bottom,rgba(43, 44, 78, .5),rgba(104, 22, 96, .5));
 }
+.form-Register input[type=text]:focus {
+  border: 2px solid #c40f0f;
+  
+}
+.form-Register input[type=date]:focus {
+  border: 2px solid #c40f0f;
+  
+}
+.form-Register input[type=email]:focus {
+  border: 2px solid #c40f0f;
+  
+}
+.form-Register input[type=password]:focus {
+  border: 2px solid #c40f0f;
+  
+}
 .form-Login {
   position: relative;
   max-width: auto;
@@ -31,6 +51,14 @@
   right: 0;
   bottom: 0;
   background: linear-gradient(to right bottom,rgba(43, 44, 78, .5),rgba(104, 22, 96, .5));
+}
+.form-Login input[type=text]:focus {
+  border: 2px solid #c40f0f;
+  
+}
+.form-Login input[type=password]:focus {
+  border: 2px solid #c40f0f;
+  
 }
 .form-inner {position: relative;}
 .form-inner h3 {

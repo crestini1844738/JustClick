@@ -525,6 +525,11 @@ app.post('/corsiUtente', function(req, res){
 	}
 });
 
+//GET CARICA EVENTI
+app.get('/caricaEvento',function(req,res){
+    if (req.session.loggedin) res.sendFile(__dirname + '/public/views/caricaEvento.html');
+    else res.redirect("/login");
+});
 //GET GESTISCI ACCOUNT
 app.get('/manageAccount', function(req,res) {
     if(req.session.loggedin) res.sendFile(__dirname+'/public/views/caricaCorso.html');
