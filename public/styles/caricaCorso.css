@@ -44,3 +44,9 @@ h1{
     margin-bottom: 20px;
 }
 
+
+@media (max-width: 544px){
+    #staffCard{
+        width: 200px;
+    }
+  }
