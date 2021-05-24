@@ -371,7 +371,7 @@ app.post('/login/auth', function(req, res) {
                         req.session.password=json.docs[index].Password;
                         req.session.cookie.expires = new Date(Date.now() + hour)
                         req.session.cookie.maxAge = hour
-                        //res.redirect('/personalArea');
+                        res.redirect('/personalArea');
                     }
                     else
                     {
@@ -525,6 +525,11 @@ app.post('/corsiUtente', function(req, res){
 	}
 });
 
+//GET CARICA EVENTI
+app.get('/caricaEvento',function(req,res){
+    if (req.session.loggedin) res.sendFile(__dirname + '/public/views/caricaEvento.html');
+    else res.redirect("/login");
+});
 //GET GESTISCI ACCOUNT
 app.get('/manageAccount', function(req,res) {
     if(req.session.loggedin) res.sendFile(__dirname+'/public/views/caricaCorso.html');

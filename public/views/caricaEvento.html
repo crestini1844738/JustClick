@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com"> 
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
     <script type="text/javascript" src="../JavascriptPersonal/caricaCorso.js"></script>
+    <script type="text/javascript" src="../JavascriptPersonal/caricaEvento.js"></script>
 </head>
 <body>
 
@@ -84,16 +85,11 @@
     <textarea class="form-control" name="desc" id="exampleFormControlTextarea1" placeholder="Inserisci la descrizione dell'evento" rows="3" size="150" maxlength="150"></textarea>
     </div>
     <div class="mb-3">
-    <select class="form-select" name="opt" aria-label="Default select example">
-      <option value="nessuna" selected>Seleziona il corso di cui fa parte l'evento</option>
-      <!-- <option value="Informatica">Informatica</option>
-      <option value="Moda e bellezza">Moda e bellezza</option>
-      <option value="Musica">Musica</option>
-      <option value="Notizie">Notizie</option>
-      <option value="Scuola">Scuola</option>
-      <option value="Sport">Sport</option>
-      <option value="Videogiochi">Videogiochi</option> -->
-    </select>
+    <div class="corpoScelta" id="corpoScelta" name="corpoScelta">  
+    </div>
+    <script type="text/javascript">
+      $(document).ready(tendinaCaricaEventi());
+    </script>
     </div>
     <div class="mb-3">
         <label for="datetime_local" >Inserisci giorno e orario di <b>inizio</b> evento</label><br>
