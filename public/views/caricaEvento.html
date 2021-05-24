@@ -69,49 +69,48 @@
   <div class="row g-0">
   <div class="center">
   <div class="card" id="zonaDinamica">
-  <h1 id="prova">Carica un nuovo corso</h1>
+  <h1 id="prova">Carica un nuovo evento</h1>
   <div class="progress">
     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:0%;" aria-valuemin="0" aria-valuemax="100"></div>
   </div>
 
-<form action="/carica" name="formprova" method="POST" enctype="multipart/form-data" onsubmit="return validaForm();">
+<form action="#" name="formprova" method="POST" enctype="multipart/form-data">
   <div class="mb-3">
-  <label for="validationTextarea" class="form-label">Titolo</label>
-    <input class="form-control" name="titolo" type="text" id="validationTextarea" placeholder="Inserisci il titolo"/>
+  <label for="validationTextarea" class="form-label">Nome evento</label>
+    <input class="form-control" name="titolo" type="text" id="validationTextarea" placeholder="Inserisci il nome dell'evento"/>
     </div>
     <div class="mb-3">
     <label for="exampleFormControlTextarea1" class="form-label">Descrizione</label>
-    <textarea class="form-control" name="desc" id="exampleFormControlTextarea1" placeholder="Inserisci la descrizione del corso" rows="3" size="150" maxlength="150"></textarea>
+    <textarea class="form-control" name="desc" id="exampleFormControlTextarea1" placeholder="Inserisci la descrizione dell'evento" rows="3" size="150" maxlength="150"></textarea>
     </div>
     <div class="mb-3">
     <select class="form-select" name="opt" aria-label="Default select example">
-      <option value="nessuna" selected>Seleziona una categoria</option>
-      <option value="Informatica">Informatica</option>
+      <option value="nessuna" selected>Seleziona il corso di cui fa parte l'evento</option>
+      <!-- <option value="Informatica">Informatica</option>
       <option value="Moda e bellezza">Moda e bellezza</option>
       <option value="Musica">Musica</option>
       <option value="Notizie">Notizie</option>
       <option value="Scuola">Scuola</option>
       <option value="Sport">Sport</option>
-      <option value="Videogiochi">Videogiochi</option>
+      <option value="Videogiochi">Videogiochi</option> -->
     </select>
     </div>
     <div class="mb-3">
-      <label for="formFile" class="form-label">Inserisci l'immagine di profilo del corso</label>
-      <input type="file" accept="image/*" name="image" class="form-control" id="image">
-  </div>
+        <label for="datetime_local" >Inserisci giorno e orario di <b>inizio</b> evento</label><br>
+          <input type="datetime-local"  id="datetime-local" />
+    </div>
+    <div class="mb-3">
+        <label for="datetime_local" >Inserisci giorno e orario di <b>fine</b> evento</label><br>
+          <input type="datetime-local"  id="datetime-local" />
+    </div>
+    <div class="mb-3">
+        <label for="validationTextarea" class="form-label">Luogo evento</label>
+          <input class="form-control" name="titolo" type="text" id="validationTextarea" placeholder="Inserisci il luogo dell'evento"/>
+    </div>
+    
 
   <div class="mb-3">
-      <label for="formFileMultiple" class="form-label">Inserisci il materiale del corso (video, immagini, appunti, ecc.)</label>
-      <input type="file" class="form-control" name="materiale" id="materiale">
-  </div>
-
-  <div class="mb-3">
-    <label for="exampleFormControlTextarea1" class="form-label">Inserisci la descrizione relativa al materiale</label>
-    <textarea class="form-control" name="descMateriale" id="descMateriale" placeholder="Inserisci la descrizione" rows="3"></textarea>
-  </div>
-
-  <div class="mb-3">
-      <input class="btn btn-primary" type="submit" id="invio" value="Carica corso">
+      <input class="btn btn-primary" type="submit" id="invio" value="Carica evento">
       <input class="btn btn-primary" type="reset" id="reset" value="Cancella tutto">
   </div>
 

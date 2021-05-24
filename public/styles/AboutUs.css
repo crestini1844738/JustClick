@@ -80,3 +80,10 @@
 body{
     background-color: rgb(179, 231, 235);
 }
+
+@media (max-width: 544px){
+    .staffCard{
+        width: auto;
+    }
+    
+  }
