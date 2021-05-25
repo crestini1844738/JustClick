@@ -634,7 +634,7 @@ app.get('/courses3', function(req,res) {
             method: 'GET',
             headers: {'content-type': 'application/json'},    
             }, function(error, response, body){
-                courses = JSON.parse(body);
+                if(response.statusCode != 404) courses = JSON.parse(body);
                 //console.log(tutto);
                 res.render(__dirname + '/public/views/listaCorsi.ejs', {
                     corsi: courses
