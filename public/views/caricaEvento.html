@@ -96,34 +96,24 @@
       $(document).ready(tendinaCaricaEventi());
     </script>
     </div>
-    <!-- <div class="mb-3">
-        <label for="datetime_local" >Inserisci giorno e orario di <b>inizio</b> evento</label><br>
-          <input type="date"  id="date" name="dataInizio" />
-          <input type="time" id="time" name="oraInizio"/>
-    </div>
     <div class="mb-3">
-        <label for="datetime_local" >Inserisci giorno e orario di <b>fine</b> evento</label><br>
-        <input type="date"  id="date" name="dataFine"/>
-        <input type="time" id="time" name="oraFine"/>
+      <label for="datetime_local" id="datetime_local">Inserisci giorno e orario di <b>inizio</b> evento</label><br>
+      <input type="datetime-local" name="dataInizio"/></br>
     </div>
-        <input type="date"  id="date" />
-        <input type="time" id="time"/>
-    </div> -->
 
-    <label for="datetime_local" >input con datetime-local</label><br>
-    <input type="datetime-local" name="dataInizio"/></br>
-
-    <label for="datetime_local" >input con datetime-local</label><br>
+    <div class="mb-3">
+    <label for="datetime_local" id="datetime_local">Inserisci giorno e orario di <b>fine</b> evento</label><br>
     <input type="datetime-local" name="dataFine"/></br>
+    </div>
 
 
     <div class="mb-3">
         <label for="validationTextarea" class="form-label">Via dell'evento</label>
-          <input class="form-control" name="via" type="text" id="validationTextarea" placeholder="Inserisci la via dell'evento"/>
+          <input class="form-control" name="via" type="text" id="validationTextarea" placeholder="Inserisci la via in cui desideri svolgere l'evento"/>
     </div>
     <div class="mb-3">
       <label for="validationTextarea" class="form-label">Città evento</label>
-        <input class="form-control" name="citta" type="text" id="validationTextarea" placeholder="Inserisci la città dell'evento"/>
+        <input class="form-control" name="citta" type="text" id="validationTextarea" placeholder="Inserisci la città in cui desideri svolgere l'evento"/>
       </div>
     
 

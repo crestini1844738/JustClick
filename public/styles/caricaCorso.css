@@ -71,6 +71,10 @@ h1{
     margin-bottom: 20px;
 }
 
+#datetime_local{
+    margin-bottom: 8px;
+}
+
 @media (max-width: 500px){
     .card{
         width: 300px;
