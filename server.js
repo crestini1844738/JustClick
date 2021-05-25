@@ -530,6 +530,7 @@ app.get('/caricaEvento',function(req,res){
     if (req.session.loggedin) res.sendFile(__dirname + '/public/views/caricaEvento.html');
     else res.redirect("/login");
 });
+
 //GET GESTISCI ACCOUNT
 app.get('/manageAccount', function(req,res) {
     if(req.session.loggedin) res.sendFile(__dirname+'/public/views/caricaCorso.html');
@@ -724,6 +725,7 @@ app.post('/carica', function(req,res) {
                 ',"firstEvidenza":[], "secondEvidenza": [], "thirdEvidenza": []'+
                 ',"courses": [' +materiale+ ']'+
                 ',"follower": []'+
+                ',"eventi": []'+
                 '  }';
 
         request2server({
@@ -764,7 +766,7 @@ function array_to_string(array) {
 //NOTA: OBBLIGATORIO FARE LA GET PERCHÈ IL REV CAMBIA SEMPRE
 app.post('/update/:elem', function(req, res) {
     var msg;
-    console.log(req.body);
+    //console.log(req.body);
     request2server({
         url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+req.body.course, 
         method: 'GET',
@@ -815,6 +817,19 @@ app.post('/update/:elem', function(req, res) {
                     req.files.materiale.mv(__dirname+'/public/materiale/'+req.files.materiale.name, function(err) {
                         if(err) return res.status(500).send(err);
                     });
+                    break;
+                case "evento":
+                    tutto.eventi = [];
+                    tutto.eventi.push(req.body.titolo);
+                    tutto.eventi.push(req.body.desc);
+                    tutto.eventi.push(req.body.course);
+                    tutto.eventi.push(req.body.dataInizio);
+                    tutto.eventi.push(req.body.oraInizio);
+                    tutto.eventi.push(req.body.dataFine);
+                    tutto.eventi.push(req.body.oraFine);
+                    tutto.eventi.push(req.body.luogo);
+                    tutto.eventi.push(req.body.via);
+                    break;
                 default:
                     break;
             }
@@ -832,6 +847,7 @@ app.post('/update/:elem', function(req, res) {
                 ',"thirdEvidenza": '+array_to_string(tutto.thirdEvidenza)+
                 ',"courses": '+array_to_string(tutto.courses)+
                 ',"follower": '+array_to_string(tutto.follower)+
+                ',"eventi": '+array_to_string(tutto.eventi)+
                 '  }';
 
             request2server({
@@ -847,7 +863,7 @@ app.post('/update/:elem', function(req, res) {
                     //console.log(msg);
                     //console.log(body);
                     console.log("update "+req.params.elem+" effettuato!");
-                    if(req.params.elem == "setCorsi") res.redirect('/courses2/'+req.body.course);
+                    if(req.params.elem == "setCorsi" || req.params.elem == "evento") res.redirect('/courses2/'+req.body.course);
                 }
             });
         }
@@ -939,10 +955,9 @@ app.get('/auth/calendar', function(req,res) {
         var calendarID = "primary";
         var url2 = "https://www.googleapis.com/calendar/v3/calendars/"+calendarID+"/events?sendUpdates=all&key="+apikey;
 	    var headers2 = {'Authorization': 'Bearer '+token,'Accept': 'application/json','Content-Type':'application/json'};
-        //CAMBIARE
-        //******* */
-        var evento = '{ "start": { "dateTime": "2021-05-23T18:00:00" , "timeZone": "Europe/Rome" }, "end": { "dateTime": "2021-05-23T19:00:00" , "timeZone": "Europe/Rome"}, "colorId": "7", "description": "Descrizione...", "location": "Cecchina", "summary": "JustClick Event", "reminders": {"useDefault" : false, "overrides": [ { "method": "email", "minutes": 5} , {"method": "popup", "minutes": 5} ] } }';
-        //******* */
+        //console.log(req.query.state);
+        var data = JSON.parse(req.query.state);
+        var evento = '{ "start": { "dateTime": "'+data[3]+'T'+data[4]+'" , "timeZone": "Europe/Rome" }, "end": { "dateTime": "'+data[5]+'T'+data[6]+'" , "timeZone": "Europe/Rome"}, "colorId": "7", "description": "'+data[1]+'", "location": "'+data[8]+', '+data[7]+'", "summary": "JustClick Event: '+data[0]+' by '+data[2]+'", "reminders": {"useDefault" : false, "overrides": [ { "method": "email", "minutes": 5} , {"method": "popup", "minutes": 5} ] } }';
         request2server({
             //mettere l'url del proprio database
             url: url2, 
@@ -950,8 +965,9 @@ app.get('/auth/calendar', function(req,res) {
             headers: headers2,
             body: evento
         }, function(error,response,body) {
-            //console.log(body);
-            res.redirect('/');
+            console.log(evento);
+            console.log(body);
+            res.redirect('/courses2/'+data[2]);
         })
 
     })
