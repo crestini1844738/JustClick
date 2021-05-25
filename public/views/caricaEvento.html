@@ -12,7 +12,6 @@
     <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com"> 
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
-    <script type="text/javascript" src="../JavascriptPersonal/caricaCorso.js"></script>
     <script type="text/javascript" src="../JavascriptPersonal/caricaEvento.js"></script>
 </head>
 <body>
@@ -68,10 +67,15 @@
 
 
     <!-- parte del body da modificare ognuno di noi -->
+    <div class="homeheader2">
+      <div class="labelbar">
+          <h1>Carica un nuovo evento</h1>
+
+      </div>
+    </div>
   <div class="row g-0">
   <div class="center">
   <div class="card" id="zonaDinamica">
-  <h1 id="prova">Carica un nuovo evento</h1>
   <div class="progress">
     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:0%;" aria-valuemin="0" aria-valuemax="100"></div>
   </div>
@@ -92,7 +96,7 @@
       $(document).ready(tendinaCaricaEventi());
     </script>
     </div>
-    <div class="mb-3">
+    <!-- <div class="mb-3">
         <label for="datetime_local" >Inserisci giorno e orario di <b>inizio</b> evento</label><br>
           <input type="date"  id="date" name="dataInizio" />
           <input type="time" id="time" name="oraInizio"/>
@@ -102,10 +106,36 @@
         <input type="date"  id="date" name="dataFine"/>
         <input type="time" id="time" name="oraFine"/>
     </div>
+        <input type="date"  id="date" />
+        <input type="time" id="time"/>
+    </div> -->
+
+    <label for="datetime_local" >input con datetime-local</label><br>
+    <input type="datetime-local" name="dataFine"/></br>
+
+    <label for="datetime_local" >input con date + (numero intero da 0 a 23)</label><br>
+    <input type="date" name="dataFine"/> <input type="number" name="dataFine" min="0" max="23"/><br>
+
+    <label for="datetime_local" >input con date + (numero decimale da 0,00 a 23,59)</label><br>
+    <input type="date" name="dataFine"/> <input type="number" name="dataFine" min="0.00" max="23.59" step="0.01"/><br>
+
+    <label for="datetime_local" >input con date + ora (da 0 a 23) : minuti(multiplo di 5)</label><br>
+    <input type="date" name="dataFine"/> <input type="number" name="dataFine" min="0" max="23"/> : <input type="number" name="dataFine" step="5" min="00" max="59"/>
+
+
+
+
+
+
+
     <div class="mb-3">
-        <label for="validationTextarea" class="form-label">Luogo evento</label>
-          <input class="form-control" name="titolo" type="text" id="validationTextarea" placeholder="Inserisci il luogo dell'evento"/>
+        <label for="validationTextarea" class="form-label">Via dell'evento</label>
+          <input class="form-control" name="via" type="text" id="validationTextarea" placeholder="Inserisci la via dell'evento"/>
     </div>
+    <div class="mb-3">
+      <label for="validationTextarea" class="form-label">Città evento</label>
+        <input class="form-control" name="citta" type="text" id="validationTextarea" placeholder="Inserisci la città dell'evento"/>
+      </div>
     
 
   <div class="mb-3">

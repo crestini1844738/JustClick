@@ -1,3 +1,30 @@
+.homeheader{
+    background-image: url("../img/caricaCorso.PNG");
+    background-size:cover;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+.homeheader2{
+    background-image: url("../img/caricaEvento.png");
+    background-size:cover;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.labelbar{
+    color: white;
+    background-color: rgba(95, 99, 112, 0.5);
+    text-align: center;
+    padding: 25px;
+    /*height: auto;*/
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.labelbar h3{
+    margin: 3%;
+}
+
 .center{
     background-color: rgb(179, 231, 235);
     padding: 0px;
