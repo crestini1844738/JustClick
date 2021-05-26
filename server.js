@@ -685,7 +685,7 @@ app.post('/carica', function(req,res) {
             }
             if(req.files.materiale) {
                 pubblicazioni++;
-                materiale = '["' +req.files.materiale.name+ '+","'+req.body.descMateriale+'","'+req.files.materiale.mimetype+'"]';
+                materiale = '["' +req.files.materiale.name+ '","'+req.body.descMateriale+'","'+req.files.materiale.mimetype+'"]';
                 req.files.materiale.name = req.body.titolo+'_'+req.files.materiale.name;
                 req.files.materiale.mv(__dirname+'/public/materiale/'+req.files.materiale.name, function(err) {
                     if(err) return res.status(500).send(err);

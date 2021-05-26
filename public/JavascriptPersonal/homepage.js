@@ -52,7 +52,7 @@ function generaPopolari()
         var category=response.corsi[i].category;
         var description=response.corsi[i].desc;
         var img;
-        if(tuttiicorsi[j].image == 'loaded') img = "<img src='../img/courseImgs/"+author+"_"+courseName+".png' id='profilocorso'></div>";
+        if(response.corsi[i].image == 'loaded') img = "<img src='../img/courseImgs/"+author+"_"+courseName+".png' id='profilocorso'></div>";
         else img="<img src='../img/courseImgs/default_image.png' id='profilocorso'></div>";
         
         //var descr = response[i].decription;
