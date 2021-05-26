@@ -42,8 +42,8 @@ overflow: hidden;
 
 .diagonal-box-right {
   float: right;
-	background-image: linear-gradient(45deg, #fb922fde, #57522d);
- 
+	background-image: url(../img/sfondoHomepage2.png);
+  background-size:contain;
   transform: skewX(-11deg);
   margin: 10px;
 
