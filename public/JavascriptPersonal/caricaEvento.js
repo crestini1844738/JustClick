@@ -21,3 +21,48 @@ var setting={
   };
   $.ajax( setting );
 }
+
+function validaForm(){
+  if(document.formprova.titolo.value==""){
+    alert("Inserisci il nome dell'evento");
+    document.formprova.titolo.focus();
+    return false;
+  }
+  if(document.formprova.desc.value==""){
+    alert("Inserisci la descrizione dell'evento");
+    document.formprova.desc.focus();
+    return false;
+  }
+  if(document.formprova.course.value=="nessuna"){
+    alert("Seleziona il corso di cui fa parte un evento. Se non ci sono corsi presenti creane uno nuovo prima di aggiungere un evento");
+    document.formprova.opt.focus();
+    return false;
+
+  }
+  if(document.formprova.dataInizio.value==""){
+    alert("Inserisci data e ora di INIZIO evento");
+    document.formprova.dataInizio.focus();
+    return false;
+  }
+  if(document.formprova.dataFine.value==""){
+    alert("Inserisci data e ora di FINE evento");
+    document.formprova.dataFine.focus();
+    return false;
+  }
+  if(document.formprova.dataFine.value<=document.formprova.dataInizio.value){
+    alert("ATTENZIONE: inserire data e ora di FINE successivi all'INIZIO dell'evento");
+    document.formprova.via.focus();
+    return false;
+  }
+  if(document.formprova.via.value==""){
+    alert("Inserisci la via in cui si svolge l'evento");
+    document.formprova.via.focus();
+    return false;
+  }
+  if(document.formprova.citta.value==""){
+    alert("Inserisci la città in cui si svolge l'evento");
+    document.formprova.citta.focus();
+    return false;
+  }
+  return true;
+}
