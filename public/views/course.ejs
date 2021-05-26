@@ -251,7 +251,7 @@
             <div class="row g-0">
               <div class="col">    
                 <h5> Località: <%=course.eventi[5]%> </h5>
-                <h5> Temperatura: <%=course.meteoTemp%>&#176 , <%=course.meteoDesc%> <span> <img src="http://openweathermap.org/img/wn/<%=course.meteoImg%>@2x.png" alt="JustClick"> </span> </h5>  
+                <h5> Temperatura: <%=course.meteoTemp%>&#176 , <%=course.meteoDesc%> <span> <img src="http://openweathermap.org/img/wn/<%=course.meteoImg%>@2x.png" alt="JustClick" style="width:30%"> </span> </h5>  
                 <h5> <%=course.eventi[1]%> </h5>
                 <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/calendar&response_type=code&include_granted_scopes=true&state=<%=JSON.stringify(course.eventi)%>&redirect_uri=http://localhost:8889/auth/calendar&client_id=501414949851-b6ot7tcivuh362auuomhtjelk8ia3eoe.apps.googleusercontent.com">
                   <input type="button" name="CalendarBtn" class="btn btn-danger" value="Aggiungi al calendario">

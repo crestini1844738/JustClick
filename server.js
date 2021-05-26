@@ -898,7 +898,7 @@ app.post('/updateImg/:c', function(req, res) {
                 msg=    '{ "courseName":"'+tutto.courseName+
                 '","_rev":"'+tutto._rev+
                 '","author":"'+tutto.author+
-                '","desc":"'+req.body.desc+
+                '","desc":"'+tutto.desc+
                 '","image":"'+'loaded'+
                 '","category":"'+tutto.category+
                 '","courseFollower": '+ tutto.courseFollower+
@@ -908,6 +908,7 @@ app.post('/updateImg/:c', function(req, res) {
                 ',"thirdEvidenza": '+array_to_string(tutto.thirdEvidenza)+
                 ',"courses": '+array_to_string(tutto.courses)+
                 ',"follower": '+array_to_string(tutto.follower)+
+                ',"eventi": '+array_to_string(tutto.eventi)+
                 '  }';
 
                 request2server({
