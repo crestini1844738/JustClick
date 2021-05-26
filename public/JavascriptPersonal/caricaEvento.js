@@ -7,7 +7,7 @@ var setting={
     success: function(response){
       //genero corsiPorfilo
       var tuttiicorsi=response.tuttiICorsi;
-      var html="<select class='form-select' name='course' aria-label='Default select example'>";
+      var html="<select class='form-select' name='course' id='course' aria-label='Default select example'>";
       html=html+"<option value='nessuna' selected>Seleziona il corso di cui fa parte l'evento</option>";
            
       for(j=0;j<tuttiicorsi.length;j++)
@@ -66,3 +66,30 @@ function validaForm(){
   }
   return true;
 }
+
+$(document).ready(function(){
+  $("#validationTextarea").change(function(){
+    $(".progress-bar").css("width","14%");
+  });
+  $("#exampleFormControlTextarea1").change(function(){
+    $(".progress-bar").css("width","28%");
+  });
+  $("#course").change(function(){
+    $(".progress-bar").css("width","42%");
+  });
+  $("#dataInizio").change(function(){
+    $(".progress-bar").css("width","56%");
+  });
+  $("#dataFine").change(function(){
+    $(".progress-bar").css("width","70%");
+  });
+  $("#validationTextarea1").change(function(){
+    $(".progress-bar").css("width","84%");
+  });
+  $("#validationTextarea2").change(function(){
+    $(".progress-bar").css("width","100%");
+  });
+  $("#reset").click(function(){
+    $(".progress-bar").css("width","0%");
+  });
+});
