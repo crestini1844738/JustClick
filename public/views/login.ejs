@@ -93,8 +93,9 @@
                           <input type="text" name="Username" id="Username" oninvalid="this.setCustomValidity('Campo vuoto')" oninput="setCustomValidity('')" required/>
                           <label for="Password">Password</label>
                           <input type="password" name="Password"id="Password" oninvalid="this.setCustomValidity('Campo vuoto')" oninput="setCustomValidity('')" required/>
-                          <input type="submit" value="Inviare">
-                          <div id="my-signin2"></div>
+                          <input type="submit" value="Inviare"> 
+                          <h6>OPPURE</h6>
+                          <div id="my-signin2" class="btn"></div><br>
 
                           
                           
@@ -108,7 +109,7 @@
                           function onSuccess(googleUser) {
                             var id_token = googleUser.getAuthResponse().id_token;
                             var xhr = new XMLHttpRequest();
-                            xhr.open('POST', 'http://localhost:8889/auth/loginGoogle');
+                            xhr.open('POST', '/auth/loginGoogle');
                             xhr.setRequestHeader('Content-Type', 'application/json');
                             xhr.onload = function() {
                               console.log('Signed in as: ' + xhr.responseText);
@@ -143,7 +144,7 @@
                             function onSuccess(googleUser) {
                               var id_token = googleUser.getAuthResponse().id_token;
                               var xhr = new XMLHttpRequest();
-                              xhr.open('POST', 'http://localhost:8889/auth/loginGoogle');
+                              xhr.open('POST', '/auth/loginGoogle');
                               xhr.setRequestHeader('Content-Type', 'application/json');
                               xhr.onload = function() {
                                 console.log('Signed in as: ' + xhr.responseText);

@@ -71,7 +71,7 @@
       <div class="row g-0">
         <div class="leftcolumn">
             <div class="text-center">
-              <form action="http://localhost:8889/register/auth" class="form-Register"  method="post" name="registration" onsubmit="return formValidationRegister()">
+              <form action="/register/auth" class="form-Register"  method="post" name="registration" onsubmit="return formValidationRegister()">
                     <div class="form-inner">
                       <div class="corpo-registrazione" id="corpo-registrazione">
                         <h3>Registrazione</h3> 
@@ -90,7 +90,7 @@
                                 
                                 <strong>Well done!</strong> <%= errormessage.msg%> 
                                 <br>
-                                <a href="http://localhost:8889/login">Vai al login!</a>
+                                <a href="/login">Vai al login!</a>
                                 </p>
                                 <% break;
                             } %>
@@ -117,7 +117,7 @@
                           </label>
                         </div>
                         <input type="submit" value="Inviare">
-                        <pippo>Sei già registrato? <a href="http://localhost:8889/login">Accedi</a></pippo>
+                        <pippo>Sei già registrato? <a href="/login">Accedi</a></pippo>
                         
                       </div>
 

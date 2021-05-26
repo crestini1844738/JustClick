@@ -83,7 +83,7 @@
         </div>
     
         <!-- informazioni varie -->
-        <div class="container">
+        <div class="row g-0">
             <div class="row">
                 <div class="col text-center">
                     <h1 id = "followerText"> Follower: <%= course.courseFollower %> </h1> 
@@ -245,21 +245,21 @@
         </div>
  
         <!-- evento -->
-        <% if (course.eventi) { %> <%# if(course.eventy.city) %>
+        <% if (course.eventi.length) { %>
           <div class="eventi bds text-center">
-            <h2> Nuovo evento! <span class="badge rounded-pill bg-success">NEW!</span></h2> 
+            <h2> <%=course.eventi[0]%>  <span class="badge rounded-pill bg-success">NEW!</span></h2> 
             <div class="row g-0">
               <div class="col">    
-                <h5> Località: <%=course.eventi.city%> </h5>
-                <h5> Temperatura: <%=course.meteoTemp%>&#176 , <%=course.meteoDesc%> <span> <img src="http://openweathermap.org/img/wn/<%=course.meteoImg%>@2x.png" alt="JustClick"> </span> </h5>  
-                <h5> Descrizione...</h5>
-                <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/calendar&response_type=code&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:8889/auth/calendar&client_id=501414949851-b6ot7tcivuh362auuomhtjelk8ia3eoe.apps.googleusercontent.com">
+                <h5> Località: <%=course.eventi[5]%> </h5>
+                <h5> Temperatura: <%=course.meteoTemp%>&#176 , <%=course.meteoDesc%> <span> <img src="http://openweathermap.org/img/wn/<%=course.meteoImg%>@2x.png" alt="JustClick" style="width:30%"> </span> </h5>  
+                <h5> <%=course.eventi[1]%> </h5>
+                <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/calendar&response_type=code&include_granted_scopes=true&state=<%=JSON.stringify(course.eventi)%>&redirect_uri=http://localhost:8889/auth/calendar&client_id=501414949851-b6ot7tcivuh362auuomhtjelk8ia3eoe.apps.googleusercontent.com">
                   <input type="button" name="CalendarBtn" class="btn btn-danger" value="Aggiungi al calendario">
                 </a>
               </div>
               <div class="col">
-                <iframe width="90%" height="450" style="border:0; margin:5%;" loading="lazy" allowfullscreen 
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDm3kA0H6nEx18Xux8n-pWMtUVKupJNiIU&q=<%=course.eventi.address%>,<%=course.eventi.city%>,IT"></iframe>
+                <iframe width="90%" height="450" style="border:0; margin:5%; min-width: 300px;" loading="lazy" allowfullscreen 
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDm3kA0H6nEx18Xux8n-pWMtUVKupJNiIU&q=<%=course.eventi[6]%>,<%=course.eventi[5]%>,IT"></iframe>
               </div> <!--&maptype=satellite-->
             </div>
           </div>
@@ -279,10 +279,12 @@
               <img src="#" id="bodyMateriale" name="bodyMateriale" class="img-fluid anteprima" alt="JustClick">
             </a>
             <h5 class="card-text"><%= course.courses[index][1] %> </h5>
-            </div>
-            <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/drive&response_type=code&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:8889/auth/drive&client_id=501414949851-b6ot7tcivuh362auuomhtjelk8ia3eoe.apps.googleusercontent.com">
+            <% var data ='{"name":"'+course.courses[index][0]+'", "mimetype": "'+course.courses[index][2]+'", "course":"'+course.courseName+'"}'%>
+            <a href='https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/drive&response_type=code&include_granted_scopes=true&state=<%-data%>&redirect_uri=http://localhost:8889/auth/drive&client_id=501414949851-b6ot7tcivuh362auuomhtjelk8ia3eoe.apps.googleusercontent.com'>
               <input type="button" name="CalendarBtn" class="btn btn-success" value="Salva sul tuo drive">
             </a>
+            </div>
+            
             <a id="viewMateriale" href="#"></a>
         <% } %>
 
