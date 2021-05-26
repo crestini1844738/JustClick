@@ -51,10 +51,13 @@ function generaPopolari()
         var follower = response.corsi[i].courseFollower;
         var category=response.corsi[i].category;
         var description=response.corsi[i].desc;
+        var img;
+        if(tuttiicorsi[j].image == 'loaded') img = "<img src='../img/courseImgs/"+author+"_"+courseName+".png' id='profilocorso'></div>";
+        else img="<img src='../img/courseImgs/default_image.png' id='profilocorso'></div>";
         
         //var descr = response[i].decription;
         corso =corso+ "<div class='card' id='sfondo'><div class='row g-0'>"+
-        "<div class='col-md-3' id='imgcorso'><img src='../img/courseImgs/"+author+"_"+courseName+".png' id='profilocorso' ></div>"+
+        "<div class='col-md-3' id='imgcorso'>"+img+
         "<div class='col-md-9'><div class='card-body' id='riquadro'><h1>"+courseName+"</h1>"+
         "<p class='categoria'>Categoria: "+category+", Follower: "+follower+"</p>"+
         "<hr><div class='row justify-content-evenly'><p>"+description+" </p>"+
