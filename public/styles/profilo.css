@@ -12,7 +12,10 @@ h3{
     color: white;
     text-align: center;
 }
-
+h4{
+    text-transform:initial;
+    text-align: center;
+}
 .card-title{
     font-family: 'Arial Black';
     text-align: center;
@@ -115,7 +118,7 @@ body{
 }
 
 .bkg-Sport{
-    background-color: grey;
+    background-color: rgb(114, 195, 152);
     margin-right: 10%;
     opacity: 90%;
 }

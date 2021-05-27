@@ -223,6 +223,9 @@ footer{
 
 #sfondo{
   background-image: url("../img/popolaricopertina.PNG");
+  
+  background-size:cover;
+  
 }
 
 @media (max-width: 544px){
