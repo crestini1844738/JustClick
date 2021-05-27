@@ -21,18 +21,22 @@
 }
 .form-Register input[type=text]:focus {
   border: 2px solid #c40f0f;
+  outline:none;
   
 }
 .form-Register input[type=date]:focus {
   border: 2px solid #c40f0f;
+  outline:none;
   
 }
 .form-Register input[type=email]:focus {
   border: 2px solid #c40f0f;
+  outline:none;
   
 }
 .form-Register input[type=password]:focus {
   border: 2px solid #c40f0f;
+  outline:none;
   
 }
 .form-Login {
@@ -54,10 +58,12 @@
 }
 .form-Login input[type=text]:focus {
   border: 2px solid #c40f0f;
+  outline:none;
   
 }
 .form-Login input[type=password]:focus {
   border: 2px solid #c40f0f;
+  outline:none;
   
 }
 .form-inner {position: relative;}
