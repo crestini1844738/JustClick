@@ -8,6 +8,7 @@
   max-width: auto;
   padding: 100px 50px;
   background-image: url(/public/img/sfondoRegistrazione.png);
+  min-height: 450px;
   background-size: cover;
 }
 .form-Register:before {
@@ -42,7 +43,7 @@
 .form-Login {
   position: relative;
   max-width: auto;
-  
+  min-height: 450px;
   padding: 100px 50px;
   background-image: url(/public/img/sfondoRegistrazione.png);
   background-size: cover;

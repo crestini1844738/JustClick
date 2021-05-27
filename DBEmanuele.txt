@@ -245,15 +245,15 @@ Sono 5 utenti e 9 corsi
 
 //corso7
 {
-  "_id": "Matematica di base",
-  "_rev": "13-4a7f91a8edd734d3925e2bbfc2d2a927",
-  "courseName": "Matematica di base",
+  "_id": "Analisi1",
+  "_rev": "1-40b27734744d806648bce80aa2c78742",
+  "courseName": "Analisi1",
   "author": "utente3",
   "desc": "Una raccolta di teoria ed esercizi per lo studio della matematica di base",
   "image": "loaded",
   "category": "Scuola",
-  "courseFollower": 230,
-  "coursePublications": 6,
+  "courseFollower": 231,
+  "coursePublications": 11,
   "firstEvidenza": [
     "schema_prop_funzioni_Soverchia.pdf",
     "Funzioni e proprietà",
@@ -295,9 +295,36 @@ Sono 5 utenti e 9 corsi
       "NC.pdf",
       "Teoria sui numeri complessi",
       "application/pdf"
+    ],
+    [
+      "formulario.png",
+      "Formule trigonometriche",
+      "image/png"
+    ],
+    [
+      "equazioni_differenziali.pdf",
+      "Equazioni differenziali",
+      "application/pdf"
+    ],
+    [
+      "eqdiff1.pdf",
+      "Esercizi sulle equazioni differenziali",
+      "application/pdf"
+    ],
+    [
+      "An2i_05_Integrali.Multipli.pdf",
+      "Integrali multipli",
+      "application/pdf"
+    ],
+    [
+      "svol_integrali_doppi.pdf",
+      "Esercizi svolti sugli integrali doppi",
+      "application/pdf"
     ]
   ],
-  "follower": [],
+  "follower": [
+    "utente1"
+  ],
   "eventi": []
 }
 
