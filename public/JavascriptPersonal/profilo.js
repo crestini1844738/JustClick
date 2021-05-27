@@ -58,7 +58,12 @@ function personalArea(utente)
         success: function(response2){
           //genero corsiPorfilo
           var tuttiicorsi=response2.tuttiICorsi;
-                   
+          if(tuttiicorsi.length==0)
+          {
+            corsiProfilo="<h4>Non hai ancora caricato nessun corso</h4>";
+          } 
+          else
+          {    
           for(j=0;j<tuttiicorsi.length;j++)
           {
             var courseName = tuttiicorsi[j].courseName;
@@ -80,6 +85,7 @@ function personalArea(utente)
             "<hr><div class='row justify-content-evenly'><p>"+description+" </p>"+
             "<p><a href='/courses2/"+courseName+"'><button class='btn btn-dark'>Vai al corso</button></a></p>"+
             "</div></div></div></div></div><br>";
+          }
           }
         $("#corpoProfilo").append(bodyProfilo+"<br><h5 id='titolo'>I miei corsi</h5>"+corsiProfilo);
         }  
