@@ -49,7 +49,7 @@ function validaForm(){
 
     }
     var foto = document.getElementById("image").files[0];
-    if(foto.size>50000){
+    if(foto.size>5000000){
       alert("La dimensione dell'immagine profilo è troppo grande!");
       document.formprova.image.focus();
       return false;

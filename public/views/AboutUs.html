@@ -21,22 +21,22 @@
     <script>
       $(document).ready(function(){
         $("#staffCard1").mouseenter(function(){
-          $("#staffCard1").css("width", "320");
+          $("#staffCard1").css("width", "340");
         }); 
         $("#staffCard1").mouseleave(function(){
-          $("#staffCard1").css("width","300");
+          $("#staffCard1").css("width","320");
         });
         $("#staffCard2").mouseenter(function(){
-          $("#staffCard2").css("width", "320");
+          $("#staffCard2").css("width", "340");
         }); 
         $("#staffCard2").mouseleave(function(){
-          $("#staffCard2").css("width","300");
+          $("#staffCard2").css("width","320");
         });
         $("#staffCard3").mouseenter(function(){
-          $("#staffCard3").css("width", "320");
+          $("#staffCard3").css("width", "340");
         }); 
         $("#staffCard3").mouseleave(function(){
-          $("#staffCard3").css("width","300");
+          $("#staffCard3").css("width","320");
         });
       });
       </script>
@@ -98,37 +98,46 @@
     <div class="homeheader"> 
         <div class="labelbar">
             <h1>About Us</h1>
-            <h3>Vieni a scoprire qualcosa in pi&ugrave su di noi</h3>
+            <h3>Vieni a conoscere i membri del nostro staff</h3>
+            <h5>Hai bisogno di assistenza? Mandaci una mail!</h5>
 
         </div>
+
     
 
 
     </div>
+    <div class="center"><a href="#staff" class="fa fa-chevron-down fa-3x" aria-hidden="true" id="freccia"></a>
+    </div>
     <div id="staff">
-        <h2>Chi siamo</h2>
+        <br><h2>Chi siamo</h2><br>
         <div class="staffCard" id="staffCard1">
             <img src="../img/employee-pngrepo-com.png" alt="NomeStaffer" />
         
             <div>
-                <h4> Emanuele</h4>
-                <span>Studente</span>
-                <br>
-                <br>
+                <!--<h4> Emanuele</h4>
+                <span>Studente di ingeneria informatica</span>&nbsp;-->
+                <h4 class="card-title">Emanuele</h4>
+                <p class="card-text" id="studente">Studente di ingeneria informatica</p>
+                <p class="card-text"> <i class="fa fa-map-marker fa-2x" ></i>Sapienza Università di Roma</p>
                 <a href="https://www.facebook.com/emanuele.crestini.3" class="fa fa-facebook" target="_blank"></a>
                 <a href="https://www.instagram.com/emanuele_crestini/" class="fa fa-instagram" target="_blank"></a>
                 <a href="mailto:crestini.1844738@studenti.uniroma1.it?subject=Assistenza piattaforma JustClick" class="fa fa-envelope" ></a> </a>
             
             </div>
         </div>
+
+        
+
+
+
         <div class="staffCard" id="staffCard2">
             <img src="../img/employee-pngrepo-com.png" alt="NomeStaffer" />
         
             <div>
-                <h4> Valerio</h4>
-                <span>Studente</span>
-                <br>
-                <br>
+                <h4 class="card-title"> Valerio</h4>
+                <p class="card-text" id="studente">Studente di ingeneria informatica</p>
+                <p class="card-text"> <i class="fa fa-map-marker fa-2x" ></i>Sapienza Università di Roma</p>
                 <a href="https://www.facebook.com/valerio.deluca.948" class="fa fa-facebook" target="_blank"></a>
                 <a href="https://www.instagram.com/vale_deluca99/" class="fa fa-instagram" target="_blank"></a>
                 <a href="mailto:deluca.1851496@studenti.uniroma1.it?subject=Assistenza piattaforma JustClick" class="fa fa-envelope" ></a> </a>
@@ -138,10 +147,9 @@
             <img src="../img/prova7.png"  alt="NomeStaffer"  />
         
             <div>
-                <h4> Martina</h4>
-                <span>Studentessa</span>
-                <br>
-                <br>
+                <h4 class="card-title"> Martina</h4>
+                <p class="card-text" id="studente">Studentessa di ingeneria informatica</p>
+                <p class="card-text"> <i class="fa fa-map-marker fa-2x" ></i>Sapienza Università di Roma</p>
                 <a href="https://www.facebook.com/martina.tombolini.3" class="fa fa-facebook" target="_blank"></a>
                 <a href="https://www.instagram.com/marty_tombo/" class="fa fa-instagram" target="_blank"></a>
                 <a href="mailto:tombolini.1844737@studenti.uniroma1.it?subject=Assistenza piattaforma JustClick" class="fa fa-envelope" ></a> </a>

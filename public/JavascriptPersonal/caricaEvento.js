@@ -8,7 +8,7 @@ var setting={
       //genero corsiPorfilo
       var tuttiicorsi=response.tuttiICorsi;
       var html="<select class='form-select' name='course' id='course' aria-label='Default select example'>";
-      html=html+"<option value='nessuna' selected>Seleziona il corso di cui fa parte l'evento</option>";
+      html=html+"<option value='nessuna' selected>Seleziona il corso di cui fa parte l'evento*</option>";
            
       for(j=0;j<tuttiicorsi.length;j++)
       {

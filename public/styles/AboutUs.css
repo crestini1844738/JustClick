@@ -1,22 +1,38 @@
 .homeheader{
     background-image: url("../img/ufficio.jpg");
     background-size:cover;
-    padding-top: 10%;
-    padding-bottom: 10%;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
 
 .labelbar{
     color: white;
     background-color: rgba(95, 99, 112, 0.5);
     text-align: center;
-    padding: 25px;
+    padding: 10px;
     height: auto;
 }
 
 .labelbar h3{
-    margin: 3%;
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: #001135;
+    border-radius: 10px;
+    padding: 5px;
+    width: auto;
+}
+.labelbar h5{
+    margin-left: 2%;
+    margin-right: 2%;
+    background-color: #62d8fc;
+    border-radius: 10px;
+    padding: 10px;
 }
 
+#freccia{
+    color: black;
+    margin: auto;
+}
 
 #staff{
     text-align: center;
@@ -25,12 +41,24 @@
 }
 
 #staff h2{
-    color:black;
+    color: black;
+    text-shadow: 0 1px 2px #999, 
+        0 2px 2px #888, 
+        0 3px 2px #777, 
+        0 4px 2px #666, 
+        0 5px 2px #555, 
+        0 6px 2px #444, 
+        0 7px 2px #333, 
+        0 8px 7px #001135;
+    font-family: 'Arial Black', Gadget, sans-serif;
+    font-size: 30px;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .staffCard{
 
-    width: 300px;
+    width: 320px;
     padding: 0;
     background-color: #233d42 ;
     color: white;
@@ -62,8 +90,12 @@
     background-color: black ;
     border-radius: 200px;
     padding: 5px;
+    margin: auto;
 }
 
+i{
+    color: #9b0111;
+}
 
 .fa-envelope{
     background-color: red;
@@ -81,9 +113,27 @@ body{
     background-color: rgb(179, 231, 235);
 }
 
-@media (max-width: 544px){
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#studente{
+    background-color: black;
+    border-radius: 150px;
+}
+@media (max-width: 500px){
     .staffCard{
         width: auto;
+        margin: auto;
+        margin-bottom: 10px;
+    }
+    .staffCard span{
+        font-size: 10px;
+    }
+    #universita{
+        font-size: 10px;
     }
     
   }

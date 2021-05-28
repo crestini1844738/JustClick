@@ -82,7 +82,7 @@
 
 <form action="/carica" name="formprova" method="POST" enctype="multipart/form-data" onsubmit="return validaForm();">
   <div class="mb-3">
-  <label for="validationTextarea" class="form-label">Titolo</label>
+  <label for="validationTextarea" class="form-label">Titolo*</label>
     <input class="form-control" name="titolo" type="text" id="validationTextarea" placeholder="Inserisci il titolo" maxlength="20"/>
     </div>
     <div class="mb-3">
@@ -91,7 +91,7 @@
     </div>
     <div class="mb-3">
     <select class="form-select" name="opt" aria-label="Default select example">
-      <option value="nessuna" selected>Seleziona una categoria</option>
+      <option value="nessuna" selected>Seleziona una categoria*</option>
       <option value="Informatica">Informatica</option>
       <option value="Moda e bellezza">Moda e bellezza</option>
       <option value="Musica">Musica</option>
@@ -115,6 +115,7 @@
     <label for="exampleFormControlTextarea1" class="form-label">Inserisci la descrizione relativa al materiale</label>
     <textarea class="form-control" name="descMateriale" id="descMateriale" placeholder="Inserisci la descrizione" rows="3"></textarea>
   </div>
+  <p id="obbligo">*Campi obbligatori</p>
 
   <div class="mb-3">
       <input class="btn btn-primary" type="submit" id="invio" value="Carica corso">

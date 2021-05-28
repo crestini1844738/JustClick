@@ -697,7 +697,7 @@ app.post('/carica', function(req,res) {
                 loaded = "not loaded";
     
             }
-            else if(req.files.image.size > 50000) console.log('immagine troppo grande');
+            else if(req.files.image.size > 5000000) console.log('immagine troppo grande');
             else {
                 if(req.files.image.mimetype!='image/jpeg' && req.files.image.mimetype!='image/jpg' && req.files.image.mimetype!='image/png' &&
                 req.files.image.mimetype!='image/gif' && req.files.image.mimetype!='image/svg+xml' ) 
