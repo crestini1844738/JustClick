@@ -959,7 +959,7 @@ app.get('/auth/calendar', function(req,res) {
 	    var headers2 = {'Authorization': 'Bearer '+token,'Accept': 'application/json','Content-Type':'application/json'};
         //console.log(req.query.state);
         var data = JSON.parse(req.query.state);
-        var evento = '{ "start": { "dateTime": "'+data[3]+'" , "timeZone": "Europe/Rome" }, "end": { "dateTime": "'+data[4]+'" , "timeZone": "Europe/Rome"}, "colorId": "7", "description": "'+data[1]+'", "location": "'+data[6]+', '+data[5]+'", "summary": "JustClick Event: '+data[0]+' by '+data[2]+'", "reminders": {"useDefault" : false, "overrides": [ { "method": "email", "minutes": 5} , {"method": "popup", "minutes": 5} ] } }';
+        var evento = '{ "start": { "dateTime": "'+data[3]+':00" , "timeZone": "Europe/Rome" }, "end": { "dateTime": "'+data[4]+':00" , "timeZone": "Europe/Rome"}, "colorId": "7", "description": "'+data[1]+'", "location": "'+data[6]+', '+data[5]+'", "summary": "JustClick Event: '+data[0]+' by '+data[2]+'", "reminders": {"useDefault" : false, "overrides": [ { "method": "email", "minutes": 5} , {"method": "popup", "minutes": 5} ] } }';
         request2server({
             //mettere l'url del proprio database
             url: url2, 
