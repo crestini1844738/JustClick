@@ -75,11 +75,7 @@ function personalArea(utente)
             var img;
             if(tuttiicorsi[j].image == 'loaded') img = "<img src='../img/courseImgs/"+author+"_"+courseName+".png' id='profilocorso'></div>";
             else img="<img src='../img/courseImgs/default_image.png' id='profilocorso'></div>";
-            //var description="Some text about the course..";
             var description=tuttiicorsi[j].desc;
-            /*var description;
-            if(tuttiicorsi[j].desc === undefined) description="";
-            else description=tuttiicorsi[j].desc;*/
             corsiProfilo=corsiProfilo+"<div class='card "+category+"' id='larghezza' ><div class='row g-0'>"+
             "<div class='col-md-3' id='imgcorso'>"+img+
             "<div class='col-md-9'><div class='card-body bkg bkg-"+category+"'><h1>"+courseName+"</h1>"+

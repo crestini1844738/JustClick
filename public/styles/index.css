@@ -33,13 +33,7 @@
     box-sizing: border-box;
   }
   
- /* body {
-    font-family: Arial;
-    padding: 10px;
-    background: #bee5f5;
-  }*/
-  
-  /* Header/Blog Title */
+ 
   .header {
     color: white;
     padding: 30px;
@@ -202,10 +196,7 @@ footer{
   background-color: rgb(0, 89, 255);
 }
 
-/*body{
-  font-family: 'Baloo Tamma', cursive;
-  background: $clr-blue;
-}*/
+
 
 
 
