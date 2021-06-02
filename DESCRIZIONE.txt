@@ -1,5 +1,177 @@
 1.DESCRIZIONE DEI FILE DEL PROGETTO
+* Cartella API_JustClick
+Al suo interno sono presenti le API del progetto generate in automatico con APIDOC. 
+In particolare se si va nella directory API_JustClick/apidoc è presente il file index.html dove è possibile visualizzare tali API.
 
+
+* Cartella assets
+Al suo interno vi sono i file per bootstrap.
+
+
+* Cartella node_modules
+Al suo interno sono presenti tutti i file delle librerie e template utilizzati per node js
+
+
+* Cartella public:
+Al suo interno sono presenti tutti i file del progetto ovvero i file html,js,ejs,css e le immagini e i loghi.
+
+
+*  Restanti file.
+I restanti file sono i file per la gestione del server(package.json) e il server scritto con node js (server.js).
+Vi è il file DATABASE.txt dove al suo interno è presente in formato JSON il database del sito.Tale database è stato realizzato con CouchDB.
+Il file DESCRIZIONE.txt contiene questa stessa descrizione.
+Il file README.md è un file su cui sono specificati i procedimenti e le operazioni da effettuare se si vuole eseguire il progetto o se si vuole editarlo/scaricarlo dalla repository github.
+
+
+
+
+1.1 CARTELLA PUBLIC
+* Cartelle css e js
+Contengono i file di bootstrap.
+
+
+* Cartella materiale
+È la cartella dove vengono salvati tutti i file relativi ai materiali che sono caricati dagli utenti sui vari corsi.
+
+
+
+
+* Cartella img e logo 
+Contiene tutti le immagini e i loghi del sito. In particolare nella cartella img/categoryImgs sono presenti le immagini delle categorie dei corsi.
+Nella cartella img/courseImgs troviamo tutte le immagini dei corsi presenti sul sito
+(al caricamento di ogni nuovo corso tutte le immagini relative ad esso vengono salvate qui).
+
+
+* Cartella JavascriptPersonal
+Qui sono presenti tutti i file javascript del progetto.
+
+
+1. AboutUs.js
+//da completare
+
+
+2. caricaCorso.js
+//da completare
+
+3. caricaEvento.js
+//da completare
+
+4. form_validazione.js
+Codice Javascript per la validazione dei campi nella registrazione. In particolare vengono controllati il corretto inserimento dell’ username, di nome e cognome(solo caratteri),del formato della email e della correttezza della password.
+
+
+5. homepage.js
+Qui è presente una funzione che con l’utilizzo di ajax e jquery permette di generare le card relative ai corsi più popolari del sito.
+Viene effettuata con ajax una chiamata al server il quale effettua una query al DB e ci restituisce il JSON dei corsi popolari. Subito dopo si genera l'html delle card che viene inserito con jQuery all'interno della homepage. 
+
+
+6. profilo.js
+Qui viene generato l’ html relativo ad uno specifico utente.
+Viene effettuata una chiamata ajax al server che restituisce i dati dell’utente in formato JSON(è il server a verificare quale utente restituire utilizzando le sessioni).
+Dopodichè viene generato l’html della card relativa alle informazioni dell’utente e poi le card relative ai corsi di cui tale utente è proprietario. L’html così generato viene caricato con jQuery sulla pagina del profilo utente.
+
+
+* Cartella styles
+Qui sono presenti tutti i fogli di stile(css) del progetto.
+
+
+1. AboutUs.css
+//da completare
+
+2. caricaCorso.css
+//da completare
+
+3. corsi.css
+//da completare
+
+4. courses.css
+//da completare
+
+5. homepage.css
+Sono i css relativi alle card dei corsi popolari.
+
+6. index.css
+Sono i css relativi all’ impaginazione del sito e di tutte quelle componenti che si ripetono sulle varie pagine.
+
+
+7. listaCorsi.css
+//da completare
+
+8. LoginRegister.css
+Sono i css relativi alle form di registrazioni e login
+
+
+9. profilo.css
+Sono i css relativi alle card del profilo utente
+
+
+
+
+* Cartella views
+Qui sono presenti tutte le pagine HTML  del progetto.
+
+
+1. AboutUs.html
+//da completare
+
+2. caricaCorso.html
+//da completare
+
+3. caricaEvento.html
+//da completare
+
+4. corsi.html
+//da completare
+
+5. courses_modify.ejs
+//da completare
+
+6. course.ejs
+//da completare
+
+7. courses.html
+//da completare
+
+8. footer.html
+Contiene l’html del footer che si ripete su tutte le pagine html. Questo viene caricato con jQuery su ogni altra pagina html.
+
+
+9. index.html
+È l’homepage del sito. 
+Si ha inizialmente un header con il logo del sito e subito dopo la barra di navigazione del sito.
+Nella parte principale abbiamo un carosello creato con bootsrap con alcune informazioni generali sul sito.
+A seguire c’è la sezione dei corsi popolari dove vengono caricate con una funzione Javascript e con JQuery le card dei tali corsi.
+Infine si ha un footer che viene caricato da un file esterno.
+Tutte le pagine del sito sono strutturate con lo stesso header, stessa navbar e stesso footer.
+        
+10. listaCorsi.ejs
+//da completare
+
+11. login.ejs
+È la pagina dove ogni utente registrato nel sito può effettuare il login. Al suo interno troviamo del codice ejs utilizzato per la gestione degli errori in caso di autenticazione fallita da parte del server.
+Questa pagina cambia all‘occorrenza nel caso in cui un utente sia già loggato oppure no.(il controllo è fatto lato server e la gestione è realizzata con ejs)
+
+
+Se proviamo ad andare sulla pagina e non vi è alcun utente loggato, nella parte principale troviamo una form che ci permette di inserire i dati per il login. Tali dati vengono inviati al server per il controllo.
+Se il controllo va a buon fine veniamo reindirizzati alla nostra area personale. Altrimenti viene segnalato un alert(realizzato con bootstrap) che ci specifica l’ errore.
+
+
+Se invece proviamo ad andare su tale pagina e già è presente un utente loggato, la pagina non visualizza più la form per il login bensì un riquadro(bootstrap) che ci darà la possibilità di effettuare il logout prima di effettuare un nuovo login.
+12. navbar.html
+Al suo interno è presente il codice html della barra di navigazione del sito
+13. profilo.html
+
+
+14. registrazione.ejs
+È la pagina dove ogni utente può effettuare la registrazione al sito.Al suo interno troviamo del codice ejs utilizzato per la gestione degli errori in caso di registrazione non valida perchè ci sono utenti già registrati con stesso username o password.
+Questa pagina cambia all‘occorrenza nel caso in cui un utente sia già loggato oppure no(il controllo è fatto la server e la gestione è realizzata con ejs).
+
+
+Se proviamo ad andare sulla pagina e non vi è alcun utente loggato, nella parte principale troviamo una form per effettuare la registrazione. I dati inseriti nei campi della form vengono prima controllati da una funzione javascript e poi inviati al server per il controllo.
+Se il controllo va a buon fine comparirà un banner di successo(bootstrap) che ci comunica l’effettiva registrazione e ci da la possibilità di andare alla pagina del login per potersi loggare.
+
+
+Se invece proviamo ad andare su tale pagina e già è presente un utente loggato la gestione è simile a quella descritta in precedenza per il login ovvero la pagina non visualizza più la form per iregistrarsi bensì un riquadro(bootstrap) che ci darà la possibilità di effettuare il logout prima di poter effettuare una nuova registrazione.
 
 
 
