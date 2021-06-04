@@ -17,7 +17,7 @@ overflow: hidden;
 
 }
 .diagonal-box {
-	/*background-image: linear-gradient(45deg, #037ab1, #93eaf0);*/
+	
   background-image: url(../img/J3.png);
   background-size: cover;
 
@@ -156,7 +156,7 @@ overflow: hidden;
     text-transform: uppercase;
   }
 .homepage{
-  /*background-image: linear-gradient(to right,rgb(61, 60, 60),#bee5f5,rgb(61, 60, 60));*/
+  
   background-color: rgb(179, 231, 235);
   padding-right: 30px;
   padding-top: 30px;
@@ -222,33 +222,7 @@ overflow: hidden;
 }
 
 
-/*.card {
-  
-  
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  width: 70%;
-  height: 350px;
-  margin: auto;
-  text-align: left;
-  font-family: arial;
-}
 
-.categoria {
-  color: grey;
-  font-size: 22px;
-}
-
-.card button {
-  border: none;
-  outline: 0;
-  padding: 12px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 20%;
-  font-size: 18px;
-}*/
 
 .card button:hover {
   opacity: 0.7;
@@ -271,13 +245,6 @@ overflow: hidden;
   margin-right: 30%;
 }
 
-/*#imgcorso{
-  width: 300px;
-  height: 300px;
-  background-size: contain;
-  background-color:transparent;
-
-}*/
 
 h3{
   color: white;

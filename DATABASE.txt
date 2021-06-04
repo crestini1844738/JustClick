@@ -264,3 +264,393 @@
 }
 
 
+//DB Crestini
+//utente1
+{
+  "_id": "utente1",
+  "_rev": "1-d0703c584493f23e62eebbee7bc0210f",
+  "Username": "utente1",
+  "Name": "Mario",
+  "Surname": "Rossi",
+  "Date": "1988-12-04",
+  "Email": "utente1@mail.com",
+  "Password": "GH5qmah2LFRPkiC",
+  "Courses": {}
+}
+
+//utente2
+{
+  "_id": "utente2",
+  "_rev": "1-23364f371e6f5f3bd7e0fadc1c59bee6",
+  "Username": "utente2",
+  "Name": "Luca",
+  "Surname": "Neri",
+  "Date": "1975-10-11",
+  "Email": "utente2@mail.com",
+  "Password": "GH5qmah2LFRPkiC",
+  "Courses": {}
+}
+
+//utente3
+{
+  "_id": "utente3",
+  "_rev": "1-11400b0879fdad5c3a8b1027375b8799",
+  "Username": "utente3",
+  "Name": "Marco",
+  "Surname": "Bianchi",
+  "Date": "1995-08-04",
+  "Email": "utente3@mail.com",
+  "Password": "GH5qmah2LFRPkiC",
+  "Courses": {}
+}
+
+//utente4
+{
+  "_id": "utente4",
+  "_rev": "1-1ca6fb915899c842fd4b34e13dfcc06f",
+  "Username": "utente4",
+  "Name": "Federico",
+  "Surname": "Violetti",
+  "Date": "1979-01-12",
+  "Email": "utente4@mail.com",
+  "Password": "GH5qmah2LFRPkiC",
+  "Courses": {}
+}
+
+//{
+  "_id": "utente5",
+  "_rev": "1-c3fe2b1de7e7c3a0bb9062f2e0cb7ee3",
+  "Username": "utente5",
+  "Name": "Mattia",
+  "Surname": "Gialli",
+  "Date": "1998-12-04",
+  "Email": "utente5@mail.com",
+  "Password": "GH5qmah2LFRPkiC",
+  "Courses": {}
+}
+
+
+
+
+//corso1
+{
+  "_id": "Audio per tutti",
+  "_rev": "5-2929bec3729898a4c8b3b21278e525e5",
+  "courseName": "Audio per tutti",
+  "author": "utente2",
+  "desc": "Impariamo insieme cosa è un audio, come usarlo e quali sono gli strumenti più utilizzati",
+  "image": "loaded",
+  "category": "Scuola",
+  "courseFollower": 0,
+  "coursePublications": 0,
+  "firstEvidenza": [],
+  "secondEvidenza": [],
+  "thirdEvidenza": [],
+  "courses": [],
+  "follower": [],
+  "eventi": []
+}
+
+//corso2
+{
+  "_id": "C C  ",
+  "_rev": "9-190cac5ebdfe4f3c481f4256be608a3e",
+  "courseName": "C C++",
+  "author": "utente1",
+  "desc": "Corso sulla programmazione in C/C++ con un occhio di riguardo all uso dei puntatori per la gestione della memoria",
+  "image": "loaded",
+  "category": "Informatica",
+  "courseFollower": 302,
+  "coursePublications": 2,
+  "firstEvidenza": [],
+  "secondEvidenza": [],
+  "thirdEvidenza": [],
+  "courses": [
+    [
+      "07.puntatori.pdf",
+      "I puntatori. Cosa sono e come usarli.",
+      "application/pdf"
+    ],
+    [
+      "index.pdf",
+      "Gestione della memoria nel C",
+      "application/pdf"
+    ]
+  ],
+  "follower": [
+    "utente2",
+    "utente3"
+  ],
+  "eventi": []
+}
+
+//corso3
+{
+  "_id": "Fashion Design",
+  "_rev": "6-e89151ad3b38bc28f6742e8ccd96964b",
+  "courseName": "Fashion Design",
+  "author": "utente4",
+  "desc": "undefined",
+  "image": "loaded",
+  "category": "Moda e bellezza",
+  "courseFollower": 0,
+  "coursePublications": 2,
+  "firstEvidenza": [
+    "2_linee_modelli_abito.pdf",
+    "Linee e modelli di un abito",
+    "application/pdf"
+  ],
+  "secondEvidenza": [],
+  "thirdEvidenza": [],
+  "courses": [
+    [
+      "8-3500a_preview.pdf",
+      "I primi passi per disegnare un vestito",
+      "application/pdf"
+    ],
+    [
+      "2_linee_modelli_abito.pdf",
+      "Linee e modelli di un abito",
+      "application/pdf"
+    ]
+  ],
+  "follower": [],
+  "eventi": []
+}
+
+//corso4
+{
+  "_id": "Fisica di base",
+  "_rev": "6-1b2b0e93667c55ec82d45ff5b5e2f60c",
+  "courseName": "Fisica di base",
+  "author": "utente3",
+  "desc": "undefined",
+  "image": "loaded",
+  "category": "Scuola",
+  "courseFollower": 0,
+  "coursePublications": 2,
+  "firstEvidenza": [
+    "Lezione2_cinematica.pdf",
+    "Cinematica",
+    "application/pdf"
+  ],
+  "secondEvidenza": [],
+  "thirdEvidenza": [],
+  "courses": [
+    [
+      "Lezione2_cinematica.pdf",
+      "Cinematica",
+      "application/pdf"
+    ],
+    [
+      "Lezione3_dinamica.pdf",
+      "Dinamica",
+      "application/pdf"
+    ]
+  ],
+  "follower": [],
+  "eventi": []
+}
+
+//corso5
+{
+  "_id": "JAVA",
+  "_rev": "6-280aebe07aea92e35f25d4a94483e317",
+  "courseName": "JAVA",
+  "author": "utente1",
+  "desc": "Corso sulla programmazione ad oggetti in Java con esercizi e materiale studiati per la preparazione a verifiche e esami universitari",
+  "image": "loaded",
+  "category": "Informatica",
+  "courseFollower": 50,
+  "coursePublications": 2,
+  "firstEvidenza": [],
+  "secondEvidenza": [],
+  "thirdEvidenza": [],
+  "courses": [
+    [
+      "GUIDA-CorsoJava-2.7.sxw.pdf",
+      "Libro Java",
+      "application/pdf"
+    ],
+    [
+      "20-NEW-Guida-programmazione-agli-oggetti.pdf",
+      "Guida alla programmazione ad oggetti",
+      "application/pdf"
+    ]
+  ],
+  "follower": [],
+  "eventi": []
+}
+
+//corso6
+{
+  "_id": "La pallavolo",
+  "_rev": "6-da4729b1586c875c24b0ef5d70186a63",
+  "courseName": "La pallavolo ",
+  "author": "utente5",
+  "desc": "Le basi per iniziare a giocare a pallavolo.",
+  "image": "loaded",
+  "category": "Sport",
+  "courseFollower": 0,
+  "coursePublications": 1,
+  "firstEvidenza": [],
+  "secondEvidenza": [],
+  "thirdEvidenza": [],
+  "courses": [
+    [
+      "matdid746900.pdf",
+      "I fondamentali della pallavolo",
+      "application/pdf"
+    ]
+  ],
+  "follower": [],
+  "eventi": []
+}
+
+//corso7
+{
+  "_id": "Analisi1",
+  "_rev": "1-40b27734744d806648bce80aa2c78742",
+  "courseName": "Analisi1",
+  "author": "utente3",
+  "desc": "Una raccolta di teoria ed esercizi per lo studio della matematica di base",
+  "image": "loaded",
+  "category": "Scuola",
+  "courseFollower": 231,
+  "coursePublications": 11,
+  "firstEvidenza": [
+    "schema_prop_funzioni_Soverchia.pdf",
+    "Funzioni e proprietà",
+    "application/pdf"
+  ],
+  "secondEvidenza": [
+    "Integrali-indefiniti.pdf",
+    "Formule integrali",
+    "application/pdf"
+  ],
+  "thirdEvidenza": [],
+  "courses": [
+    [
+      "schema_prop_funzioni_Soverchia.pdf",
+      "Funzioni e proprietà",
+      "application/pdf"
+    ],
+    [
+      "11_44_Derivate_2_3.pdf",
+      "Formule delle derivate",
+      "application/pdf"
+    ],
+    [
+      "Integrali-indefiniti.pdf",
+      "Formule integrali",
+      "application/pdf"
+    ],
+    [
+      "Successioni-e-serie-numeriche-4.pdf",
+      "Serie e successioni",
+      "application/pdf"
+    ],
+    [
+      "analisi1-esercizi.pdf",
+      "riepilogo esercizi su funzioni,derivate,integrali, serie, successioni e numeri complessi",
+      "application/pdf"
+    ],
+    [
+      "NC.pdf",
+      "Teoria sui numeri complessi",
+      "application/pdf"
+    ],
+    [
+      "formulario.png",
+      "Formule trigonometriche",
+      "image/png"
+    ],
+    [
+      "equazioni_differenziali.pdf",
+      "Equazioni differenziali",
+      "application/pdf"
+    ],
+    [
+      "eqdiff1.pdf",
+      "Esercizi sulle equazioni differenziali",
+      "application/pdf"
+    ],
+    [
+      "An2i_05_Integrali.Multipli.pdf",
+      "Integrali multipli",
+      "application/pdf"
+    ],
+    [
+      "svol_integrali_doppi.pdf",
+      "Esercizi svolti sugli integrali doppi",
+      "application/pdf"
+    ]
+  ],
+  "follower": [
+    "utente1"
+  ],
+  "eventi": []
+}
+
+//corso8
+{
+  "_id": "My Music Editing",
+  "_rev": "5-b60b309c6361af3e6e90d80498439f8e",
+  "courseName": "My Music Editing",
+  "author": "utente2",
+  "desc": "Corso basato sullo studio e uso delle vecchie e nuove tecnologie di music editing per la produzione di brani musicali",
+  "image": "loaded",
+  "category": "Musica",
+  "courseFollower": 0,
+  "coursePublications": 1,
+  "firstEvidenza": [],
+  "secondEvidenza": [],
+  "thirdEvidenza": [],
+  "courses": [
+    [
+      "adobe-audition.png",
+      "editare musica",
+      "image/png"
+    ]
+  ],
+  "follower": [],
+  "eventi": []
+}
+
+//corso9
+{
+  "_id": "Stampa 3D",
+  "_rev": "8-d4f30b8b7c71597b91ba576ba0521b44",
+  "courseName": "Stampa 3D",
+  "author": "utente1",
+  "desc": "Un corso sullo sviluppo di oggetti in 3D, la modellazione e la stampa 3D con materiali come PLA,ABS ecc",
+  "image": "loaded",
+  "category": "Informatica",
+  "courseFollower": 122,
+  "coursePublications": 3,
+  "firstEvidenza": [],
+  "secondEvidenza": [],
+  "thirdEvidenza": [],
+  "courses": [
+    [
+      "Guida_ai_materiali.pdf",
+      "Una guida sulla scelta dei materiali per la stampa 3D",
+      "application/pdf"
+    ],
+    [
+      "Dispense.pdf",
+      "Iniziare con la stampa 3D. ",
+      "application/pdf"
+    ],
+    [
+      "estrusore.png",
+      "Come funziona un estrusore di una stampante  3D",
+      "image/png"
+    ]
+  ],
+  "follower": [
+    "utente2",
+    "utente3"
+  ],
+  "eventi": []
+}

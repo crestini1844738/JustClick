@@ -9,7 +9,7 @@
 /****************** VARIABILI GENERALI DEL SERVER ******************/
 var DataBase="progetto"; //nome database couchDB
 var AccessCouchDB="admin:admin"; //AccessCouchDB=username:password
-var PortaCouchDB=5984;
+var PortaCouchDB=5984; //porta couchDB
 var PortaServer=8889;
 
 /*************************** MODULI NODE ***************************/

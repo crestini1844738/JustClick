@@ -86,15 +86,7 @@
   opacity: 100%;
   margin-bottom: 10px;
 }
-/*.form-inner h3:after {
-  content: "";
-  position :absolute;
-  left: 45%;
-  bottom: -6px;
-  height: 2px;
-  width: 150px;
-  background: #1762EE;
-} */
+
 .form-inner h4 {
   font-size: xx-small;
 }
@@ -136,10 +128,7 @@
   margin-left: 10px;
   padding: 0px;
 }
-/*.form-inner input[type="checkbox"] {
-  position: absolute;
-  opacity: 0;
-}*/
+
 /* unvisited link */
 .form-inner a:link {
   color: #1762EE;
