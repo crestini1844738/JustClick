@@ -92,3 +92,4 @@ PROCEDIMENTO:
 
 ##DOCKER
 https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
+https://www.digitalocean.com/community/tutorials/how-to-build-a-node-js-application-with-docker
