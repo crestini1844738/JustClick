@@ -341,7 +341,7 @@ app.post('/login/auth', function(req, res) {
         url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
-        body: '{"selector": { }, "fields": ["Username","Password"], "skip": 0, "execution_stats": true }'
+        body: '{"selector": { }, "fields": ["Username","Password"], "skip": 0, "limit":100, "execution_stats": true }'
         }, function(error, response, body){
             if(error){
                 console.log(error);
