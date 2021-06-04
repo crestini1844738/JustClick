@@ -97,6 +97,8 @@
                 </div>
             </div>     
         </div>
+
+        <!--script di controllo lato client per verificare che l'immagine di profilo non superi una certa grandezza e sia del giusto formato-->
         <script>
           function validaForm() {
             var file = document.getElementById("newImage").files[0];
@@ -292,6 +294,7 @@
           </div>
         </div>
 
+        <!-- script che controlla che il materiale inserito non sia troppo grande-->
         <script>
           function validaForm() {
             var file = document.getElementById("materiale").files[0];
@@ -322,6 +325,7 @@
           </div>
         <% } %>
 
+        <!-- script che controlla la visualizzazione del materiale in base al tipo di materiale inserito-->
         <script>
           var bodyMateriale = document.getElementsByName("bodyMateriale");
           var corsi = <%- JSON.stringify(course.courses) %>;
@@ -438,42 +442,36 @@
   </div>
   </div>
 
+  <!-- script che effettuano chiamate AJAX-->
   <script>
 
     var pubblicazioni = document.getElementById("publications").innerHTML;
-    //document.getElementById("publicationsText");
     var bottoni = document.getElementsByClassName("modify-courses");
     var httpRequest = new XMLHttpRequest();
     for(var i=0; i<bottoni.length; i++) {
       bottoni[i].onclick = delete_courses;
     }
+
+    //script che effettua una chiamata AJAX al database quando si vuole eliminare un materiale, e che successivamente cancella anche visivamente il materiale
     function delete_courses(e) {
-      //e.target.parentElement.parentElement.style.visibility = "hidden";
-     
       var evidenze = document.getElementsByTagName("ev");
       for(var i=0; i<evidenze.length; i++) {
-        //alert(evidenze[i].parentElement.getElementsByClassName("card-header")[0].innerHTML);
         if(evidenze[i].parentElement.getElementsByClassName("card-header")[0].innerHTML == e.target.parentElement.getElementsByTagName("vl")[0].innerHTML ) {
           alert("non puoi rimuovere un corso in evidenza!");
           return false;
         }
       }
       pubblicazioni --;
-      //alert(pubblicazioni);
       document.getElementById("publications").innerHTML = pubblicazioni;
       httpRequest.open("POST", "/update/courses", true);
       httpRequest.setRequestHeader("Content-type", "application/json");
       httpRequest.send( '{ "index": '+e.target.parentElement.getElementsByTagName("index")[0].innerHTML+
                           ',"course": "'+'<%- course.courseName %>'+'" }');
-      //alert( '{ "index": '+e.target.parentElement.getElementsByTagName("index")[0].innerHTML+
-      //                  ',"course": "'+'<%- course.courseName %>'+'" }');
       e.target.parentElement.remove();
       var newIndexes = document.getElementsByTagName("index");
       var courseIter = <%-course.iter%>;
       for(var i=0; i<newIndexes.length; i++) {
-        //alert(newIndexes[i].innerHTML);
         newIndexes[i].innerHTML = i+courseIter;
-        //alert(newIndexes[i].innerHTML);
       }
       
     }
@@ -484,6 +482,7 @@
       if(buttons[i].parentElement.parentElement.getElementsByTagName("ev")[0].innerHTML == 0) buttons[i].onclick = create_evidence;
     }
 
+    //script che cambia la visualizzazione dei bottoni quando si vuole aggiungere un materiale in evidenza (il cestino diventa una V)
     function create_evidence(e) {
       for(var i=0; i<bottoni.length; i++) {
         bottoni[i].getAttributeNode("src").value = "../img/create.jpg";
@@ -493,14 +492,12 @@
         e.target.onclick = go_back;
     }
 
+    //script che fa smettere a un materiale di essere fissato in alto
     function delete_evidence(e) {
-      //e.target.parentElement.parentElement.style.visibility = "hidden";
       httpRequest.open("POST", "/update/evidenza", true);
       httpRequest.setRequestHeader("Content-type", "application/json");
       httpRequest.send( '{ "evidenza": '+e.target.parentElement.parentElement.getElementsByTagName("ev")[0].innerHTML+
                         ',"course": "'+'<%- course.courseName %>'+'" }');
-      //alert( '{ "evidenza": '+e.target.parentElement.parentElement.getElementsByTagName("ev")[0].innerHTML+
-      //                  ',"course": "'+'<%#- course.courseName %>'+'" }');
       if(document.getElementsByTagName("ev").length == 3) {
         if(document.getElementsByTagName("ev")[0].innerHTML != 0) {
           var nuovaCard = e.target.parentElement;
@@ -517,6 +514,7 @@
       else e.target.parentElement.parentElement.remove();
     }
 
+    //script che mette un materiale in "evidenza" (lo fissa in alto)
     function add_course_to_evidence(e) {
       httpRequest.open("POST", "/update/setEvidenza", true);
       httpRequest.setRequestHeader("Content-type", "application/json");
@@ -524,27 +522,9 @@
                         ',"course": "'+'<%- course.courseName %>'+'" }');
       alert("Il corso è stato messo in evidenza!");
       location.reload();
-
-     /* for(var i=0; i<bottoni.length; i++) {
-        bottoni[i].getAttributeNode("src").value = "../img/delete.png";
-        bottoni[i].onclick = delete_courses;
-      }
-      var evs = document.getElementsByTagName("ev");
-      var evToChange = 0;
-      for(var i=1; i<evs.length; i++) {
-        if(evs[i].innerHTML == 1) evToChange = 2;
-        if(evs[i].innerHTML == 2 && evToChange == 2) evToChange = 3;
-      }
-      var nuovoEv = evs[0];
-      nuovoEv.innerHTML = evToChange;
-      var nuovaCard = nuovoEv.parentElement;
-      nuovaCard.getElementsByClassName("modify-evidence")[0].getAttributeNode("src").value = "../img/delete.png";
-      nuovaCard.getElementsByClassName("modify-evidence")[0].onclick = delete_evidence;
-      alert(e.target.parentElement.getElementsByClassName("card-text")[0].innerHTML);
-      nuovaCard.getElementsByClassName("card-title")[0].innerHTML = e.target.parentElement.getElementsByClassName("card-text")[0].innerHTML;
-      */
     }
 
+    //script che cambia la visualizzazione dei bottoni quando non si vuole più aggiungere un materiale in evidenza (la V diventa un cestino )
     function go_back(e) {
       for(var i=0; i<bottoni.length; i++) {
         bottoni[i].getAttributeNode("src").value = "../img/delete.png";

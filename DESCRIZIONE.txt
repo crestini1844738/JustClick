@@ -34,8 +34,6 @@ Contengono i file di bootstrap.
 È la cartella dove vengono salvati tutti i file relativi ai materiali che sono caricati dagli utenti sui vari corsi.
 
 
-
-
 * Cartella img e logo 
 Contiene tutti le immagini e i loghi del sito. In particolare nella cartella img/categoryImgs sono presenti le immagini delle categorie dei corsi.
 Nella cartella img/courseImgs troviamo tutte le immagini dei corsi presenti sul sito
@@ -84,10 +82,10 @@ Sono i css relativi alla pagina AboutUs.html.
 Sono i css relativi alla pagina caricaCorso.html e caricaEvento.html. In particolare abbiamo personalizzato l'estetica di alcuni elementi di Bootstrap e utilizzato delle media queries per rendere la pagina responsive. 
 
 3. corsi.css
-//da completare
+Sono i css relativi alle card della pagina corsi.html, con la personalizzazione di ombre, testi e responsive layout
 
 4. courses.css
-//da completare
+Sono i css relativi alle pagine course.ejs e courses_modify.ejs, con regolazione delle immagini di profilo e copertina, oltre che di tutti i campi testuali
 
 5. homepage.css
 Sono i css relativi alle card dei corsi popolari.
@@ -97,7 +95,7 @@ Sono i css relativi all’ impaginazione del sito e di tutte quelle componenti c
 
 
 7. listaCorsi.css
-//da completare
+Sono i css relativi alla pagina listaCorsi.html 
 
 8. LoginRegister.css
 Sono i css relativi alle form di registrazioni e login
@@ -124,22 +122,18 @@ Contiene il codice html della form per il caricamento di un evento all'interno d
 
 
 4. corsi.html
-//da completare
+Contiene il codice html per la visualizzazione dei bottoni delle categorie
 
-5. courses_modify.ejs
-//da completare
+5. course_modify.ejs
+File ejs con il quale si visualizza la pagina di un corso abilitato ad essere modificato, ovvero la visualizzazione di un corso appartenente all'utente loggato. Nota: gli script sono "embedded" nel file e non in un file JavaScript separato per consentire una presentazione più rapida in sede di esame
 
 6. course.ejs
-//da completare
+File ejs con cui si visualizza la pagina di un corso. La pagina è gestita in modo da leggere dinamicamente i parametri passati lato server e "adattarsi" a essi 
 
-7. courses.html
-//da completare
-
-8. footer.html
+7. footer.html
 Contiene l’html del footer che si ripete su tutte le pagine html. Questo viene caricato con jQuery su ogni altra pagina html.
 
-
-9. index.html
+8. index.html
 È l’homepage del sito. 
 Si ha inizialmente un header con il logo del sito e subito dopo la barra di navigazione del sito.
 Nella parte principale abbiamo un carosello creato con bootsrap con alcune informazioni generali sul sito.
@@ -148,7 +142,7 @@ Infine si ha un footer che viene caricato da un file esterno.
 Tutte le pagine del sito sono strutturate con lo stesso header, stessa navbar e stesso footer.
         
 10. listaCorsi.ejs
-//da completare
+File ejs che contiene la visualizzazione dinamica dei corsi selezionati (in base a categoria/ barra di ricerca ...)
 
 11. login.ejs
 È la pagina dove ogni utente registrato nel sito può effettuare il login. Al suo interno troviamo del codice ejs utilizzato per la gestione degli errori in caso di autenticazione fallita da parte del server.
