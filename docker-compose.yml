@@ -1,0 +1,29 @@
+version: "3"
+services:
+    app:
+        container_name: progetto_RDC
+        restart: always
+        build: .
+        ports:
+            - "8889:8889"
+        links:
+            - couchdb
+        environment:
+            DB_URL: http://admin:admin@localhost:5984/
+            COUCHDB_USER: admin
+            COUCHDB_PASSWORD: admin
+    couchdb:
+        container_name: my-couchdb
+        restart: always
+        image: couchdb
+        ports:
+            - "5984:5984"
+        environment:
+            COUCHDB_USER: admin
+            COUCHDB_PASSWORD: admin
+    nginx:
+        restart: always
+        build:
+            context: ./nginx
+        ports:
+            - "80:80"

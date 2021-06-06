@@ -11,6 +11,7 @@ var DataBase="progetto"; //nome database couchDB
 var AccessCouchDB="admin:admin"; //AccessCouchDB=username:password
 var PortaCouchDB=5984; //porta couchDB
 var PortaServer=8889;
+var host = "couchdb";
 
 /*************************** MODULI NODE ***************************/
 var express = require('express');
@@ -152,7 +153,7 @@ app.get('/api/search',function(req,res) {
     var courses = [];
     request2server({
         //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
+        url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: '{"selector": { "courseName": { "$regex": "(?i)('+req.query.search+')"} }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
@@ -322,7 +323,7 @@ app.get('/docs/api',function(req,res){
 //GET POPOLARI HOMEPAGE
 app.get('/getPopolari', function(req,res) {
     request2server({
-        url: 'http://localhost:'+PortaServer+'/api/getPopolari',
+        url: 'http://'+host+':'+PortaServer+'/api/getPopolari',
         method:'GET',
         headers: {'content-type': 'application/json'}
     }, function(error,response,body) {

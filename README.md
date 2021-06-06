@@ -1,4 +1,13 @@
 # JustClick
+# ISTRUZIONI PER AVVIARE LA WEB APP JUSTCLICK
+# sudo apt install docker-compose
+# andare alla cartella di JustClick da terminale
+# docker-compose up --build
+
+# TODO:
+## RIEMPIRE DI NUOVO IL DATABASE COPIANDO I DATI DAL FILE TXT (ADESSO IL DATABASE SARÀ CONDIVISO?)
+## SOSTITUIRE IN SERVER JS TUTTI I LOCALHOST CON LA VARIABILE HOST
+## MARTINA FAI DEI DISEGNINI CARINI IN STILE VITALETTI, È L'ULTIMA COSA CHE CI MANCA
 
 ## Elementi utilizzati
 -node js 
