@@ -23,8 +23,6 @@ Il file DESCRIZIONE.txt contiene questa stessa descrizione.
 Il file README.md è un file su cui sono specificati i procedimenti e le operazioni da effettuare se si vuole eseguire il progetto o se si vuole editarlo/scaricarlo dalla repository github.
 
 
-
-
 1.1 CARTELLA PUBLIC
 * Cartelle css e js
 Contengono i file di bootstrap.
@@ -51,10 +49,12 @@ Codice JQuery per le animazioni presenti nella pagina AboutUs.html In particolar
 2. caricaCorso.js
 Funzione Javascript per il controllo dei campi della form presente nella pagina caricaCorso.html e una funzione JQuery per l'animazione della barra di avanzamento della form.
 
+
 3. caricaEvento.js
-Funzione Javascript per il controllo dei campi della form presente nella pagina caricaEvento.html e una funzione JQuery per l'animazione della barra di avanzamento della form. 
-In più qui viene generato l’html relativo al menu a tendina presente nella form della pagina caricaEvento.html: viene effettuata una chiamata ajax al server che restituisce i corsi dell’utente in formato JSON(è il server a verificare quali sono i corsi dell'utente loggato).
-Dopodichè viene generato l’html del menu relativo ai corsi di cui l'utente è proprietario. L’html così generato viene caricato con jQuery nel menu a tendina della form.
+Funzione Javascript per il controllo dei campi della form presente nella pagina caricaEvento.html e una funzione JQuery per l'animazione della barra di avanzamento della form.
+In più qui viene generato l’html relativo al menù a tendina presente nella form della pagina caricaEvento.html: viene effettuata una chiamata ajax al server che restituisce i corsi dell’utente in formato JSON(è il server a verificare quali sono i corsi dell'utente loggato).
+Dopodichè viene generato l’html del menu relativo ai corsi di cui l'utente è proprietario. L’html così generato viene caricato con jQuery nel menù a tendina della form.
+
 
 4. form_validazione.js
 Codice Javascript per la validazione dei campi nella registrazione. In particolare vengono controllati il corretto inserimento dell’ username, di nome e cognome(solo caratteri),del formato della email e della correttezza della password.
@@ -76,26 +76,36 @@ Qui sono presenti tutti i fogli di stile(css) del progetto.
 
 
 1. AboutUs.css
-Sono i css relativi alla pagina AboutUs.html. 
+Sono i css relativi alla pagina AboutUs.html.
+
+
+
+
+
 
 2. caricaCorso.css
-Sono i css relativi alla pagina caricaCorso.html e caricaEvento.html. In particolare abbiamo personalizzato l'estetica di alcuni elementi di Bootstrap e utilizzato delle media queries per rendere la pagina responsive. 
+Sono i css relativi alla pagina caricaCorso.html e caricaEvento.html. In particolare abbiamo personalizzato l'estetica di alcuni elementi di Bootstrap e utilizzato delle media queries per rendere la pagina responsive.
+
 
 3. corsi.css
 Sono i css relativi alle card della pagina corsi.html, con la personalizzazione di ombre, testi e responsive layout
 
+
 4. courses.css
 Sono i css relativi alle pagine course.ejs e courses_modify.ejs, con regolazione delle immagini di profilo e copertina, oltre che di tutti i campi testuali
 
+
 5. homepage.css
-Sono i css relativi alle card dei corsi popolari.
+Sono i css relativi alle card dei corsi popolari. 
+
 
 6. index.css
-Sono i css relativi all’ impaginazione del sito e di tutte quelle componenti che si ripetono sulle varie pagine.
+Sono i css relativi all'impaginazione del sito e di tutte quelle componenti che si ripetono sulle varie pagine.
 
 
 7. listaCorsi.css
-Sono i css relativi alla pagina listaCorsi.html 
+Sono i css relativi alla pagina listaCorsi.html
+
 
 8. LoginRegister.css
 Sono i css relativi alle form di registrazioni e login
@@ -114,37 +124,44 @@ Qui sono presenti tutte le pagine HTML  del progetto.
 1. AboutUs.html
 Contiene il codice html delle informazioni relative ai membri dello staff del sito. Sono presenti inoltre dei riferimenti per il caricamento delle funzioni JavaScript e JQuery del file AboutUs.css.
 
+
 2. caricaCorso.html
-Contiene il codice html della form per il caricamento di un corso all'interno del sito e riferimenti per il caricamento delle funzioni JavaScript e JQuery del file caricaCorso.js. La form è stata creata con elementi di Bootstrap e personalizzata nel file caricaCorso.css. La pagina è visibile solo se un utente ha effettutato prima il login (controllo lato server tramite l'utilizzo delle sessioni).
+Contiene il codice html della form per il caricamento di un corso all'interno del sito e riferimenti per il caricamento delle funzioni JavaScript e JQuery del file caricaCorso.js. La form è stata creata con elementi di Bootstrap e personalizzata nel file caricaCorso.css. La pagina è visibile solo se un utente ha effettuato prima il login (controllo lato server tramite l'utilizzo delle sessioni).
+
 
 3. caricaEvento.html
-Contiene il codice html della form per il caricamento di un evento all'interno di un corso e riferimenti per il caricamento delle funzioni JavaScript e JQuery anch'esse presenti nel file caricaCorso.js. La form è stata creata con elementi di Bootstrap e personalizzata nel file caricaCorso.css. La pagina è visibile solo se un utente ha effettutato prima il login (controllo lato server tramite l'utilizzo delle sessioni).
+Contiene il codice html della form per il caricamento di un evento all'interno di un corso e riferimenti per il caricamento delle funzioni JavaScript e JQuery anch'esse presenti nel file caricaCorso.js. La form è stata creata con elementi di Bootstrap e personalizzata nel file caricaCorso.css. La pagina è visibile solo se un utente ha effettuato prima il login (controllo lato server tramite l'utilizzo delle sessioni).
 
 
 4. corsi.html
 Contiene il codice html per la visualizzazione dei bottoni delle categorie
 
-5. course_modify.ejs
+
+5. courses_modify.ejs
 File ejs con il quale si visualizza la pagina di un corso abilitato ad essere modificato, ovvero la visualizzazione di un corso appartenente all'utente loggato. Nota: gli script sono "embedded" nel file e non in un file JavaScript separato per consentire una presentazione più rapida in sede di esame
 
+
 6. course.ejs
-File ejs con cui si visualizza la pagina di un corso. La pagina è gestita in modo da leggere dinamicamente i parametri passati lato server e "adattarsi" a essi 
+File ejs con cui si visualizza la pagina di un corso. La pagina è gestita in modo da leggere dinamicamente i parametri passati lato server e "adattarsi" a essi
+
 
 7. footer.html
 Contiene l’html del footer che si ripete su tutte le pagine html. Questo viene caricato con jQuery su ogni altra pagina html.
 
+
 8. index.html
-È l’homepage del sito. 
+È la homepage del sito. 
 Si ha inizialmente un header con il logo del sito e subito dopo la barra di navigazione del sito.
 Nella parte principale abbiamo un carosello creato con bootsrap con alcune informazioni generali sul sito.
 A seguire c’è la sezione dei corsi popolari dove vengono caricate con una funzione Javascript e con JQuery le card dei tali corsi.
 Infine si ha un footer che viene caricato da un file esterno.
 Tutte le pagine del sito sono strutturate con lo stesso header, stessa navbar e stesso footer.
         
-10. listaCorsi.ejs
+9. listaCorsi.ejs
 File ejs che contiene la visualizzazione dinamica dei corsi selezionati (in base a categoria/ barra di ricerca ...)
 
-11. login.ejs
+
+10. login.ejs
 È la pagina dove ogni utente registrato nel sito può effettuare il login. Al suo interno troviamo del codice ejs utilizzato per la gestione degli errori in caso di autenticazione fallita da parte del server.
 Questa pagina cambia all‘occorrenza nel caso in cui un utente sia già loggato oppure no.(il controllo è fatto lato server e la gestione è realizzata con ejs)
 
@@ -155,14 +172,14 @@ Se il controllo va a buon fine veniamo reindirizzati alla nostra area personale.
 
 Se invece proviamo ad andare su tale pagina e già è presente un utente loggato, la pagina non visualizza più la form per il login bensì un riquadro(bootstrap) che ci darà la possibilità di effettuare il logout prima di effettuare un nuovo login.
 
-12. navbar.html
+11. navbar.html
 Al suo interno è presente il codice html della barra di navigazione del sito
 
-13. profilo.html
-Codice html della pagina in cui si visualizzano i dati personali dell'utente loggato e i corsi di cui è proprietario. Queste informazioni vengono caricate nella pagina con una funzione JQuery presente nel file profilo.js. La pagina è visibile solo se un utente ha effettutato prima il login (controllo lato server tramite l'utilizzo delle sessioni).
+12. profilo.html
+Codice html della pagina in cui si visualizzano i dati personali dell'utente loggato e i corsi di cui è proprietario. Queste informazioni vengono caricate nella pagina con una funzione JQuery presente nel file profilo.js. La pagina è visibile solo se un utente ha effettuato prima il login (controllo lato server tramite l'utilizzo delle sessioni).
 
 
-14. registrazione.ejs
+13. registrazione.ejs
 È la pagina dove ogni utente può effettuare la registrazione al sito.Al suo interno troviamo del codice ejs utilizzato per la gestione degli errori in caso di registrazione non valida perchè ci sono utenti già registrati con stesso username o password.
 Questa pagina cambia all‘occorrenza nel caso in cui un utente sia già loggato oppure no(il controllo è fatto la server e la gestione è realizzata con ejs).
 
@@ -171,7 +188,4 @@ Se proviamo ad andare sulla pagina e non vi è alcun utente loggato, nella parte
 Se il controllo va a buon fine comparirà un banner di successo(bootstrap) che ci comunica l’effettiva registrazione e ci da la possibilità di andare alla pagina del login per potersi loggare.
 
 
-Se invece proviamo ad andare su tale pagina e già è presente un utente loggato la gestione è simile a quella descritta in precedenza per il login ovvero la pagina non visualizza più la form per iregistrarsi bensì un riquadro(bootstrap) che ci darà la possibilità di effettuare il logout prima di poter effettuare una nuova registrazione.
-
-
-
+Se invece proviamo ad andare su tale pagina e già è presente un utente loggato la gestione è simile a quella descritta in precedenza per il login ovvero la pagina non visualizza più la form per registrarsi bensì un riquadro(bootstrap) che ci darà la possibilità di effettuare il logout prima di poter effettuare una nuova registrazione.
