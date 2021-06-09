@@ -198,7 +198,7 @@ app.post('/sendMessage', function(req,res){
         setTimeout(function() {
             connection.close();
             }, 500);
-        res.redirect('/profiloUtente');
+        res.redirect('.');
     });   
 });
 
@@ -382,7 +382,7 @@ app.post('/login/auth', function(req, res) {
                 }
                 else
                 {
-                    if(json.docs[index].Username==user && json.docs[index].Password==pass)
+                    if(json.docs[index].Username==user && json.docs[index].Password==md5(pass))
                     {
                         console.log('Accesso effettuato da '+user.toString()+'!');
                         req.session.loggedin = true;
@@ -410,7 +410,7 @@ app.post('/register/auth', function(req, res) {
                 '","Surname":"'+req.body.Surname+
                 '" ,"Date":"'+req.body.Date+
                 '","Email":"'+req.body.Email+
-                '","Password":"'+req.body.Password+
+                '","Password":"'+md5(req.body.Password)+
                 '","Courses": { }'+
                 '  }';
     

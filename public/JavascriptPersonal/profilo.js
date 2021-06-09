@@ -38,8 +38,7 @@ function personalArea(utente)
       dataNascita=response.utente.Date;
       email=response.utente.Email;
       lenpass=response.utente.Password.length;
-      password='';
-      for(i=0;i<lenpass;i++)password=password+'*';
+      password= response.utente.Password;
       nomecognome=response.utente.Name+" "+response.utente.Surname;
       var bodyProfilo="<div class='card' ><div class='row g-0'><div class='col-md-3' id='fig'>"+
       "<img src='../img/user-icon.png' alt='...' width='179' height='179'> </p>"+

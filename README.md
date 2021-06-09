@@ -125,7 +125,9 @@ Se un utente si registra o si logga nel sito può creare un nuovo corso, aggiung
 - RabbitMQ viene utilizzato come protocollo asincrono 
 
 # 4. Istruzioni per l'installazione
-
+- Prerequisiti: Docker (+docker-compose) installati sulla propria macchina
+- Eseguire come root il comando "docker-compose up --build"
+- Per accedere al sito connettersi all'indirizzo "localhost:8889"
 
 
 # 5. Istruzioni per il test
