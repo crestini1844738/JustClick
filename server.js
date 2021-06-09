@@ -66,7 +66,7 @@ app.post('/auth/loginGoogle', function(req,res) {
         var username=payload['given_name']+payload['family_name']+payload['sub'];
         var email=payload['email'];
         request2server({
-            url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find',  
+            url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/_find',  
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: '{ "selector": { "Username": "'+username+'" }, "skip": 0, "execution_stats": true }',
@@ -89,7 +89,7 @@ app.post('/auth/loginGoogle', function(req,res) {
                                 '","Courses": { }'+
                                 '  }';
                     request2server({
-                        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+username, 
+                        url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/'+username, 
                         method: 'PUT',
                         headers: {'content-type': 'application/json'},
                         body: msg
@@ -243,7 +243,7 @@ app.get('/api/getCorso/:courseName', function(req,res) {
 
     request2server({
         //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+CourseLoaded, 
+        url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/'+CourseLoaded, 
         method: 'GET',
         headers: {'content-type': 'application/json'},
         }, function(error, response, body){
@@ -264,7 +264,7 @@ app.get('/api/getMateriale/:courseName', function(req,res) {
 
     request2server({
         //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+CourseLoaded, 
+        url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/'+CourseLoaded, 
         method: 'GET',
         headers: {'content-type': 'application/json'},
         }, function(error, response, body){
@@ -287,7 +287,7 @@ app.get('/api/getByCategory', function(req,res){
     var courses = [];
     request2server({
         //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
+        url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: '{ "selector": { "category": "'+req.query.q+'" }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
@@ -415,7 +415,7 @@ app.post('/register/auth', function(req, res) {
                 '  }';
     
 	request2server({
-        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
+        url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: '{"selector": { }, "fields": ["Username","Email"], "skip": 0, "execution_stats": true }'
@@ -447,7 +447,7 @@ app.post('/register/auth', function(req, res) {
                 if(errReg==0)
                 {
                     request2server({
-                        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/progetto/'+user, 
+                        url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/progetto/'+user, 
                         method: 'PUT',
                         headers: {'content-type': 'application/json'},
                         body: msg
@@ -666,7 +666,7 @@ app.get('/courses3', function(req,res) {
         if(req.session.username) {
             request2server({
                 //mettere l'url del proprio database
-                url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
+                url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/_find', 
                 method: 'POST',
                 headers: {'content-type': 'application/json'},
                 body: '{ "selector": { "follower": { "$elemMatch": { "$eq": "'+req.session.username+'" } } }, "sort": [{"courseFollower": "desc"}], "limit": 10, "skip": 0, "execution_stats": true }'       
@@ -748,7 +748,7 @@ app.post('/carica', function(req,res) {
                 '  }';
 
         request2server({
-            url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+req.body.titolo, 
+            url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/'+req.body.titolo, 
             method: 'PUT',
             headers: {'content-type': 'application/json'},
             body: msg
@@ -787,7 +787,7 @@ app.post('/update/:elem', function(req, res) {
     var msg;
     //console.log(req.body);
     request2server({
-        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+req.body.course, 
+        url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/'+req.body.course, 
         method: 'GET',
         headers: {'content-type': 'application/json'},
         body: msg
@@ -871,7 +871,7 @@ app.post('/update/:elem', function(req, res) {
                 '  }';
 
             request2server({
-                url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+req.body.course, 
+                url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/'+req.body.course, 
                 method: 'PUT',
                 headers: {'content-type': 'application/json'},
                 body: msg
@@ -893,7 +893,7 @@ app.post('/update/:elem', function(req, res) {
 //cambiare immagine del corso
 app.post('/updateImg/:c', function(req, res) {
     request2server({
-        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+req.params.c, 
+        url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/'+req.params.c, 
         method: 'GET',
         headers: {'content-type': 'application/json'}
     }, function(error, response, body){
@@ -931,7 +931,7 @@ app.post('/updateImg/:c', function(req, res) {
                 '  }';
 
                 request2server({
-                    url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/'+req.params.c, 
+                    url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/'+req.params.c, 
                     method: 'PUT',
                     headers: {'content-type': 'application/json'},
                     body: msg
