@@ -41,6 +41,8 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 app.use(fileupload());
 
+var md5 = require('md5');
+
 
 /***********************************************************************/
 
@@ -126,7 +128,7 @@ app.get('/api/getPopolari', function(req,res) {
     var courses=[];
     request2server({
         //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
+        url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: '{ "selector": { "category": {"$gt": null} }, "sort": [{"courseFollower": "desc"}], "limit": 5, "skip": 0, "execution_stats": true }'         
@@ -171,12 +173,41 @@ app.get('/api/search',function(req,res) {
     );
 });
 
+var amqp = require('amqplib/callback_api');
+app.post('/sendMessage', function(req,res){
+    amqp.connect('amqp://rabbitmq', function(error0, connection) {
+        if (error0) {
+            throw error0;
+        }
+        connection.createChannel(function(error1, channel) {
+            if (error1) {
+            throw error1;
+            }
+            var queue = 'messages';
+            console.log(req.body);
+            var msg = req.body.message;
+            console.log("message");
+            channel.assertQueue(queue, {
+            durable: false
+            });
+
+            channel.sendToQueue(queue, Buffer.from(msg));
+            console.log(" [x] Sent %s", msg);
+        });
+
+        setTimeout(function() {
+            connection.close();
+            }, 500);
+        res.redirect('/profiloUtente');
+    });   
+});
+
 app.post('/api/profiloUtente',function(req,res){
     var output = {};
     var profilo;
     request2server({
         //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
+        url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: '{"selector": { "Username": "'+req.query.username+'" }, "limit": 10, "skip": 0, "execution_stats": true }'       
@@ -194,7 +225,7 @@ app.post('/api/corsiUtente', function(req, res){
         var corsi;
         request2server({
             //mettere l'url del proprio database
-            url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
+            url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/_find', 
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: '{ "selector": { "author": "'+req.query.username+'"}, "sort": [{"courseFollower": "desc"}], "skip": 0, "execution_stats": true }'       
@@ -323,7 +354,7 @@ app.get('/docs/api',function(req,res){
 //GET POPOLARI HOMEPAGE
 app.get('/getPopolari', function(req,res) {
     request2server({
-        url: 'http://'+host+':'+PortaServer+'/api/getPopolari',
+        url: 'http://localhost:'+PortaServer+'/api/getPopolari',
         method:'GET',
         headers: {'content-type': 'application/json'}
     }, function(error,response,body) {
@@ -339,7 +370,7 @@ app.post('/login/auth', function(req, res) {
     var index=-1;
 	request2server({
         //mettere l'url del proprio database
-        url: 'http://admin:admin@127.0.0.1:'+PortaCouchDB+'/'+DataBase+'/_find', 
+        url: 'http://admin:admin@'+host+':'+PortaCouchDB+'/'+DataBase+'/_find', 
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: '{"selector": { }, "fields": ["Username","Password"], "skip": 0, "limit":100, "execution_stats": true }'

@@ -48,7 +48,10 @@ function personalArea(utente)
       "<div class='col-6'><h5>Data di nascita:</h5>"+dataNascita+"</div><div class='col-6'>"+
       "<h5>Email:</h5><p>"+email+"</p></div></div><div class='row justify-content-evenly'>"+
       "<div class='col-6'><h5>Username:</h5>"+nomeUtente+"</div><div class='col-6'>"+
-      "<h5>Password:</h5>"+password+"</div></div></div></div></div></div>";
+      "<h5>Password:</h5>"+password+"</div>"+
+      "<form action='/sendMessage' method='POST'><input type='text' name='message' id='message'/><input type='submit' value='invia'/></form> "+
+      //"<label>"+response.utente.messaggi+"</label>"+
+      "</div></div></div></div></div>";
       //var corsi=response.utente.Courses;//elenco in stringhe dei corsi
 
       var corsiProfilo="";
