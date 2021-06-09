@@ -304,19 +304,6 @@ app.get('/api/getByCategory', function(req,res){
     );
 });
 
-//da fare con oauth
-app.get('/api/auth/getPreferiti', function(req,res){
-    //implement me
-});
-
-app.post('/api/auth/update/:elem', function(req, res) {
-    //implement me
-});
-
-app.post('/api/auth/updateImg/:c', function(req, res) {
- //implement me
-});
-
 
 /*************************************** FINE API ***************************************/ 
 
