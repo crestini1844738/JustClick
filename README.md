@@ -102,3 +102,30 @@ PROCEDIMENTO:
 ##DOCKER
 https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
 https://www.digitalocean.com/community/tutorials/how-to-build-a-node-js-application-with-docker
+
+# 1. Scopo del progetto
+JustClick è una piattaforma che permette a ciascun utente di visualizzare e/o creare contenuti, risorse, materiali. Nella homepage è possibile visualizzare i corsi più popolari (cioè quelli a cui sono iscritti più utenti). La sezione corsi consente di visualizzare i corsi suddivisi per categoria; una volta selezionato il corso desiderato si accede al relativo materiale (video,audio,pdf,immagini ecc.) e tramite le api di google (e oAuth per consentire l'accesso) ciascun materiale può essere salvato sul proprio account di Google Drive.
+Se un utente si registra o si logga nel sito può creare un nuovo corso, aggiungere/modificare/eliminare materiale o creare un evento per un corso precedentemente creato. Una volta creato l'evento, esso è visibile da ogni utente nella pagina del relativo corso con possibilità di visualizzare la posizione del luogo in cui si tiene l'evento (api di google maps), il meteo attuale (api di openWeatherMap) ed è inoltre possibile aggiungere l'evento (tramite api e oauth) al proprio google calendar. 
+
+# 2. Architettura di riferimento e tecnologie utilizzate
+
+
+![schemaprogetto](https://user-images.githubusercontent.com/83114944/121417331-128ed900-c96a-11eb-8f6b-e54cb89fdd43.png)
+
+- web server NGINX
+- application server NODEJS
+- database non relazionale COUCHDB
+- servizi REST di terze parti: google maps, google calendar, google drive, openweathermap
+- message broker RabbitMQ
+- DOCKER per la containerizzazione
+
+# 3. Soddisfacimento dei requisiti
+- Le API fornite sono documentate attraverso APIDOC. Nella directory API_JustClick/apidoc è presente il file index.html dove è possibile visualizzare tali API.
+- Il server NodeJS si interfaccia con API REST fornite da: Google Drive e Google Calendar (con l'utilizzo di OAuth), Google Maps e OpenWeatherMap. In particolare con le api di Google drive è possibile scaricare un contenuto presente nel sito sul proprio drive; con Google Calendar è possibile aggiungere un evento al proprio calendario e tramite Google Maps e OpenWeatherMap è possibile visualizzare rsipettivamente posizione e meteo di un evento.
+- RabbitMQ viene utilizzato come protocollo asincrono 
+
+# 4. Istruzioni per l'installazione
+
+
+
+# 5. Istruzioni per il test
