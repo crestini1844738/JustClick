@@ -22,7 +22,7 @@ var app = express();
 var bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-/*var validator = require('validator');*/
+var validator = require('validator');
 var path = require('path');
 const fileupload = require('express-fileupload');
 const { response } = require('express');
@@ -62,12 +62,12 @@ var appid= process.env.appid;
 const {OAuth2Client} = require('google-auth-library');
 app.post('/auth/loginGoogle', function(req,res) {
     var token=req.body.token;
-    
-    const client = new OAuth2Client(client_id);
+    var client_id1 = "579387928595-2gdmsv73ukvsu48u6i7m6jb3b6vnosdm.apps.googleusercontent.com";
+    const client = new OAuth2Client(client_id1);
     async function verify() {
         const ticket = await client.verifyIdToken({
             idToken: token,
-            audience: client_id,
+            audience: client_id1,
         });
         const payload = ticket.getPayload();
         //se utente già presente login,altrimenti registra e login
@@ -213,6 +213,8 @@ app.post('/sendMessage', function(req,res){
 
 app.post('/api/profiloUtente',function(req,res){
     var output = {};
+    var utente= req.query.username;
+    console.log(utente);
     var profilo;
     request2server({
         //mettere l'url del proprio database
@@ -523,7 +525,7 @@ app.post('/profiloUtente', function(req,res) {
         var password=req.session.password;
         request2server({
             //mettere l'url del proprio database
-            url: 'http://localhost:8889/api/profiloUtente?username='+username,//+'&password='+password,
+            url: 'http://localhost:8889/api/profiloUtente?username='+username,
             method: 'POST',
             headers: {'content-type': 'application/json'}
         }, function(error,response,body) {
