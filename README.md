@@ -1,5 +1,5 @@
 # JustClick
-# ISTRUZIONI PER AVVIARE LA WEB APP JUSTCLICK
+# ISTRUZIONI PER AVVIARE LA WEB APP JUSTCLICK CON DOCKER (RDC)
 # sudo apt install docker-compose
 # andare alla cartella di JustClick da terminale
 # docker-compose up --build
@@ -22,7 +22,7 @@ Per installare e configurare couchDB usare questa guida: https://docs.couchdb.or
 -css
 -ejs
 
-## eseguire il progetto
+## ISTRUZIONI PER AVVIARE IL PROGETTO SENZA DOCKER(LTW)
 1) installare node js e couchDB sul pc
 
 2) configurare CouchDB per il progetto:

@@ -17,10 +17,12 @@ var host = "couchdb";
 var express = require('express');
 var request2server = require('request');
 var app = express();
+
+
 var bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var validator = require('validator');
+/*var validator = require('validator');*/
 var path = require('path');
 const fileupload = require('express-fileupload');
 const { response } = require('express');
@@ -192,7 +194,7 @@ app.post('/sendMessage', function(req,res){
             }
             var queue = 'messages';
             console.log(req.body);
-            var msg = req.body.message;
+            var msg = "Messagio da "+req.session.username+" MSG: "+req.body.message;
             console.log("message");
             channel.assertQueue(queue, {
             durable: false
