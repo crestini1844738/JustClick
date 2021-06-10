@@ -43,6 +43,14 @@ app.use(fileupload());
 
 var md5 = require('md5');
 
+require('dotenv').config()
+var client_id=process.env.client_id;
+var client_secret = process.env.client_secret;
+var apikey = process.env.apikey;
+var redirect_uri= process.env.redirect_uri;
+var redirect_uri2 = process.env.redirect_uri2;
+var appid= process.env.appid;
+
 
 /***********************************************************************/
 
@@ -52,13 +60,13 @@ var md5 = require('md5');
 const {OAuth2Client} = require('google-auth-library');
 app.post('/auth/loginGoogle', function(req,res) {
     var token=req.body.token;
-    var CLIENT_ID='579387928595-2gdmsv73ukvsu48u6i7m6jb3b6vnosdm.apps.googleusercontent.com';
+    //var CLIENT_ID='579387928595-2gdmsv73ukvsu48u6i7m6jb3b6vnosdm.apps.googleusercontent.com';
     
-    const client = new OAuth2Client(CLIENT_ID);
+    const client = new OAuth2Client(client_id);
     async function verify() {
         const ticket = await client.verifyIdToken({
             idToken: token,
-            audience: CLIENT_ID,
+            audience: client_id,
         });
         const payload = ticket.getPayload();
         //se utente già presente login,altrimenti registra e login
@@ -607,7 +615,7 @@ app.get('/courses2/:c', function(req,res) {
                     else{
                         request2server({
                             //q=city oppure zip=codicepostale
-                            url: 'http://api.openweathermap.org/data/2.5/weather?q='+corso.eventi.city+',it&units=metric&lang=it&appid=c4bf467b6dce8c99bacb02c615c679cb',
+                            url: 'http://api.openweathermap.org/data/2.5/weather?q='+corso.eventi.city+',it&units=metric&lang=it&appid='+appid,
                             method: 'GET',
                             headers: {'content-type': 'application/json'},
                             }, function(error, response, body){
@@ -954,12 +962,8 @@ app.post('/updateImg/:c', function(req, res) {
 });
 
 //oauth validation
-var client_id = "501414949851-b6ot7tcivuh362auuomhtjelk8ia3eoe.apps.googleusercontent.com";
-var client_secret = "ovlcp8lB_JrT0biKF1bFEIgp";
-var apikey = "AIzaSyDm3kA0H6nEx18Xux8n-pWMtUVKupJNiIU";
 app.get('/auth/calendar', function(req,res) {
     var code = req.query.code;
-    var redirect_uri = "http://localhost:8889/auth/calendar";
     var url = 'https://www.googleapis.com/oauth2/v3/token';
 	var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
 	var body ="code="+code+"&client_id="+client_id+"&client_secret="+client_secret+"&redirect_uri="+redirect_uri+"&grant_type=authorization_code";
@@ -1002,11 +1006,10 @@ app.get('/auth/drive', function(req,res) {
     var dati = JSON.parse(req.query.state);
     var code = req.query.code;
     var titolo = dati.course+'_'+dati.name;
-    var redirect_uri = "http://localhost:8889/auth/drive";
     const oAuth2Client = new google.auth.OAuth2(
         client_id,
         client_secret,
-        redirect_uri
+        redirect_uri2
     )
     oAuth2Client.getToken(code, function(err, tokens){
         oAuth2Client.setCredentials(tokens);
