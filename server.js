@@ -60,7 +60,6 @@ var appid= process.env.appid;
 const {OAuth2Client} = require('google-auth-library');
 app.post('/auth/loginGoogle', function(req,res) {
     var token=req.body.token;
-    //var CLIENT_ID='579387928595-2gdmsv73ukvsu48u6i7m6jb3b6vnosdm.apps.googleusercontent.com';
     
     const client = new OAuth2Client(client_id);
     async function verify() {
