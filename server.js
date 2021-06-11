@@ -52,6 +52,7 @@ var apikey = process.env.apikey;
 var redirect_uri= process.env.redirect_uri;
 var redirect_uri2 = process.env.redirect_uri2;
 var appid= process.env.appid;
+var client_id1=process.env.client_id1;
 
 
 /***********************************************************************/
@@ -62,7 +63,6 @@ var appid= process.env.appid;
 const {OAuth2Client} = require('google-auth-library');
 app.post('/auth/loginGoogle', function(req,res) {
     var token=req.body.token;
-    var client_id1 = "579387928595-2gdmsv73ukvsu48u6i7m6jb3b6vnosdm.apps.googleusercontent.com";
     const client = new OAuth2Client(client_id1);
     async function verify() {
         const ticket = await client.verifyIdToken({
