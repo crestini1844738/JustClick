@@ -182,34 +182,6 @@ app.get('/api/search',function(req,res) {
     );
 });
 
-var amqp = require('amqplib/callback_api');
-app.post('/sendMessage', function(req,res){
-    amqp.connect('amqp://rabbitmq', function(error0, connection) {
-        if (error0) {
-            throw error0;
-        }
-        connection.createChannel(function(error1, channel) {
-            if (error1) {
-            throw error1;
-            }
-            var queue = 'messages';
-            console.log(req.body);
-            var msg = "Messagio da "+req.session.username+" MSG: "+req.body.message;
-            console.log("message");
-            channel.assertQueue(queue, {
-            durable: false
-            });
-
-            channel.sendToQueue(queue, Buffer.from(msg));
-            console.log(" [x] Sent %s", msg);
-        });
-
-        setTimeout(function() {
-            connection.close();
-            }, 500);
-        res.redirect('.');
-    });   
-});
 
 app.post('/api/profiloUtente',function(req,res){
     var output = {};
@@ -361,6 +333,7 @@ app.get('/getPopolari', function(req,res) {
     })
 });
 
+
 //POST AUTENTICAZIONE LOGIN CON EJS
 app.post('/login/auth', function(req, res) {
 	var user= req.body.Username;
@@ -490,6 +463,36 @@ app.get('/logout',function(req, res){
     else {
         res.end()
     }
+});
+
+//AMQP
+var amqp = require('amqplib/callback_api');
+app.post('/sendMessage', function(req,res){
+    amqp.connect('amqp://rabbitmq', function(error0, connection) {
+        if (error0) {
+            throw error0;
+        }
+        connection.createChannel(function(error1, channel) {
+            if (error1) {
+            throw error1;
+            }
+            var queue = 'messages';
+            console.log(req.body);
+            var msg = "Messagio da "+req.session.username+" MSG: "+req.body.message;
+            console.log("message");
+            channel.assertQueue(queue, {
+            durable: false
+            });
+
+            channel.sendToQueue(queue, Buffer.from(msg));
+            console.log(" [x] Sent %s", msg);
+        });
+
+        setTimeout(function() {
+            connection.close();
+            }, 500);
+        res.redirect('.');
+    });   
 });
 
 //GET SEARCH
